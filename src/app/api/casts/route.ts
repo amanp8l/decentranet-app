@@ -1,8 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    const searchParams = request.nextUrl.searchParams;
+    const fid = searchParams.get('fid');
     
     // First check if the Hubble node is running and accessible
     try {
@@ -26,77 +28,56 @@ export async function GET() {
       // If the Hubble node is not accessible, return mock data
       return NextResponse.json({ 
         success: true, 
-        data: [
-          {
-            fid: 1001,
-            data: {
-              text: "Welcome to Farcaster Social UI! This is a mock cast since we couldn't connect to your Hubble node.",
-              timestamp: Date.now(),
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          },
-          {
-            fid: 1002,
-            data: {
-              text: "Make sure your Hubble node is running at http://localhost:2281",
-              timestamp: Date.now() - 60000,
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          },
-          {
-            fid: 1003,
-            data: {
-              text: "This is a decentralized app built with Next.js that connects to the Farcaster network.",
-              timestamp: Date.now() - 120000,
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          }
-        ]
+        data: generateMockCasts(fid)
       });
     }
     
     // Try to fetch casts from the Hubble node
     try {
-      // First attempt: try v1/castsByFid endpoint with HubOperatorFid (known to work with v1.19.1)
-      const response = await fetch(`${HUBBLE_HTTP_URL}/v1/castsByFid?fid=15300&pageSize=10`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        const castsData = await response.json();
+      // If a specific FID was provided, fetch casts for that user
+      if (fid) {
+        const response = await fetch(`${HUBBLE_HTTP_URL}/v1/castsByFid?fid=${fid}&pageSize=20`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         
-        // Check if the response has the expected structure
-        if (castsData && Array.isArray(castsData.messages)) {
-          return NextResponse.json({ 
-            success: true, 
-            data: castsData.messages.map((msg: any) => {
-              const castData = msg.data?.castAddBody;
-              return {
-                fid: msg.data?.fid || 0,
-                data: {
-                  text: castData?.text || '',
-                  timestamp: msg.data?.timestamp || Date.now(),
-                  mentions: castData?.mentions || [],
-                  mentionsPositions: castData?.mentionsPositions || [],
-                  embeds: castData?.embeds || []
-                }
-              };
-            }).filter((c: any) => c.data.text) // Only include casts with content
-          });
+        if (response.ok) {
+          const castsData = await response.json();
+          
+          // Check if the response has the expected structure
+          if (castsData && Array.isArray(castsData.messages)) {
+            return NextResponse.json({ 
+              success: true, 
+              data: castsData.messages.map((msg: any) => {
+                const castData = msg.data?.castAddBody;
+                return {
+                  fid: msg.data?.fid || 0,
+                  data: {
+                    text: castData?.text || '',
+                    timestamp: msg.data?.timestamp 
+                      ? (msg.data.timestamp < 10000000000 ? msg.data.timestamp * 1000 : msg.data.timestamp)
+                      : Date.now(),
+                    mentions: castData?.mentions || [],
+                    mentionsPositions: castData?.mentionsPositions || [],
+                    embeds: castData?.embeds || []
+                  }
+                };
+              }).filter((c: any) => c.data.text) // Only include casts with content
+            });
+          }
         }
+        
+        // If we couldn't get user casts, return mock data for that user
+        return NextResponse.json({ 
+          success: true, 
+          data: generateMockCasts(fid)
+        });
       }
       
-      // Second attempt: try with the trending endpoint
-      const trendingResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/trending-casts?limit=10`, {
+      // If no FID was provided, try to get trending casts
+      const trendingResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/trending-casts?limit=20`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -123,7 +104,40 @@ export async function GET() {
         }
       }
       
-      // If the first two attempts failed, throw an error to use fallback data
+      // Try to get latest casts if trending fails
+      const latestResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/castsByFid?fid=1043300&pageSize=20`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (latestResponse.ok) {
+        const latestData = await latestResponse.json();
+        
+        if (latestData && Array.isArray(latestData.messages)) {
+          return NextResponse.json({ 
+            success: true, 
+            data: latestData.messages.map((msg: any) => {
+              const castData = msg.data?.castAddBody;
+              return {
+                fid: msg.data?.fid || 0,
+                data: {
+                  text: castData?.text || '',
+                  timestamp: msg.data?.timestamp 
+                    ? (msg.data.timestamp < 10000000000 ? msg.data.timestamp * 1000 : msg.data.timestamp)
+                    : Date.now(),
+                  mentions: castData?.mentions || [],
+                  mentionsPositions: castData?.mentionsPositions || [],
+                  embeds: castData?.embeds || []
+                }
+              };
+            }).filter((c: any) => c.data.text) // Only include casts with content
+          });
+        }
+      }
+      
+      // If all API calls failed, throw an error to use fallback data
       throw new Error('Could not fetch casts from Hubble node');
       
     } catch (fetchError) {
@@ -132,38 +146,7 @@ export async function GET() {
       // Return mock data since we couldn't get real data
       return NextResponse.json({ 
         success: true, 
-        data: [
-          {
-            fid: 15300,
-            data: {
-              text: "This is a mock cast for Hubble node v1.19.1 with operator FID: 15300",
-              timestamp: Date.now(),
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          },
-          {
-            fid: 1002,
-            data: {
-              text: "Your Hubble node is running but we couldn't fetch real casts. API structure might be different.",
-              timestamp: Date.now() - 60000,
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          },
-          {
-            fid: 1003,
-            data: {
-              text: "This is a demonstration of the Farcaster Social UI with mock data.",
-              timestamp: Date.now() - 120000,
-              mentions: [],
-              mentionsPositions: [],
-              embeds: []
-            }
-          }
-        ]
+        data: generateMockCasts(fid)
       });
     }
   } catch (error) {
@@ -178,4 +161,77 @@ export async function GET() {
       { status: 500 }
     );
   }
+}
+
+// Helper function to generate mock casts
+function generateMockCasts(fid: string | null): any[] {
+  // If we have a specific FID, generate casts for that user
+  if (fid) {
+    return [
+      {
+        fid: parseInt(fid),
+        data: {
+          text: `This is a mock cast from user with FID: ${fid}`,
+          timestamp: Date.now(),
+          mentions: [],
+          mentionsPositions: [],
+          embeds: []
+        }
+      },
+      {
+        fid: parseInt(fid),
+        data: {
+          text: `Another mock cast from FID: ${fid}. In a real app, this would show actual casts from this user.`,
+          timestamp: Date.now() - 60000,
+          mentions: [],
+          mentionsPositions: [],
+          embeds: []
+        }
+      },
+      {
+        fid: parseInt(fid),
+        data: {
+          text: `Warpcast integration example by FID: ${fid}`,
+          timestamp: Date.now() - 120000,
+          mentions: [],
+          mentionsPositions: [],
+          embeds: []
+        }
+      }
+    ];
+  }
+  
+  // Default mock casts for the feed
+  return [
+    {
+      fid: 1043300,
+      data: {
+        text: "Welcome to Farcaster Social UI! This is the trending feed.",
+        timestamp: Date.now(),
+        mentions: [],
+        mentionsPositions: [],
+        embeds: []
+      }
+    },
+    {
+      fid: 1002,
+      data: {
+        text: "These are the popular posts across the Farcaster network.",
+        timestamp: Date.now() - 60000,
+        mentions: [],
+        mentionsPositions: [],
+        embeds: []
+      }
+    },
+    {
+      fid: 1003,
+      data: {
+        text: "You can also view specific user feeds by clicking on their profile.",
+        timestamp: Date.now() - 120000,
+        mentions: [],
+        mentionsPositions: [],
+        embeds: []
+      }
+    }
+  ];
 } 

@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
               message: "Cast simulated (endpoint not available)",
               timestamp: new Date().toISOString(),
               text: text,
-              fid: 15300 // Using the hub operator FID
+              fid: 1043300 // Using the hub operator FID
             }
           });
         }
@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
           message: "Cast was created locally for Hubble v1.19.1 but couldn't be published to the network",
           timestamp: new Date().toISOString(),
           text: text,
-          hubOperatorFid: 15300
+          hubOperatorFid: 1043300
         }
       });
     }

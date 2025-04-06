@@ -25,7 +25,7 @@ export async function POST() {
           user: {
             id: `hubble_${infoData.peerId || ''}`,
             username: infoData.nickname || 'hubble_user',
-            fid: infoData.hubOperatorFid || 15300,
+            fid: infoData.hubOperatorFid || 1043300,
             pfp: 'https://api.dicebear.com/7.x/bottts/svg?seed=hubble',
             bio: `Authenticated via Hubble node v${infoData.version || '1.19.1'}`
           }
@@ -39,7 +39,7 @@ export async function POST() {
           user: {
             id: 'hubble_node_user',
             username: 'hub_operator',
-            fid: 15300, // Using the known hub operator FID
+            fid: 1043300, // Using the known hub operator FID
             pfp: 'https://api.dicebear.com/7.x/bottts/svg?seed=hubble_operator',
             bio: 'Authenticated via local Hubble node v1.19.1'
           }

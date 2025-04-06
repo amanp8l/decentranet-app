@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@farcaster/auth-kit": "^0.6.0",
+    "@farcaster/core": "^0.15.6",
     "@farcaster/hub-nodejs": "^0.12.7",
     "ethers": "^6.13.5",
     "next": "15.2.4",

@@ -21,6 +21,19 @@ export default function UserProfile() {
           </span>
         );
       case 'wallet':
+        // Check if this is a MetaMask wallet
+        if (user.walletData?.walletType === 'metamask') {
+          return (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+              <svg className="mr-1 h-3 w-3" width="12" height="12" viewBox="0 0 35 33" fill="none">
+                <path d="M32.9582 1L19.8241 10.7183L22.2103 5.15702L32.9582 1Z" fill="#E2761B" stroke="#E2761B" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2.03113 1L15.0358 10.809L12.7892 5.15702L2.03113 1Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M28.2891 23.5334L24.8304 28.8184L32.2477 30.8609L34.3993 23.6498L28.2891 23.5334Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              MetaMask
+            </span>
+          );
+        }
         return (
           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
             <svg className="mr-1 h-3 w-3" fill="currentColor" viewBox="0 0 24 24">

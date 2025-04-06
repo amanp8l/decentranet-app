@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: 'api.dicebear.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.qrserver.com',
+        pathname: '**',
+      },
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

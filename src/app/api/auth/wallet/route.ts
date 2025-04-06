@@ -7,11 +7,18 @@ export async function POST(request: NextRequest) {
     
     // Check if we received a wallet address in the request
     let walletAddress = '0x1234567890123456789012345678901234567890'; // Default address
+    let walletType = 'generic'; // Default to generic wallet
     
     try {
       const body = await request.json();
       if (body && body.address) {
         walletAddress = body.address;
+      }
+      
+      if (body && body.walletType) {
+        walletType = body.walletType;
+      } else if (body && body.isMetaMask) {
+        walletType = 'metamask';
       }
     } catch (e) {
       // If there's no request body, continue with the default address
@@ -29,10 +36,14 @@ export async function POST(request: NextRequest) {
       user: {
         id: `eth_${walletAddress.substring(0, 10)}`,
         username: `eth_user`,
-        displayName: `Ethereum User ${walletAddress.substring(0, 6)}`,
+        displayName: walletType === 'metamask' ? 
+          `MetaMask User ${walletAddress.substring(0, 6)}` : 
+          `Ethereum User ${walletAddress.substring(0, 6)}`,
         fid: 54321,
         pfp: `https://api.dicebear.com/7.x/identicon/svg?seed=${walletAddress}`,
-        bio: 'Farcaster account connected via Ethereum wallet',
+        bio: walletType === 'metamask' ? 
+          'Farcaster account connected via MetaMask' : 
+          'Farcaster account connected via Ethereum wallet',
         followers: 89,
         following: 203,
         verifications: [
@@ -46,6 +57,7 @@ export async function POST(request: NextRequest) {
           address: walletAddress,
           chainId: 1, // Ethereum mainnet
           ensName: walletAddress.toLowerCase().includes('0x1234') ? 'user.eth' : null,
+          walletType: walletType
         },
         authToken: `eth_auth_token_${Math.random().toString(36).substring(2, 15)}`,
         signedMessage: {

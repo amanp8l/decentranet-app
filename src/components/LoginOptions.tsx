@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { createWalletClient, custom, http } from 'viem';
 
 interface LoginProps {
   onLogin: (provider: string, address?: string) => void;
@@ -9,128 +10,358 @@ interface LoginProps {
 
 export default function LoginOptions({ onLogin }: LoginProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
-  const [walletAddress, setWalletAddress] = useState<string>('');
-  const [showWalletInput, setShowWalletInput] = useState(false);
+  const [authUrl, setAuthUrl] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const handleLogin = async (provider: string) => {
+  // Detect if user is on mobile
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userAgent = window.navigator.userAgent;
+      setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
+    }
+  }, []);
+
+  // Check URL parameters on mount for auth flow completion
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const authStatus = urlParams.get('auth');
+      const nonce = urlParams.get('nonce');
+      
+      if (authStatus === 'success' && nonce) {
+        completeAuthentication(nonce);
+      } else if (authStatus === 'error') {
+        const reason = urlParams.get('reason') || 'unknown';
+        setStatusMessage(`Authentication failed: ${reason}. Please try again.`);
+      }
+      
+      // Clean up URL parameters
+      if (authStatus) {
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    }
+  }, []);
+
+  // Function to initiate Warpcast authentication
+  const startWarpcastLogin = async () => {
     setIsLoading(true);
-    setSelectedProvider(provider);
+    setStatusMessage("Preparing authentication...");
     
     try {
-      if (provider === 'farcaster') {
-        // Show a QR code for Farcaster app login simulation
-        setQrCode('/qr-placeholder.png');
-        // In a real implementation, this would generate a signer message and QR code
-        
-        // Simulate waiting for response from Farcaster app
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // Hide QR code after simulated login
-        setQrCode(null);
-        onLogin(provider);
-      } 
-      else if (provider === 'wallet') {
-        // Show wallet input field
-        setShowWalletInput(true);
-        setIsLoading(false);
-        return; // Stop here until user submits wallet address
-      } 
-      else if (provider === 'hubble') {
-        // For Hubble, make an actual request to the API
-        onLogin(provider);
+      // Step 1: Get authentication parameters from server
+      const response = await fetch('/api/auth/nonce', { method: 'GET' });
+      
+      if (!response.ok) {
+        throw new Error("Failed to initialize authentication");
       }
+      
+      const data = await response.json();
+      console.log('Nonce response:', data);
+      
+      if (!data.success || !data.nonce || !data.messageJson) {
+        throw new Error("Invalid response from server");
+      }
+      
+      const { nonce, messageJson } = data;
+      
+      // Store the nonce in session storage for later retrieval
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('warpcast_auth_nonce', nonce);
+      }
+      
+      // Build the callback URL properly
+      const callbackUrl = new URL('/api/auth/callback', window.location.origin);
+      callbackUrl.searchParams.append('nonce', nonce);
+      
+      // Create the Warpcast sign URL with properly encoded parameters
+      const warpcastUrl = new URL('https://warpcast.com/~/sign');
+      warpcastUrl.searchParams.append('message', messageJson);
+      warpcastUrl.searchParams.append('redirect', 'true');
+      warpcastUrl.searchParams.append('r', callbackUrl.toString());
+      
+      console.log('Warpcast URL:', warpcastUrl.toString());
+      setAuthUrl(warpcastUrl.toString());
+      
+      // Create deep link for mobile app
+      const deepLink = new URL('farcaster://warpcast.com/~/sign');
+      deepLink.searchParams.append('message', messageJson);
+      deepLink.searchParams.append('redirect', 'true');
+      deepLink.searchParams.append('r', callbackUrl.toString());
+      
+      // Generate QR code for scanning
+      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(deepLink.toString())}&color=5624d0`;
+      setQrCode(qrCodeUrl);
+      
+      // Update status message
+      setStatusMessage(isMobile ? "Tap the button to open Warpcast" : "Scan this QR code with your Warpcast app");
+      
+      // Start polling for authentication status
+      startPolling(nonce);
     } catch (error) {
-      console.error('Login failed:', error);
-      alert('Login failed. Please try again.');
+      console.error("Warpcast authentication error:", error);
+      setStatusMessage(`Authentication setup failed: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
-      if (provider !== 'wallet' || !showWalletInput) {
-        setIsLoading(false);
-        setSelectedProvider(null);
+      setIsLoading(false);
+    }
+  };
+  
+  // Start polling for authentication status
+  const startPolling = (nonce: string) => {
+    // Clear any existing intervals
+    if (pollingInterval) {
+      clearInterval(pollingInterval);
+    }
+    
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/auth/status?nonce=${nonce}`);
+        
+        if (!response.ok) {
+          throw new Error("Failed to check authentication status");
+        }
+        
+        const data = await response.json();
+        
+        if (data.status === 'completed') {
+          clearInterval(interval);
+          completeAuthentication(nonce);
+        }
+      } catch (error) {
+        console.error("Error checking authentication status:", error);
+      }
+    }, 2000);
+    
+    setPollingInterval(interval);
+  };
+  
+  // Complete the authentication and login
+  const completeAuthentication = async (nonce: string) => {
+    setStatusMessage("Authentication successful! Logging you in...");
+    
+    try {
+      // Try to complete with the nonce-based authentication
+      const response = await fetch('/api/auth/farcaster', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nonce })
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to complete authentication");
+      }
+      
+      // Cleanup
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+      
+      // Login success
+      setTimeout(() => onLogin('farcaster'), 500);
+    } catch (error) {
+      console.error("Error completing authentication:", error);
+      setStatusMessage("Authentication error. Trying demo account...");
+      
+      // Fallback to demo account
+      try {
+        const demoResponse = await fetch('/api/auth/farcaster', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ useDemoAccount: true })
+        });
+        
+        if (demoResponse.ok) {
+          // Cleanup
+          if (pollingInterval) {
+            clearInterval(pollingInterval);
+          }
+          
+          // Login with demo account
+          setTimeout(() => onLogin('farcaster'), 500);
+        } else {
+          throw new Error("Failed to use demo account");
+        }
+      } catch (demoError) {
+        console.error("Even demo auth failed:", demoError);
+        setStatusMessage("Authentication failed completely. Please try again.");
       }
     }
   };
+  
+  // Reset authentication state
+  const resetAuth = () => {
+    if (pollingInterval) {
+      clearInterval(pollingInterval);
+    }
+    setPollingInterval(null);
+    setQrCode(null);
+    setAuthUrl(null);
+    setStatusMessage(null);
+  };
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+    };
+  }, [pollingInterval]);
 
-  const handleWalletSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!walletAddress.trim()) {
-      alert('Please enter a valid Ethereum address');
-      return;
+  // Add a button for local development testing that manually completes the auth
+  const debugLocalAuth = async (nonce: string) => {
+    console.log("Debug: Manually completing auth for nonce", nonce);
+    setStatusMessage("DEBUG: Manually completing auth...");
+    
+    try {
+      // Create a mock signature with FID 2 for testing
+      const mockData = {
+        nonce: nonce,
+        fid: 2, // Use test FID
+        signature: 'debug_signature',
+        message: JSON.stringify({ nonce })
+      };
+      
+      console.log("Debug: Sending mock data to callback:", mockData);
+      
+      const response = await fetch('/api/auth/callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mockData),
+      });
+      
+      const responseText = await response.text();
+      
+      if (response.ok) {
+        console.log("Debug: Manual auth callback successful:", responseText);
+        setStatusMessage("DEBUG: Callback successful, completing login...");
+        
+        // Wait a moment to ensure the status is updated
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Complete the authentication with the nonce
+        completeAuthentication(nonce);
+      } else {
+        console.error("Debug: Manual auth failed", responseText);
+        setStatusMessage("DEBUG: Auth failed! Check console.");
+      }
+    } catch (error) {
+      console.error("Debug: Error in manual auth", error);
+      setStatusMessage("DEBUG: Error in manual auth! Check console.");
     }
-    
-    // Validate address format (basic check)
-    if (!/^0x[a-fA-F0-9]{40}$/.test(walletAddress)) {
-      alert('Please enter a valid Ethereum address (0x followed by 40 hex characters)');
-      return;
-    }
-    
-    // Simulating wallet connection and verification
-    setIsLoading(true);
-    
-    // Pass the wallet address to the login function
-    onLogin('wallet', walletAddress);
-    
-    // Reset state after a brief delay
-    setTimeout(() => {
-      setShowWalletInput(false);
-      setIsLoading(false);
-      setSelectedProvider(null);
-    }, 1500);
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
       <h2 className="text-xl font-bold mb-4">Connect to Farcaster</h2>
       <p className="text-gray-600 mb-6">
-        Choose an authentication method to interact with the Farcaster network
+        {isMobile 
+          ? "Tap the button below to open Warpcast and login"
+          : "Scan the QR code with your Warpcast app to login with your Farcaster account"
+        }
       </p>
       
       {qrCode ? (
         <div className="flex flex-col items-center mb-6">
-          <p className="text-sm text-gray-700 mb-3">Scan this QR code with your Farcaster mobile app</p>
-          <div className="w-64 h-64 bg-gray-100 flex items-center justify-center border border-gray-300">
-            <p className="text-gray-500">QR Code Placeholder</p>
-          </div>
-          <p className="text-xs text-gray-500 mt-3">The QR code will expire in 5 minutes</p>
-        </div>
-      ) : showWalletInput ? (
-        <form onSubmit={handleWalletSubmit} className="mb-6">
-          <p className="text-sm text-gray-700 mb-3">Enter your Ethereum wallet address</p>
-          <input
-            type="text"
-            value={walletAddress}
-            onChange={(e) => setWalletAddress(e.target.value)}
-            placeholder="0x..."
-            className="w-full p-2 border border-gray-300 rounded mb-3"
-            disabled={isLoading}
-          />
-          <div className="flex items-center justify-between">
+          {statusMessage && (
+            <p className="text-sm text-gray-700 mb-3">{statusMessage}</p>
+          )}
+          
+          {!isMobile && (
+            <div className="w-64 h-64 bg-gray-100 flex items-center justify-center border border-gray-300">
+              <Image 
+                src={qrCode} 
+                alt="Warpcast Login QR Code"
+                width={250}
+                height={250}
+                unoptimized={true}
+              />
+            </div>
+          )}
+          
+          <div className="flex flex-col space-y-2 mt-4">
+            <a 
+              href={authUrl || '#'} 
+              className="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+              </svg>
+              Sign in with Warpcast
+            </a>
+            
             <button
-              type="button"
               onClick={() => {
-                setShowWalletInput(false);
-                setWalletAddress('');
-                setSelectedProvider(null);
+                if (authUrl) {
+                  window.location.href = authUrl;
+                }
               }}
-              className="text-gray-500 text-sm"
-              disabled={isLoading}
+              className="mt-2 text-purple-600 hover:text-purple-800 flex items-center justify-center"
             >
-              Cancel
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+              Open in this window instead
             </button>
+            
+            {qrCode && process.env.NODE_ENV !== 'production' && (
+              <button
+                onClick={() => {
+                  const storedNonce = sessionStorage.getItem('warpcast_auth_nonce');
+                  if (storedNonce) {
+                    debugLocalAuth(storedNonce);
+                  }
+                }}
+                className="mt-2 text-red-600 hover:text-red-800 flex items-center justify-center border border-red-300 px-2 py-1 rounded-md"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                Debug: Complete Auth (Local Dev Only)
+              </button>
+            )}
+          </div>
+          
+          <div className="mt-6 text-center">
+            <p className="text-xs text-gray-500 mb-2">Having trouble connecting?</p>
             <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              disabled={isLoading}
+              onClick={() => {
+                // Use demo login as fallback
+                fetch('/api/auth/farcaster', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ useDemoAccount: true }),
+                })
+                .then(response => {
+                  if (response.ok) {
+                    onLogin('farcaster');
+                  }
+                });
+              }}
+              className="text-purple-600 text-sm hover:underline"
             >
-              {isLoading ? 'Connecting...' : 'Connect Wallet'}
+              Use demo account instead
             </button>
           </div>
-        </form>
+          
+          <button
+            onClick={resetAuth}
+            className="mt-4 text-purple-600 hover:text-purple-800 text-sm"
+          >
+            Cancel
+          </button>
+        </div>
       ) : (
         <div className="space-y-3">
           <button
-            onClick={() => handleLogin('farcaster')}
+            onClick={startWarpcastLogin}
             disabled={isLoading}
             className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-purple-50 transition-colors disabled:opacity-50"
           >
@@ -142,61 +373,11 @@ export default function LoginOptions({ onLogin }: LoginProps) {
               </div>
               <div>
                 <span className="font-medium">Warpcast App</span>
-                <p className="text-xs text-gray-500">Connect with the Farcaster mobile app</p>
+                <p className="text-xs text-gray-500">Connect with your Farcaster account</p>
               </div>
             </div>
-            {isLoading && selectedProvider === 'farcaster' ? (
+            {isLoading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-purple-600"></div>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            )}
-          </button>
-          
-          <button
-            onClick={() => handleLogin('wallet')}
-            disabled={isLoading}
-            className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-50"
-          >
-            <div className="flex items-center">
-              <div className="bg-blue-500 w-8 h-8 rounded-md flex items-center justify-center text-white mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-medium">Ethereum Wallet</span>
-                <p className="text-xs text-gray-500">Connect with MetaMask or other wallets</p>
-              </div>
-            </div>
-            {isLoading && selectedProvider === 'wallet' ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            )}
-          </button>
-          
-          <button
-            onClick={() => handleLogin('hubble')}
-            disabled={isLoading}
-            className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-green-50 transition-colors disabled:opacity-50"
-          >
-            <div className="flex items-center">
-              <div className="bg-green-500 w-8 h-8 rounded-md flex items-center justify-center text-white mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 018.25-3m-8.25 3a4.5 4.5 0 004.5 4.5" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-medium">Local Hubble Node</span>
-                <p className="text-xs text-gray-500">Connect with your node (FID: 15300)</p>
-              </div>
-            </div>
-            {isLoading && selectedProvider === 'hubble' ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-green-500"></div>
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -206,9 +387,21 @@ export default function LoginOptions({ onLogin }: LoginProps) {
         </div>
       )}
       
+      {statusMessage && statusMessage.includes("failed") && (
+        <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+          {statusMessage}
+          <button
+            onClick={resetAuth}
+            className="ml-2 text-red-700 hover:text-red-900 underline"
+          >
+            Try again
+          </button>
+        </div>
+      )}
+      
       <div className="mt-6 text-center">
-        <a href="https://docs.farcaster.xyz/learn/what-is-farcaster" target="_blank" rel="noopener noreferrer" className="text-purple-600 text-sm hover:underline">
-          Learn more about Farcaster
+        <a href="https://docs.farcaster.xyz/auth-kit/warpcast-auth" target="_blank" rel="noopener noreferrer" className="text-purple-600 text-sm hover:underline">
+          Learn more about Warpcast Login
         </a>
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CastFeed from '@/components/CastFeed';
 import CastForm from '@/components/CastForm';
 import LoginOptions from '@/components/LoginOptions';
@@ -9,6 +9,50 @@ import { useUser } from '@/context/UserContext';
 
 export default function Home() {
   const { isAuthenticated, login } = useUser();
+  const [viewingFid, setViewingFid] = useState<number | null>(null);
+  
+  // Check for FID in URL on component mount
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        
+        // Check for view param (FID to view)
+        const viewParam = url.searchParams.get('view');
+        if (viewParam) {
+          const fid = parseInt(viewParam);
+          if (!isNaN(fid)) {
+            setViewingFid(fid);
+          }
+        }
+        
+        // Check for auth callback params
+        const authParam = url.searchParams.get('auth');
+        const stateParam = url.searchParams.get('state');
+        const nonceParam = url.searchParams.get('nonce');
+        
+        if (authParam === 'success') {
+          console.log('Auth successful');
+          
+          // Complete the login process
+          login('farcaster');
+          
+          // Remove the auth params from URL
+          url.searchParams.delete('auth');
+          url.searchParams.delete('state');
+          url.searchParams.delete('nonce');
+          window.history.replaceState({}, '', url.toString());
+        }
+        
+        if (authParam === 'error') {
+          console.error('Auth failed');
+          // You could show an error message here
+        }
+      }
+    } catch (error) {
+      console.error('Error parsing URL parameters:', error);
+    }
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -51,7 +95,7 @@ export default function Home() {
           </div>
           
           <div className="md:col-span-2">
-            <CastFeed />
+            <CastFeed userFid={viewingFid || undefined} />
           </div>
         </div>
       </div>

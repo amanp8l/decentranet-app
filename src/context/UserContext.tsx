@@ -18,6 +18,7 @@ interface User {
     address: string;
     chainId: number;
     ensName?: string | null;
+    walletType?: 'metamask' | 'generic' | string;
   };
   signedMessage?: {
     domain: string;
@@ -40,23 +41,54 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Check if user is already logged in (from localStorage)
+  // Check for an existing user session on mount
   useEffect(() => {
-    // Only access localStorage in the browser
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('farcaster_user');
-      if (storedUser) {
-        try {
-          setUser(JSON.parse(storedUser));
-        } catch (e) {
-          console.error('Failed to parse stored user:', e);
+    const checkExistingSession = async () => {
+      try {
+        // Only access localStorage in the browser
+        if (typeof window !== 'undefined') {
+          const storedUser = localStorage.getItem('farcaster_user');
+          
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            
+            // If user was connected with MetaMask, verify they are still connected
+            if (parsedUser.provider === 'wallet' && parsedUser.walletData?.address) {
+              // Check if MetaMask is available and still has access
+              if (window.ethereum) {
+                try {
+                  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                  // If no accounts or different account, don't restore the session
+                  if (!accounts || accounts.length === 0 || accounts[0].toLowerCase() !== parsedUser.walletData.address.toLowerCase()) {
+                    localStorage.removeItem('farcaster_user');
+                    return;
+                  }
+                } catch (err) {
+                  console.error('Error checking MetaMask connection:', err);
+                  localStorage.removeItem('farcaster_user');
+                  return;
+                }
+              } else {
+                // MetaMask no longer available
+                localStorage.removeItem('farcaster_user');
+                return;
+              }
+            }
+            
+            setUser(parsedUser);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking for existing session:', error);
+        if (typeof window !== 'undefined') {
           localStorage.removeItem('farcaster_user');
         }
       }
-    }
-    setIsLoading(false);
+    };
+    
+    checkExistingSession();
   }, []);
 
   const login = async (provider: string, address?: string) => {
@@ -127,6 +159,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
         const requestBody: any = {};
         if (address) {
           requestBody.address = address;
+          
+          // Check if this is a MetaMask connection
+          if (typeof window !== 'undefined' && window.ethereum && window.ethereum.isMetaMask) {
+            requestBody.walletType = 'metamask';
+            requestBody.isMetaMask = true;
+          } else {
+            requestBody.walletType = 'generic';
+          }
         }
         
         const response = await fetch('/api/auth/wallet', {

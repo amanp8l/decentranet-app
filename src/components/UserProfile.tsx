@@ -1,127 +1,332 @@
 'use client';
 
-import { useUser } from '@/context/UserContext';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useUser } from '@/context/UserContext';
+import CastFeed from './CastFeed';
+import FollowList from './FollowList';
 
-export default function UserProfile() {
-  const { user, logout } = useUser();
+interface UserProfileProps {
+  fid: number;
+  onBack?: () => void;
+  onViewProfile?: (fid: number) => void;
+}
 
-  if (!user) return null;
+export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileProps) {
+  const { user, updateFollowingList } = useUser();
+  const [profileUser, setProfileUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followLoading, setFollowLoading] = useState(false);
+  const [showFollowList, setShowFollowList] = useState<'followers' | 'following' | null>(null);
 
-  // Display different connection badges based on provider
-  const connectionBadge = () => {
-    switch(user.provider) {
-      case 'farcaster':
-        return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-            <svg className="mr-1 h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
-            </svg>
-            Warpcast
-          </span>
-        );
-      case 'wallet':
-        // Check if this is a MetaMask wallet
-        if (user.walletData?.walletType === 'metamask') {
-          return (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-              <svg className="mr-1 h-3 w-3" width="12" height="12" viewBox="0 0 35 33" fill="none">
-                <path d="M32.9582 1L19.8241 10.7183L22.2103 5.15702L32.9582 1Z" fill="#E2761B" stroke="#E2761B" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2.03113 1L15.0358 10.809L12.7892 5.15702L2.03113 1Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M28.2891 23.5334L24.8304 28.8184L32.2477 30.8609L34.3993 23.6498L28.2891 23.5334Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              MetaMask
-            </span>
-          );
+  useEffect(() => {
+    // Fetch user profile data
+    const fetchProfile = async () => {
+      setIsLoading(true);
+      setError(null);
+      
+      try {
+        const response = await fetch(`/api/users/${fid}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch user profile: ${response.status}`);
         }
-        return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-            <svg className="mr-1 h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 7h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v1H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-3 0H8V6h8v1zM5 9h14v8H5V9z"></path>
-            </svg>
-            {user.walletData?.ensName || `${user.walletData?.address?.substring(0, 6)}...${user.walletData?.address?.substring(38)}`}
-          </span>
-        );
-      case 'hubble':
-        return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            <svg className="mr-1 h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"></path>
-            </svg>
-            Hubble Node
-          </span>
-        );
-      default:
-        return null;
+        
+        const data = await response.json();
+        
+        if (data.success && data.user) {
+          setProfileUser(data.user);
+          
+          // If the user is logged in, check follow status
+          if (user) {
+            checkFollowStatus(user.fid, fid);
+          }
+        } else {
+          throw new Error(data.error || 'Failed to fetch user profile');
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        setError('Could not load user profile. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchProfile();
+  }, [fid, user]);
+  
+  // Function to check if the current user follows the profile being viewed
+  const checkFollowStatus = async (userFid: number, targetFid: number) => {
+    try {
+      const response = await fetch(`/api/users/follow?userFid=${userFid}&targetFid=${targetFid}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setIsFollowing(data.isFollowing);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking follow status:', error);
+      // Fall back to checking the user context's following list
+      if (user && user.following) {
+        if (Array.isArray(user.following)) {
+          setIsFollowing(user.following.includes(targetFid));
+        } else if (Array.isArray(user.following) && user.following.length > 0 && typeof user.following[0] === 'object') {
+          setIsFollowing(user.following.some((followedUser: any) => 
+            followedUser.fid === targetFid || followedUser.targetFid === targetFid
+          ));
+        }
+      }
     }
   };
 
+  const handleFollowToggle = async () => {
+    if (!user) {
+      setError('You must be logged in to follow users');
+      return;
+    }
+    
+    setFollowLoading(true);
+    
+    try {
+      const action = isFollowing ? 'unfollow' : 'follow';
+      
+      const response = await fetch('/api/users/follow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.authToken}`
+        },
+        body: JSON.stringify({
+          userFid: user.fid,
+          targetFid: fid,
+          action
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to ${action} user`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        const newFollowingState = action === 'follow';
+        setIsFollowing(newFollowingState);
+        
+        // Update the user context with the new following status
+        updateFollowingList(fid, newFollowingState);
+        
+        // Update follower count
+        if (profileUser) {
+          setProfileUser({
+            ...profileUser,
+            followers: profileUser.followers + (newFollowingState ? 1 : -1)
+          });
+        }
+      } else {
+        throw new Error(data.error || `Failed to ${action} user`);
+      }
+    } catch (error) {
+      console.error('Error toggling follow:', error);
+      setError(`Could not ${isFollowing ? 'unfollow' : 'follow'} this user. Please try again.`);
+    } finally {
+      setFollowLoading(false);
+    }
+  };
+
+  // Function to handle profile navigation
+  const handleViewProfile = (profileFid: number) => {
+    if (onViewProfile) {
+      onViewProfile(profileFid);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="p-4 text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-600 mx-auto"></div>
+        <p className="mt-2 text-gray-600">Loading profile...</p>
+      </div>
+    );
+  }
+
+  if (error || !profileUser) {
+    return (
+      <div className="bg-amber-50 p-4 rounded-lg border border-amber-200 text-amber-700">
+        <p>{error || 'User not found'}</p>
+        {onBack && (
+          <button 
+            onClick={onBack}
+            className="mt-4 text-sm text-purple-600 hover:text-purple-800"
+          >
+            ← Back
+          </button>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-      <div className="flex items-center mb-4">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 mr-3">
-          {user.avatar ? (
-            <Image
-              src={user.avatar}
-              alt={user.username}
-              fill
-              className="object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-purple-100 text-purple-600 font-bold text-xl">
-              {user.username.charAt(0).toUpperCase()}
-            </div>
-          )}
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center">
-            <h3 className="font-bold mr-2">{user.displayName || user.username}</h3>
-            {connectionBadge()}
+    <div>
+      {/* Profile Header */}
+      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <div className="flex items-start">
+          {/* Avatar */}
+          <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 mr-4 flex-shrink-0 relative">
+            {profileUser.pfp ? (
+              <Image 
+                src={profileUser.pfp} 
+                alt={profileUser.username || `FID: ${profileUser.fid}`}
+                width={64}
+                height={64}
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-purple-100 text-purple-600 font-bold text-lg">
+                {(profileUser.username?.charAt(0) || profileUser.fid.toString().charAt(0)).toUpperCase()}
+              </div>
+            )}
           </div>
-          <p className="text-sm text-gray-500">@{user.username}</p>
-        </div>
-      </div>
-      
-      {user.bio && (
-        <div className="mb-3 text-sm text-gray-600">
-          {user.bio}
-        </div>
-      )}
-      
-      <div className="flex space-x-4 mb-3 text-sm">
-        <div>
-          <span className="font-semibold text-gray-900">{user.following || 0}</span>{" "}
-          <span className="text-gray-600">Following</span>
-        </div>
-        <div>
-          <span className="font-semibold text-gray-900">{user.followers || 0}</span>{" "}
-          <span className="text-gray-600">Followers</span>
-        </div>
-        <div>
-          <span className="font-semibold text-gray-900">{user.fid}</span>{" "}
-          <span className="text-gray-600">FID</span>
-        </div>
-      </div>
-      
-      <div className="border-t border-gray-100 pt-3 mt-2">
-        <div className="flex text-sm text-gray-500">
-          <span className="mr-2">Connected via:</span>
-          <span className="text-purple-600 font-medium capitalize">{user.provider}</span>
+          
+          {/* User Info */}
+          <div className="flex-1">
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-xl font-bold">{profileUser.displayName || profileUser.username || `User ${profileUser.fid}`}</h1>
+                {profileUser.username && (
+                  <p className="text-gray-500">@{profileUser.username}</p>
+                )}
+              </div>
+              
+              {/* Follow/Unfollow Button */}
+              {user && user.fid !== profileUser.fid && (
+                <button
+                  onClick={handleFollowToggle}
+                  disabled={followLoading}
+                  className={`px-4 py-1 rounded-full font-medium text-sm ${
+                    isFollowing
+                      ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                      : 'bg-purple-600 text-white hover:bg-purple-700'
+                  } disabled:opacity-50`}
+                >
+                  {followLoading ? (
+                    <span className="flex items-center">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing
+                    </span>
+                  ) : (
+                    isFollowing ? 'Unfollow' : 'Follow'
+                  )}
+                </button>
+              )}
+            </div>
+            
+            {/* Bio */}
+            {profileUser.bio && (
+              <p className="mt-2 text-gray-700">{profileUser.bio}</p>
+            )}
+            
+            {/* Stats */}
+            <div className="mt-3 flex space-x-4 text-sm">
+              <div>
+                <button 
+                  onClick={() => profileUser.following > 0 && setShowFollowList('following')}
+                  className={`${profileUser.following > 0 ? 'hover:underline cursor-pointer' : ''}`}
+                >
+                  <span className="font-semibold">{profileUser.following || 0}</span>{' '}
+                  <span className="text-gray-500">Following</span>
+                </button>
+              </div>
+              <div>
+                <button 
+                  onClick={() => profileUser.followers > 0 && setShowFollowList('followers')}
+                  className={`${profileUser.followers > 0 ? 'hover:underline cursor-pointer' : ''}`}
+                >
+                  <span className="font-semibold">{profileUser.followers || 0}</span>{' '}
+                  <span className="text-gray-500">Followers</span>
+                </button>
+              </div>
+              
+              {/* Vote and Comment Stats */}
+              {profileUser.stats && (
+                <>
+                  <div>
+                    <span className="font-semibold">{profileUser.stats.commentCount || 0}</span>{' '}
+                    <span className="text-gray-500">Comments</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">{profileUser.stats.receivedUpvotes || 0}</span>{' '}
+                    <span className="text-gray-500">Upvotes</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
         
-        {user.authToken && (
-          <div className="mt-1 text-xs text-gray-400 truncate">
-            Token: {user.authToken.substring(0, 10)}...
+        {/* Error message */}
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+            {error}
           </div>
         )}
         
-        <button
-          onClick={logout}
-          className="mt-3 w-full py-2 px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm rounded transition-colors"
-        >
-          Disconnect
-        </button>
+        {/* Back button */}
+        {onBack && (
+          <button 
+            onClick={onBack}
+            className="mt-4 text-sm text-purple-600 hover:text-purple-800"
+          >
+            ← Back to feed
+          </button>
+        )}
       </div>
+      
+      {/* Detailed Stats (Optional - can be shown on profile page) */}
+      {profileUser.stats && (
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Activity Stats</h3>
+          <div className="grid grid-cols-2 gap-4 text-xs">
+            <div className="bg-gray-50 p-2 rounded">
+              <p className="text-gray-500">Posts</p>
+              <p className="font-medium">{profileUser.stats.postCount || 0}</p>
+            </div>
+            <div className="bg-gray-50 p-2 rounded">
+              <p className="text-gray-500">Comments</p>
+              <p className="font-medium">{profileUser.stats.commentCount || 0}</p>
+            </div>
+            <div className="bg-gray-50 p-2 rounded">
+              <p className="text-gray-500">Received Upvotes</p>
+              <p className="font-medium">{profileUser.stats.receivedUpvotes || 0}</p>
+            </div>
+            <div className="bg-gray-50 p-2 rounded">
+              <p className="text-gray-500">Received Downvotes</p>
+              <p className="font-medium">{profileUser.stats.receivedDownvotes || 0}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* User's Casts Feed */}
+      <CastFeed userFid={fid} onViewProfile={handleViewProfile} />
+      
+      {/* Follow List Modal */}
+      {showFollowList && (
+        <FollowList
+          fid={fid}
+          type={showFollowList}
+          onViewProfile={handleViewProfile}
+          onClose={() => setShowFollowList(null)}
+        />
+      )}
     </div>
   );
 } 

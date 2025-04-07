@@ -1,175 +1,191 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getNonceStatus } from '../nonce/route';
+import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 
-// Sample user data for demo purposes
-const sampleUsers = [
-  {
-    id: 'warpcast_3',
-    username: 'dwr',
-    displayName: 'Dan Romero',
-    fid: 3,
-    pfp: 'https://i.imgur.com/LfBOvjk.png',
-    bio: 'Building Farcaster',
-    followers: 83250,
-    following: 1256,
-    verifications: [
-      {
-        type: 'ethereum',
-        address: '0x7E0b0363404751346930F045827C185C86303C3D'
-      }
-    ]
-  },
-  {
-    id: 'warpcast_2',
-    username: 'v',
-    displayName: 'Varun Srinivasan',
-    fid: 2,
-    pfp: 'https://i.imgur.com/DXpWdD8.jpg',
-    bio: 'Building @farcaster',
-    followers: 61430,
-    following: 1122,
-    verifications: [
-      {
-        type: 'ethereum',
-        address: '0x6E0b0363404751346930F045827C185C86303C7A'
-      }
-    ]
+// Path to auth session storage
+const AUTH_SESSIONS_PATH = path.join(process.cwd(), 'data', 'auth-sessions.json');
+const USER_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
+
+// Get sessions from JSON file
+function getSessions() {
+  if (!fs.existsSync(AUTH_SESSIONS_PATH)) {
+    return {};
   }
-];
+  try {
+    const data = fs.readFileSync(AUTH_SESSIONS_PATH, 'utf8');
+    return JSON.parse(data || '{}');
+  } catch (error) {
+    console.error('Error reading auth sessions:', error);
+    return {};
+  }
+}
 
-// This function handles Warpcast authentication
+// Get users from JSON file
+function getUsers() {
+  if (!fs.existsSync(USER_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(USER_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading users:', error);
+    return [];
+  }
+}
+
+// Save users to JSON file
+function saveUsers(users: any[]) {
+  try {
+    fs.writeFileSync(USER_DB_PATH, JSON.stringify(users, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error saving users:', error);
+    return false;
+  }
+}
+
+// Create a demo user
+function createDemoUser() {
+  const users = getUsers();
+  
+  // Check if demo user already exists
+  const existingDemo = users.find((u: any) => u.email === 'demo@example.com');
+  if (existingDemo) {
+    // Update auth token
+    existingDemo.authToken = uuidv4();
+    saveUsers(users);
+    return existingDemo;
+  }
+  
+  // Create new demo user
+  const demoUser = {
+    id: uuidv4(),
+    email: 'demo@example.com',
+    username: 'demo_user',
+    displayName: 'Demo User',
+    fid: 9000000001,
+    provider: 'farcaster',
+    pfp: null,
+    bio: 'This is a demo Farcaster account',
+    followers: [],
+    following: [],
+    stats: {
+      postCount: 0,
+      commentCount: 0,
+      receivedUpvotes: 0,
+      receivedDownvotes: 0,
+      givenUpvotes: 0,
+      givenDownvotes: 0
+    },
+    verifications: [],
+    authToken: uuidv4(),
+    createdAt: new Date().toISOString()
+  };
+  
+  users.push(demoUser);
+  saveUsers(users);
+  
+  return demoUser;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    let body: { 
-      useDemoAccount?: boolean; 
-      nonce?: string;
-      [key: string]: any;
-    } = {};
+    const { nonce, useDemoAccount } = await request.json();
     
-    // Safely parse JSON - handle empty bodies
-    try {
-      const text = await request.text();
-      if (text && text.trim()) {
-        body = JSON.parse(text);
-      }
-    } catch (e) {
-      console.warn('Error parsing JSON request body:', e);
-      // Continue with empty body object
+    // Demo account fallback
+    if (useDemoAccount) {
+      const demoUser = createDemoUser();
+      
+      // Remove sensitive information
+      const { passwordHash, passwordSalt, ...safeUser } = demoUser;
+      
+      return NextResponse.json({
+        success: true,
+        user: safeUser
+      });
     }
     
-    console.log('Farcaster auth request:', JSON.stringify(body));
-    
-    // Case 1: Demo account requested
-    if (body.useDemoAccount) {
-      console.log('Using demo account for login');
-      return returnDemoUser();
-    }
-    
-    // Case 2: Nonce-based authentication
-    const nonce = body.nonce;
-    
+    // Nonce-based authentication (from Warpcast)
     if (nonce) {
-      // Check for cookie presence first
-      const allNoncesCookie = request.cookies.get('warpcast_nonces');
-      if (!allNoncesCookie) {
-        console.log('No warpcast_nonces cookie found in farcaster endpoint');
-        return NextResponse.json({ 
-          success: false, 
-          error: 'No authentication data found' 
-        }, { status: 400 });
+      const sessions = getSessions();
+      const session = sessions[nonce];
+      
+      if (!session || !session.status || session.status !== 'completed') {
+        return NextResponse.json(
+          { success: false, error: 'Invalid or expired authentication session' },
+          { status: 400 }
+        );
       }
       
-      // Get nonce status from cookie
-      const nonceData = getNonceStatus(request, nonce);
+      const { fid } = session;
       
-      if (nonceData && nonceData.status === 'completed' && nonceData.fid) {
-        console.log(`Completing authentication for FID ${nonceData.fid}`);
+      if (!fid) {
+        return NextResponse.json(
+          { success: false, error: 'No FID found in session' },
+          { status: 400 }
+        );
+      }
+      
+      // Check if user exists or create a new one
+      const users = getUsers();
+      let user = users.find((u: any) => u.provider === 'farcaster' && u.fid === fid);
+      
+      if (!user) {
+        // Create a new user from the Farcaster authentication
+        user = {
+          id: uuidv4(),
+          username: `farcaster_${fid}`,
+          displayName: `Farcaster ${fid}`,
+          fid,
+          provider: 'farcaster',
+          pfp: session.pfpUrl || null,
+          bio: `Farcaster user with FID ${fid}`,
+          followers: [],
+          following: [],
+          stats: {
+            postCount: 0,
+            commentCount: 0,
+            receivedUpvotes: 0,
+            receivedDownvotes: 0,
+            givenUpvotes: 0,
+            givenDownvotes: 0
+          },
+          verifications: [],
+          authToken: uuidv4(),
+          createdAt: new Date().toISOString()
+        };
         
-        // Find matching user or create generic one
-        return getUserByFid(nonceData.fid);
+        users.push(user);
       } else {
-        console.log('Invalid nonce or authentication not completed:', nonce);
-        if (nonceData) {
-          console.log('Nonce data:', nonceData);
+        // Update existing user
+        user.authToken = uuidv4();
+        if (session.pfpUrl) {
+          user.pfp = session.pfpUrl;
         }
-        return NextResponse.json({ 
-          success: false, 
-          error: 'Authentication not completed' 
-        }, { status: 400 });
       }
+      
+      saveUsers(users);
+      
+      // Remove sensitive information
+      const { passwordHash, passwordSalt, ...safeUser } = user;
+      
+      return NextResponse.json({
+        success: true,
+        user: safeUser
+      });
     }
     
-    // Fall back to demo user if no valid authentication method
-    console.log('No valid authentication method, using demo user');
-    return returnDemoUser();
+    return NextResponse.json(
+      { success: false, error: 'Invalid authentication request' },
+      { status: 400 }
+    );
   } catch (error) {
-    console.error('Farcaster authentication error:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: 'Authentication failed' 
-    }, { status: 500 });
+    console.error('Error in Farcaster authentication:', error);
+    return NextResponse.json(
+      { success: false, error: 'Authentication failed' },
+      { status: 500 }
+    );
   }
-}
-
-// Helper to return a user by FID
-function getUserByFid(fid: number) {
-  // First try to find in sample users
-  const matchedUser = sampleUsers.find(u => u.fid === fid);
-  
-  if (matchedUser) {
-    return NextResponse.json({
-      success: true,
-      user: {
-        ...matchedUser,
-        registeredAt: new Date().toISOString(),
-        authToken: `fc_auth_${matchedUser.fid}_${Date.now()}`,
-        signer: {
-          signerPublicKey: '0x04d2c96312e59ba8ff4e32228241dc7a431ec87c2463f8bca78a1d3e3071fc88',
-          signerScheme: 'eip712',
-          status: 'valid'
-        }
-      }
-    });
-  }
-  
-  // Return generic user with the FID
-  return NextResponse.json({
-    success: true,
-    user: {
-      id: `farcaster_${fid}`,
-      username: `user${fid}`,
-      displayName: `User ${fid}`,
-      fid: fid,
-      pfp: `https://api.dicebear.com/7.x/identicon/svg?seed=${fid}`,
-      bio: 'Farcaster user',
-      followers: 100,
-      following: 100,
-      registeredAt: new Date().toISOString(),
-      authToken: `fc_auth_${fid}_${Date.now()}`,
-      signer: {
-        signerPublicKey: '0x04d2c96312e59ba8ff4e32228241dc7a431ec87c2463f8bca78a1d3e3071fc88',
-        signerScheme: 'eip712',
-        status: 'valid'
-      }
-    }
-  });
-}
-
-// Helper to return a random demo user
-function returnDemoUser() {
-  const selectedUser = sampleUsers[Math.floor(Math.random() * sampleUsers.length)];
-  
-  return NextResponse.json({
-    success: true,
-    user: {
-      ...selectedUser,
-      registeredAt: new Date().toISOString(),
-      authToken: `fc_auth_${selectedUser.fid}_${Date.now()}`,
-      signer: {
-        signerPublicKey: '0x04d2c96312e59ba8ff4e32228241dc7a431ec87c2463f8bca78a1d3e3071fc88',
-        signerScheme: 'eip712',
-        status: 'valid'
-      }
-    }
-  });
 } 

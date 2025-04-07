@@ -1,108 +1,127 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { randomBytes } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 
-// Store nonces in cookies instead of memory for serverless compatibility
+// Path to auth session storage
+const AUTH_SESSIONS_PATH = path.join(process.cwd(), 'data', 'auth-sessions.json');
+
+// Get sessions from JSON file
+function getSessions() {
+  if (!fs.existsSync(AUTH_SESSIONS_PATH)) {
+    fs.writeFileSync(AUTH_SESSIONS_PATH, JSON.stringify({}), 'utf8');
+    return {};
+  }
+  try {
+    const data = fs.readFileSync(AUTH_SESSIONS_PATH, 'utf8');
+    return JSON.parse(data || '{}');
+  } catch (error) {
+    console.error('Error reading auth sessions:', error);
+    return {};
+  }
+}
+
+// Save sessions to JSON file
+function saveSessions(sessions: Record<string, any>) {
+  try {
+    fs.writeFileSync(AUTH_SESSIONS_PATH, JSON.stringify(sessions, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error saving auth sessions:', error);
+    return false;
+  }
+}
+
+// Create a new nonce for Farcaster authentication
 export async function GET(request: NextRequest) {
   try {
-    // Generate a random nonce
-    const nonce = randomBytes(16).toString('hex');
+    // Generate a new nonce
+    const nonce = uuidv4();
     
-    // Get domain and origin information
-    const protocol = request.headers.get('x-forwarded-proto') || 'http';
-    const host = request.headers.get('host') || 'localhost:3000';
-    const origin = request.headers.get('origin') || `${protocol}://${host}`;
-    const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Social UI';
+    // Create message for Warpcast
+    const baseUrl = request.nextUrl.origin;
+    const callbackUrl = `${baseUrl}/api/auth/callback?nonce=${nonce}`;
     
     // Current timestamp
-    const issuedAt = new Date().toISOString();
-    const expirationTime = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 minutes in the future
+    const timestamp = Math.floor(Date.now() / 1000);
     
-    // Create the exact message format Warpcast expects
-    // See: https://docs.farcaster.xyz/auth-kit/warpcast-auth#message-format
+    // Create SIWE message
     const message = {
-      domain: host,
-      uri: origin,
-      version: "1",
+      domain: request.headers.get('host') || 'localhost:3000',
+      uri: callbackUrl,
+      version: '1',
       nonce: nonce,
-      issuedAt: issuedAt,
-      expirationTime: expirationTime,
-      statement: `Sign in to ${appName} with your Farcaster account`,
+      issuedAt: new Date(timestamp * 1000).toISOString(),
+      expirationTime: new Date((timestamp + 3600) * 1000).toISOString(), // 1 hour
+      statement: 'Sign in with Farcaster to authenticate with our app.',
       resources: []
     };
     
-    // Create simple nonce data to store in cookie
-    const nonceData = {
-      nonce,
+    // Save nonce to sessions
+    const sessions = getSessions();
+    sessions[nonce] = {
       status: 'pending',
-      createdAt: Date.now()
+      createdAt: new Date().toISOString(),
+      expiresAt: new Date((timestamp + 3600) * 1000).toISOString()
     };
+    saveSessions(sessions);
     
-    // Generate response with cookie
-    const response = NextResponse.json({
+    // Return nonce and message
+    return NextResponse.json({
       success: true,
       nonce,
-      message,
-      messageJson: JSON.stringify(message)
+      messageJson: JSON.stringify(message),
+      callbackUrl
     });
-    
-    // Set a single cookie for ALL nonces to simplify retrieval
-    const allNonces = JSON.parse(request.cookies.get('warpcast_nonces')?.value || '{}');
-    allNonces[nonce] = nonceData;
-    
-    console.log('Current nonces in cookie:', Object.keys(allNonces));
-    
-    // Set the cookie
-    response.cookies.set({
-      name: 'warpcast_nonces',
-      value: JSON.stringify(allNonces),
-      httpOnly: true,
-      maxAge: 60 * 60, // 60 minutes instead of 30
-      path: '/',
-      sameSite: 'lax',
-      secure: false // Allow non-secure in development
-    });
-    
-    console.log('Generated nonce:', nonce);
-    console.log('Message:', JSON.stringify(message));
-    console.log('Storing nonce data:', nonceData);
-    
-    return response;
   } catch (error) {
-    console.error('Error generating nonce:', error);
+    console.error('Error creating nonce:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to create nonce' },
+      { status: 500 }
+    );
+  }
+}
+
+// Endpoint to check status of a nonce
+export async function POST(request: NextRequest) {
+  try {
+    const { nonce } = await request.json();
+    
+    if (!nonce) {
+      return NextResponse.json(
+        { success: false, error: 'Nonce is required' },
+        { status: 400 }
+      );
+    }
+    
+    const sessions = getSessions();
+    const session = sessions[nonce];
+    
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid nonce' },
+        { status: 400 }
+      );
+    }
+    
+    // Check if session has expired
+    if (session.expiresAt && new Date(session.expiresAt) < new Date()) {
+      return NextResponse.json(
+        { success: false, error: 'Nonce has expired' },
+        { status: 400 }
+      );
+    }
+    
     return NextResponse.json({
-      success: false,
-      error: 'Failed to generate authentication nonce'
-    }, { status: 500 });
-  }
-}
-
-// Helper functions for nonce status management
-export function getNonceStatus(request: NextRequest, nonce: string): any {
-  try {
-    const allNonces = JSON.parse(request.cookies.get('warpcast_nonces')?.value || '{}');
-    return allNonces[nonce] || null;
+      success: true,
+      status: session.status,
+      fid: session.fid
+    });
   } catch (error) {
-    console.error('Error getting nonce status:', error);
-    return null;
-  }
-}
-
-export function updateNonceStatus(request: NextRequest, nonce: string, data: any): { cookieName: string, cookieValue: string } {
-  try {
-    const allNonces = JSON.parse(request.cookies.get('warpcast_nonces')?.value || '{}');
-    allNonces[nonce] = {
-      ...data,
-      updatedAt: Date.now()
-    };
-    return {
-      cookieName: 'warpcast_nonces',
-      cookieValue: JSON.stringify(allNonces)
-    };
-  } catch (error) {
-    console.error('Error updating nonce status:', error);
-    return {
-      cookieName: 'warpcast_nonces',
-      cookieValue: '{}'
-    };
+    console.error('Error checking nonce status:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to check nonce status' },
+      { status: 500 }
+    );
   }
 } 

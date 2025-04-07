@@ -44,19 +44,43 @@ export async function GET(request: NextRequest) {
     const users = getUsers();
     const localUser = users.find((u: any) => u.fid === fidNum);
     
-    if (localUser && localUser.following && Array.isArray(localUser.following)) {
+    if (localUser && localUser.followers && Array.isArray(localUser.followers)) {
       return NextResponse.json({
         success: true,
-        following: localUser.following,
-        count: localUser.following.length
+        followers: localUser.followers,
+        count: localUser.followers.length
+      });
+    } else if (localUser) {
+      // User exists, but has no followers data
+      return NextResponse.json({
+        success: true,
+        followers: [],
+        count: 0
       });
     }
     
-    // If not found locally or no following data, try to fetch from Hubble node
+    // If not found locally, search for users that follow this FID
+    const usersFollowingTarget = users
+      .filter((u: any) => 
+        u.following && 
+        Array.isArray(u.following) && 
+        u.following.includes(fidNum)
+      )
+      .map((u: any) => u.fid);
+    
+    if (usersFollowingTarget.length > 0) {
+      return NextResponse.json({
+        success: true,
+        followers: usersFollowingTarget,
+        count: usersFollowingTarget.length
+      });
+    }
+    
+    // If not found locally, try to fetch from Hubble node
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     
     try {
-      const response = await fetch(`${HUBBLE_HTTP_URL}/v1/followsByFid?fid=${fid}&limit=100`, {
+      const response = await fetch(`${HUBBLE_HTTP_URL}/v1/followersByFid?fid=${fid}&limit=100`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -64,21 +88,21 @@ export async function GET(request: NextRequest) {
       });
       
       if (response.ok) {
-        const followData = await response.json();
+        const followerData = await response.json();
         
-        if (followData && Array.isArray(followData.followings)) {
-          const followingFids = followData.followings.map((follow: any) => follow.targetFid);
+        if (followerData && Array.isArray(followerData.followers)) {
+          const followerFids = followerData.followers.map((follow: any) => follow.followerFid);
           
           return NextResponse.json({
             success: true,
-            following: followingFids,
-            count: followingFids.length
+            followers: followerFids,
+            count: followerFids.length
           });
         }
       }
       
       // Try alternative endpoint
-      const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/following?fid=${fid}`, {
+      const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/followers?fid=${fid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -89,61 +113,37 @@ export async function GET(request: NextRequest) {
         const altData = await altResponse.json();
         
         if (altData && Array.isArray(altData.users)) {
-          const followingFids = altData.users.map((u: any) => u.fid);
+          const followerFids = altData.users.map((u: any) => u.fid);
           
           return NextResponse.json({
             success: true,
-            following: followingFids,
-            count: followingFids.length
+            followers: followerFids,
+            count: followerFids.length
           });
         }
       }
       
-      // If no following data found, return empty array
+      // If no follower data found, return empty array
       return NextResponse.json({
         success: true,
-        following: [],
+        followers: [],
         count: 0
       });
     } catch (error) {
-      console.error('Error fetching following from Hubble:', error);
+      console.error('Error fetching followers from Hubble:', error);
       
       // Return empty data if Hubble fetch fails
       return NextResponse.json({
         success: true,
-        following: [],
+        followers: [],
         count: 0
       });
     }
   } catch (error) {
-    console.error('Error in following API:', error);
+    console.error('Error in followers API:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch following list' },
+      { success: false, error: 'Failed to fetch followers list' },
       { status: 500 }
     );
   }
-}
-
-// Helper function to generate mock following list
-function generateMockFollowing(fid: string): number[] {
-  // For demo purposes, return a list of mock FIDs
-  // In a real implementation, this would be fetched from the Hubble node
-  
-  // Generate some "random" FIDs based on the user's FID
-  const fidNum = parseInt(fid);
-  const following = [
-    // Some well-known Farcaster accounts
-    2, // Varun
-    3, // Dan
-    // Add some "random" FIDs based on the user's FID
-    fidNum + 1000,
-    fidNum + 2000,
-    fidNum + 3000,
-    // Add some fixed FIDs for demonstration
-    1043300, // Example FID
-    1002,
-    1003
-  ];
-  
-  return following;
 } 

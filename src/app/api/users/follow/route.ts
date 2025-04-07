@@ -152,4 +152,60 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+// Check if a user follows another user
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const userFid = searchParams.get('userFid');
+    const targetFid = searchParams.get('targetFid');
+    
+    if (!userFid || !targetFid) {
+      return NextResponse.json(
+        { success: false, error: 'Both userFid and targetFid are required' },
+        { status: 400 }
+      );
+    }
+    
+    // Make sure the FIDs are numbers
+    const userFidNum = parseInt(userFid);
+    const targetFidNum = parseInt(targetFid);
+    
+    if (isNaN(userFidNum) || isNaN(targetFidNum)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid FID format' },
+        { status: 400 }
+      );
+    }
+    
+    // Load users data
+    const users = getUsers();
+    
+    // Find the user
+    const user = users.find((u: any) => u.fid === userFidNum);
+    
+    if (!user) {
+      return NextResponse.json(
+        { success: false, error: 'User not found' },
+        { status: 404 }
+      );
+    }
+    
+    // Check if the user follows the target
+    const isFollowing = user.following && 
+                       Array.isArray(user.following) && 
+                       user.following.includes(targetFidNum);
+    
+    return NextResponse.json({
+      success: true,
+      isFollowing: isFollowing || false
+    });
+  } catch (error) {
+    console.error('Error checking follow status:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to check follow status' },
+      { status: 500 }
+    );
+  }
 } 

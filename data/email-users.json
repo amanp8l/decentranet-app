@@ -10,11 +10,21 @@
     "provider": "email",
     "pfp": null,
     "bio": "I'm aman.patel, joined via email registration",
-    "followers": 0,
-    "following": 0,
+    "followers": [],
+    "following": [
+      1806866286
+    ],
     "verifications": [],
-    "authToken": "783f3eee-2e4c-4c58-8541-8f291372c948",
-    "createdAt": "2025-04-06T15:53:13.780Z"
+    "authToken": "8451ea21-b8dc-41a7-9776-6f14af5d1140",
+    "createdAt": "2025-04-06T15:53:13.780Z",
+    "stats": {
+      "postCount": 0,
+      "commentCount": 2,
+      "receivedUpvotes": 2,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 1,
+      "givenDownvotes": 0
+    }
   },
   {
     "id": "e9c19e4a-8de1-4095-bd54-1cf18380e89b",
@@ -27,10 +37,20 @@
     "provider": "email",
     "pfp": null,
     "bio": "I'm dewas, joined via email registration",
-    "followers": 0,
-    "following": 0,
+    "followers": [
+      5253980722
+    ],
+    "following": [],
     "verifications": [],
-    "authToken": "258f219d-5c5c-4d64-b573-368287928776",
-    "createdAt": "2025-04-07T12:40:41.863Z"
+    "authToken": "a9c4b889-9fb5-45ef-ad4e-c6f71043d340",
+    "createdAt": "2025-04-07T12:40:41.863Z",
+    "stats": {
+      "postCount": 0,
+      "commentCount": 2,
+      "receivedUpvotes": 0,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 1,
+      "givenDownvotes": 0
+    }
   }
 ]

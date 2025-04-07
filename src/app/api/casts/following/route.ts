@@ -34,6 +34,57 @@ function getUsers() {
   }
 }
 
+// Function to fetch user profile data
+async function fetchUserProfile(fid: number) {
+  try {
+    // First check local database
+    const users = getUsers();
+    const localUser = users.find((u: any) => u.fid === fid);
+    
+    if (localUser) {
+      return {
+        username: localUser.username || `user_${fid}`,
+        displayName: localUser.displayName || `User ${fid}`,
+        pfp: localUser.pfp || null
+      };
+    }
+    
+    // If not found locally, try to fetch from API
+    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    const response = await fetch(`${HUBBLE_HTTP_URL}/v1/userDataByFid?fid=${fid}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const userData = await response.json();
+      if (userData && userData.data) {
+        return {
+          username: userData.data.username || `user_${fid}`,
+          displayName: userData.data.displayName || `User ${fid}`,
+          pfp: userData.data.pfp || null
+        };
+      }
+    }
+    
+    // Fallback if no data is found
+    return {
+      username: `user_${fid}`,
+      displayName: `User ${fid}`,
+      pfp: null
+    };
+  } catch (error) {
+    console.error(`Error fetching user profile for FID ${fid}:`, error);
+    return {
+      username: `user_${fid}`,
+      displayName: `User ${fid}`,
+      pfp: null
+    };
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
@@ -64,14 +115,26 @@ export async function GET(request: NextRequest) {
       );
       
       if (followingCasts.length > 0) {
+        // Add author information to each cast
+        const castsWithAuthorInfo = await Promise.all(followingCasts.map(async (cast: any) => {
+          const authorInfo = await fetchUserProfile(cast.fid);
+          return {
+            ...cast,
+            data: {
+              ...cast.data,
+              author: authorInfo
+            }
+          };
+        }));
+        
         // Sort by timestamp, newest first
-        followingCasts.sort((a: any, b: any) => 
+        castsWithAuthorInfo.sort((a: any, b: any) => 
           (b.data?.timestamp || 0) - (a.data?.timestamp || 0)
         );
         
         return NextResponse.json({ 
           success: true, 
-          data: followingCasts,
+          data: castsWithAuthorInfo,
           source: 'local'
         });
       }
@@ -147,6 +210,9 @@ export async function GET(request: NextRequest) {
             return [];
           }
           
+          // Get user profile for this FID
+          const authorInfo = await fetchUserProfile(followedFid);
+          
           // Transform the cast data to our expected format
           return castsData.messages.map((msg: any) => {
             const castData = msg.data?.castAddBody;
@@ -159,7 +225,8 @@ export async function GET(request: NextRequest) {
                   : Date.now(),
                 mentions: castData?.mentions || [],
                 mentionsPositions: castData?.mentionsPositions || [],
-                embeds: castData?.embeds || []
+                embeds: castData?.embeds || [],
+                author: authorInfo
               }
             };
           }).filter((c: any) => c.data.text); // Only include casts with content
@@ -212,7 +279,7 @@ function generateMockCasts(fid: string): any[] {
   // Generate sample users that this FID might be following
   const followingFids = [2, 3, 1043300, 1002, 1003];
   
-  // Generate mock casts from these users
+  // Generate mock casts from these users with author information
   const mockCasts = [
     {
       fid: 2,
@@ -221,7 +288,12 @@ function generateMockCasts(fid: string): any[] {
         timestamp: Date.now() - 30000, // 30 seconds ago
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "alice_stellar",
+          displayName: "Alice Stellar",
+          pfp: null
+        }
       }
     },
     {
@@ -231,7 +303,12 @@ function generateMockCasts(fid: string): any[] {
         timestamp: Date.now() - 1800000, // 30 minutes ago
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "bob_crypto",
+          displayName: "Bob Crypto",
+          pfp: null
+        }
       }
     },
     {
@@ -241,7 +318,12 @@ function generateMockCasts(fid: string): any[] {
         timestamp: Date.now() - 3600000, // 1 hour ago
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "farcaster_team",
+          displayName: "Farcaster Team",
+          pfp: null
+        }
       }
     },
     {
@@ -251,7 +333,12 @@ function generateMockCasts(fid: string): any[] {
         timestamp: Date.now() - 7200000, // 2 hours ago
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "web3_dev",
+          displayName: "Web3 Developer",
+          pfp: null
+        }
       }
     },
     {
@@ -261,7 +348,12 @@ function generateMockCasts(fid: string): any[] {
         timestamp: Date.now() - 14400000, // 4 hours ago
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "crypto_enthusiast",
+          displayName: "Crypto Enthusiast",
+          pfp: null
+        }
       }
     }
   ];

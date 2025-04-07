@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { CastWithSocial } from '@/types/social';
 
-// Path to local casts database
+// Path to local casts, users, votes, and comments databases
 const CASTS_DB_PATH = path.join(process.cwd(), 'data', 'casts.json');
+const USER_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
+const VOTES_DB_PATH = path.join(process.cwd(), 'data', 'votes.json');
+const COMMENTS_DB_PATH = path.join(process.cwd(), 'data', 'comments.json');
 
 // Get casts from JSON file
 function getLocalCasts() {
@@ -19,182 +23,180 @@ function getLocalCasts() {
   }
 }
 
+// Get users from JSON file
+function getUsers() {
+  if (!fs.existsSync(USER_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(USER_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading users:', error);
+    return [];
+  }
+}
+
+// Get votes from JSON file
+function getVotes() {
+  if (!fs.existsSync(VOTES_DB_PATH)) {
+    fs.writeFileSync(VOTES_DB_PATH, JSON.stringify({}), 'utf8');
+    return {};
+  }
+  try {
+    const data = fs.readFileSync(VOTES_DB_PATH, 'utf8');
+    return JSON.parse(data || '{}');
+  } catch (error) {
+    console.error('Error reading votes:', error);
+    return {};
+  }
+}
+
+// Get comments from JSON file
+function getComments() {
+  if (!fs.existsSync(COMMENTS_DB_PATH)) {
+    fs.writeFileSync(COMMENTS_DB_PATH, JSON.stringify({}), 'utf8');
+    return {};
+  }
+  try {
+    const data = fs.readFileSync(COMMENTS_DB_PATH, 'utf8');
+    return JSON.parse(data || '{}');
+  } catch (error) {
+    console.error('Error reading comments:', error);
+    return {};
+  }
+}
+
+// Function to fetch user profile data
+async function fetchUserProfile(fid: number) {
+  try {
+    // First check local database
+    const users = getUsers();
+    const localUser = users.find((u: any) => u.fid === fid);
+    
+    if (localUser) {
+      return {
+        username: localUser.username || `user_${fid}`,
+        displayName: localUser.displayName || `User ${fid}`,
+        pfp: localUser.pfp || null
+      };
+    }
+    
+    // If not found locally, try to fetch from API
+    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    const response = await fetch(`${HUBBLE_HTTP_URL}/v1/userDataByFid?fid=${fid}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const userData = await response.json();
+      if (userData && userData.data) {
+        return {
+          username: userData.data.username || `user_${fid}`,
+          displayName: userData.data.displayName || `User ${fid}`,
+          pfp: userData.data.pfp || null
+        };
+      }
+    }
+    
+    // Fallback if no data is found
+    return {
+      username: `user_${fid}`,
+      displayName: `User ${fid}`,
+      pfp: null
+    };
+  } catch (error) {
+    console.error(`Error fetching user profile for FID ${fid}:`, error);
+    return {
+      username: `user_${fid}`,
+      displayName: `User ${fid}`,
+      pfp: null
+    };
+  }
+}
+
+// Add social data to casts
+function addSocialDataToCasts(casts: any[]) {
+  const votes = getVotes();
+  const comments = getComments();
+  
+  return casts.map(cast => {
+    const castId = cast.id;
+    const castVotes = votes[castId] || [];
+    const castComments = comments[castId] || [];
+    
+    return {
+      ...cast,
+      votes: castVotes,
+      commentCount: castComments.length,
+      comments: castComments.map((comment: { id: string }) => comment.id)
+    };
+  });
+}
+
 export async function GET(request: NextRequest) {
   try {
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     const searchParams = request.nextUrl.searchParams;
     const fid = searchParams.get('fid');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const authorInfoByFid = new Map();
     
-    // First try to get locally stored casts that match the query
-    const localCasts = getLocalCasts();
-    let filteredLocalCasts = localCasts;
+    // Get local casts
+    let localCasts = getLocalCasts();
     
-    // If a specific FID was provided, filter local casts for that user
+    // Filter by FID if requested
     if (fid) {
-      filteredLocalCasts = localCasts.filter((cast: any) => cast.fid === parseInt(fid));
+      localCasts = localCasts.filter((cast: any) => cast.fid === parseInt(fid));
     }
     
-    // If we have local casts that match the query, return them
-    if (filteredLocalCasts.length > 0) {
-      return NextResponse.json({ 
-        success: true, 
-        data: filteredLocalCasts,
-        source: 'local'
-      });
-    }
+    // Sort by timestamp, newest first
+    localCasts.sort((a: any, b: any) => {
+      const aTime = a.data?.timestamp || 0;
+      const bTime = b.data?.timestamp || 0;
+      return bTime - aTime;
+    });
     
-    // First check if the Hubble node is running and accessible
-    try {
-      // For Hubble v1.19.1, try fetching info endpoint
-      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+    // Add author information to each cast
+    const castsWithAuthorInfo = [];
+    
+    for (const cast of localCasts) {
+      let authorInfo;
       
-      if (infoResponse.ok) {
-        const infoData = await infoResponse.json();
-        console.log('Hubble node info:', infoData);
+      if (authorInfoByFid.has(cast.fid)) {
+        authorInfo = authorInfoByFid.get(cast.fid);
       } else {
-        console.log(`Hubble info endpoint check: ${infoResponse.status} ${infoResponse.statusText}`);
+        authorInfo = await fetchUserProfile(cast.fid);
+        authorInfoByFid.set(cast.fid, authorInfo);
       }
-    } catch (healthError) {
-      console.error('Failed to connect to Hubble node:', healthError);
       
-      // If the Hubble node is not accessible, return mock data
-      return NextResponse.json({ 
-        success: true, 
-        data: generateMockCasts(fid)
+      castsWithAuthorInfo.push({
+        ...cast,
+        data: {
+          ...cast.data,
+          author: authorInfo
+        }
       });
     }
     
-    // Try to fetch casts from the Hubble node
-    try {
-      // If a specific FID was provided, fetch casts for that user
-      if (fid) {
-        const response = await fetch(`${HUBBLE_HTTP_URL}/v1/castsByFid?fid=${fid}&pageSize=20`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          const castsData = await response.json();
-          
-          // Check if the response has the expected structure
-          if (castsData && Array.isArray(castsData.messages)) {
-            return NextResponse.json({ 
-              success: true, 
-              data: castsData.messages.map((msg: any) => {
-                const castData = msg.data?.castAddBody;
-                return {
-                  fid: msg.data?.fid || 0,
-                  data: {
-                    text: castData?.text || '',
-                    timestamp: msg.data?.timestamp 
-                      ? (msg.data.timestamp < 10000000000 ? msg.data.timestamp * 1000 : msg.data.timestamp)
-                      : Date.now(),
-                    mentions: castData?.mentions || [],
-                    mentionsPositions: castData?.mentionsPositions || [],
-                    embeds: castData?.embeds || []
-                  }
-                };
-              }).filter((c: any) => c.data.text) // Only include casts with content
-            });
-          }
-        }
-        
-        // If we couldn't get user casts, return mock data for that user
-        return NextResponse.json({ 
-          success: true, 
-          data: generateMockCasts(fid)
-        });
-      }
-      
-      // If no FID was provided, try to get trending casts
-      const trendingResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/trending-casts?limit=20`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (trendingResponse.ok) {
-        const trendingData = await trendingResponse.json();
-        
-        if (trendingData && Array.isArray(trendingData.casts)) {
-          return NextResponse.json({ 
-            success: true, 
-            data: trendingData.casts.map((cast: any) => ({
-              fid: cast.author?.fid || 0,
-              data: {
-                text: cast.text || '',
-                timestamp: new Date(cast.timestamp || Date.now()).getTime(),
-                mentions: cast.mentions || [],
-                mentionsPositions: cast.mentionsPositions || [],
-                embeds: cast.embeds || []
-              }
-            }))
-          });
-        }
-      }
-      
-      // Try to get latest casts if trending fails
-      const latestResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/castsByFid?fid=1043300&pageSize=20`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (latestResponse.ok) {
-        const latestData = await latestResponse.json();
-        
-        if (latestData && Array.isArray(latestData.messages)) {
-          return NextResponse.json({ 
-            success: true, 
-            data: latestData.messages.map((msg: any) => {
-              const castData = msg.data?.castAddBody;
-              return {
-                fid: msg.data?.fid || 0,
-                data: {
-                  text: castData?.text || '',
-                  timestamp: msg.data?.timestamp 
-                    ? (msg.data.timestamp < 10000000000 ? msg.data.timestamp * 1000 : msg.data.timestamp)
-                    : Date.now(),
-                  mentions: castData?.mentions || [],
-                  mentionsPositions: castData?.mentionsPositions || [],
-                  embeds: castData?.embeds || []
-                }
-              };
-            }).filter((c: any) => c.data.text) // Only include casts with content
-          });
-        }
-      }
-      
-      // If all API calls failed, throw an error to use fallback data
-      throw new Error('Could not fetch casts from Hubble node');
-      
-    } catch (fetchError) {
-      console.error('Error fetching casts from Hubble node:', fetchError);
-      
-      // Return mock data since we couldn't get real data
-      return NextResponse.json({ 
-        success: true, 
-        data: generateMockCasts(fid)
-      });
-    }
+    // Add social data (votes and comments)
+    const castsWithSocialData = addSocialDataToCasts(castsWithAuthorInfo);
+    
+    // Limit the number of casts returned
+    const limitedCasts = castsWithSocialData.slice(0, limit);
+    
+    return NextResponse.json({
+      success: true,
+      data: limitedCasts
+    });
   } catch (error) {
     console.error('Error in casts API:', error);
     
-    // Provide a helpful error message
     return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Failed to fetch casts. Make sure your Hubble node is running at http://localhost:2281'
-      },
+      { success: false, error: 'Failed to fetch casts' },
       { status: 500 }
     );
   }
@@ -204,35 +206,46 @@ export async function GET(request: NextRequest) {
 function generateMockCasts(fid: string | null): any[] {
   // If we have a specific FID, generate casts for that user
   if (fid) {
+    const fidNum = parseInt(fid);
+    // Create author info for this FID
+    const authorInfo = {
+      username: `user_${fidNum}`,
+      displayName: `User ${fidNum}`,
+      pfp: null
+    };
+    
     return [
       {
-        fid: parseInt(fid),
+        fid: fidNum,
         data: {
           text: `This is a mock cast from user with FID: ${fid}`,
           timestamp: Date.now(),
           mentions: [],
           mentionsPositions: [],
-          embeds: []
+          embeds: [],
+          author: authorInfo
         }
       },
       {
-        fid: parseInt(fid),
+        fid: fidNum,
         data: {
           text: `Another mock cast from FID: ${fid}. In a real app, this would show actual casts from this user.`,
           timestamp: Date.now() - 60000,
           mentions: [],
           mentionsPositions: [],
-          embeds: []
+          embeds: [],
+          author: authorInfo
         }
       },
       {
-        fid: parseInt(fid),
+        fid: fidNum,
         data: {
           text: `Warpcast integration example by FID: ${fid}`,
           timestamp: Date.now() - 120000,
           mentions: [],
           mentionsPositions: [],
-          embeds: []
+          embeds: [],
+          author: authorInfo
         }
       }
     ];
@@ -247,7 +260,12 @@ function generateMockCasts(fid: string | null): any[] {
         timestamp: Date.now(),
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "farcaster_team",
+          displayName: "Farcaster Team",
+          pfp: null
+        }
       }
     },
     {
@@ -257,7 +275,12 @@ function generateMockCasts(fid: string | null): any[] {
         timestamp: Date.now() - 60000,
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "network_updates",
+          displayName: "Network Updates",
+          pfp: null
+        }
       }
     },
     {
@@ -267,7 +290,12 @@ function generateMockCasts(fid: string | null): any[] {
         timestamp: Date.now() - 120000,
         mentions: [],
         mentionsPositions: [],
-        embeds: []
+        embeds: [],
+        author: {
+          username: "guide_bot",
+          displayName: "Guide Bot",
+          pfp: null
+        }
       }
     }
   ];

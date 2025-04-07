@@ -31,7 +31,7 @@ interface UserContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (provider: string, address?: string, email?: string, password?: string, isRegister?: boolean) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -161,8 +161,24 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
   
   // Logout function
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    try {
+      // Only call the logout API if we have a user and an auth token
+      if (user?.authToken) {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.authToken}`
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      // Clear user state regardless of API success/failure
+      setUser(null);
+    }
   };
   
   return (

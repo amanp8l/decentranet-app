@@ -5,6 +5,7 @@ import CastFeed from '@/components/CastFeed';
 import CastForm from '@/components/CastForm';
 import LoginOptions from '@/components/LoginOptions';
 import UserProfile from '@/components/UserProfile';
+import UserMenu from '@/components/UserMenu';
 import { useUser } from '@/context/UserContext';
 
 export default function Home() {
@@ -47,9 +48,12 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col p-4 md:p-8 max-w-3xl mx-auto">
       {/* App Title */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">DecentraNet</h1>
-        <p className="text-gray-600">The DeSci-centric SocialFi platform for verified expertise</p>
+      <div className="mb-6 flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">DecentraNet</h1>
+          <p className="text-gray-600">The DeSci-centric SocialFi platform for verified expertise</p>
+        </div>
+        {isAuthenticated && <UserMenu />}
       </div>
       
       {/* Login Section - Only show when user is not logged in */}

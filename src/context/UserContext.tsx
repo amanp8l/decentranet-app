@@ -139,9 +139,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             authToken: data.user.authToken
           };
         }
-      } else if (provider === 'farcaster') {
-        // Placeholder for Farcaster authentication
-        console.log('Farcaster authentication not implemented yet');
       } else if (provider === 'wallet') {
         // Placeholder for wallet authentication
         console.log('Wallet authentication not implemented yet');

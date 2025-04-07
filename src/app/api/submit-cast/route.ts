@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Ensure we have a valid FID at this point, either from the request or from auth
+    // Ensure we have a valid FID at this point
     if (!userFid) {
       return NextResponse.json(
         { success: false, error: 'No valid FID provided' },
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Connect to Hubble node to submit the cast
+    // Try to connect to Hubble node (if available)
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     
     // First check if the Hubble node is running

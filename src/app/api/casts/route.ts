@@ -240,7 +240,7 @@ function generateMockCasts(fid: string | null): any[] {
       {
         fid: fidNum,
         data: {
-          text: `Warpcast integration example by FID: ${fid}`,
+          text: `Example social post from user ID: ${fid}`,
           timestamp: Date.now() - 120000,
           mentions: [],
           mentionsPositions: [],

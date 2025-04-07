@@ -24,9 +24,6 @@ export async function POST(request: NextRequest) {
       // If there's no request body, continue with the default address
     }
     
-    // Simulate checking if this wallet is linked to a Farcaster account
-    // In a real implementation, we would query the Farcaster registry contract
-    
     // Get host from headers instead of window (which is browser-only)
     const host = request.headers.get('host') || 'localhost';
     
@@ -42,8 +39,8 @@ export async function POST(request: NextRequest) {
         fid: 54321,
         pfp: `https://api.dicebear.com/7.x/identicon/svg?seed=${walletAddress}`,
         bio: walletType === 'metamask' ? 
-          'Farcaster account connected via MetaMask' : 
-          'Farcaster account connected via Ethereum wallet',
+          'Web3 account connected via MetaMask' : 
+          'Web3 account connected via Ethereum wallet',
         followers: 89,
         following: 203,
         verifications: [

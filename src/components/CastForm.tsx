@@ -28,6 +28,17 @@ export default function CastForm() {
       setSubmitting(true);
       setSuccess(false);
       
+      // Parse @mentions from the message text
+      const mentionRegex = /@(\w+)/g;
+      const mentions: number[] = [];
+      const mentionsPositions: number[] = [];
+      
+      let match;
+      while ((match = mentionRegex.exec(message)) !== null) {
+        mentions.push(parseInt(match[1]) || 0); // If parse fails, use 0
+        mentionsPositions.push(match.index);
+      }
+      
       // Use the real auth token if available from the user context
       const authToken = user.authToken || user.id;
       
@@ -40,8 +51,8 @@ export default function CastForm() {
         body: JSON.stringify({ 
           text: message,
           fid: user.fid,
-          // Include any mentions parsed from the message
-          mentions: message.match(/@(\w+)/g)?.map(m => m.substring(1)) || []
+          mentions,
+          mentionsPositions
         }),
       });
 
@@ -50,6 +61,12 @@ export default function CastForm() {
       if (result.success) {
         setSuccess(true);
         setMessage('');
+        
+        // Trigger a feed reload after a successful cast
+        // We can use a small timeout to allow the backend to process
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('feed-update'));
+        }, 500);
       } else {
         setError(result.error || 'Failed to submit cast');
       }

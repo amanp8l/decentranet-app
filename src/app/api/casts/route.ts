@@ -1,10 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+// Path to local casts database
+const CASTS_DB_PATH = path.join(process.cwd(), 'data', 'casts.json');
+
+// Get casts from JSON file
+function getLocalCasts() {
+  if (!fs.existsSync(CASTS_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(CASTS_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading local casts:', error);
+    return [];
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     const searchParams = request.nextUrl.searchParams;
     const fid = searchParams.get('fid');
+    
+    // First try to get locally stored casts that match the query
+    const localCasts = getLocalCasts();
+    let filteredLocalCasts = localCasts;
+    
+    // If a specific FID was provided, filter local casts for that user
+    if (fid) {
+      filteredLocalCasts = localCasts.filter((cast: any) => cast.fid === parseInt(fid));
+    }
+    
+    // If we have local casts that match the query, return them
+    if (filteredLocalCasts.length > 0) {
+      return NextResponse.json({ 
+        success: true, 
+        data: filteredLocalCasts,
+        source: 'local'
+      });
+    }
     
     // First check if the Hubble node is running and accessible
     try {

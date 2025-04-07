@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
 
@@ -29,7 +29,7 @@ interface CastFeedProps {
 export default function CastFeed({ userFid }: CastFeedProps = {}) {
   const { user } = useUser();
   const [casts, setCasts] = useState<Cast[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [feedTitle, setFeedTitle] = useState("Recent Casts");
   const [viewingFid, setViewingFid] = useState<number | null>(null);
@@ -51,85 +51,62 @@ export default function CastFeed({ userFid }: CastFeedProps = {}) {
     fetchCasts();
   }, [userFid, activeTab]);
 
-  const fetchCasts = async () => {
+  // Function to fetch casts
+  const fetchCasts = useCallback(async () => {
+    setIsLoading(true);
+    
     try {
-      setLoading(true);
-      setError(null);
+      let endpoint = '/api/casts';
       
-      // Determine which API endpoint to call based on the active tab
-      let url = '/api/casts';
-      
+      // If viewing a specific user's feed
       if (viewingFid) {
-        // If viewing a specific user's feed, always use the standard endpoint with fid param
-        url += `?fid=${viewingFid}`;
-      } else if (activeTab === 'following' && user?.fid) {
-        // For following feed, use the following-specific endpoint
-        url = `/api/casts/following?fid=${user.fid}`;
+        endpoint += `?fid=${viewingFid}`;
+      } 
+      // If viewing the following feed
+      else if (activeTab === 'following' && user) {
+        endpoint = `/api/casts/following?fid=${user.fid}`;
       }
       
-      console.log(`Fetching casts from: ${url}`);
-      const response = await fetch(url);
+      const response = await fetch(endpoint);
       
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Failed to fetch casts:', errorText);
-        throw new Error('Failed to load casts from server');
+        throw new Error(`Failed to fetch casts: ${response.status}`);
       }
       
-      const result = await response.json();
-
-      if (result.success) {
-        // Fetch author information for each cast
-        const castsWithAuthors = await Promise.all(
-          result.data.map(async (cast: Cast) => {
-            try {
-              if (!cast.fid) {
-                return cast;
-              }
-              
-              const authorResponse = await fetch(`/api/users/${cast.fid}`);
-              
-              if (!authorResponse.ok) {
-                console.warn(`Couldn't fetch author for FID ${cast.fid}`, await authorResponse.text());
-                return cast;
-              }
-              
-              const authorData = await authorResponse.json();
-              
-              if (authorData.success && authorData.user) {
-                return {
-                  ...cast,
-                  data: {
-                    ...cast.data,
-                    author: {
-                      username: authorData.user.username,
-                      displayName: authorData.user.displayName,
-                      pfp: authorData.user.pfp
-                    }
-                  }
-                };
-              }
-              
-              return cast;
-            } catch (error) {
-              console.error(`Failed to fetch author for cast with FID ${cast.fid}:`, error);
-              return cast;
-            }
-          })
-        );
-        
-        setCasts(castsWithAuthors);
+      const data = await response.json();
+      
+      if (data.success && Array.isArray(data.data)) {
+        setCasts(data.data);
       } else {
-        throw new Error(result.error || 'Failed to load casts');
+        console.error('Invalid response format:', data);
+        setCasts([]);
       }
     } catch (error) {
       console.error('Error fetching casts:', error);
-      setError(error instanceof Error ? error.message : 'An unknown error occurred');
+      setCasts([]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  };
+  }, [viewingFid, activeTab, user]);
+
+  // Fetch casts when the component mounts or when dependencies change
+  useEffect(() => {
+    fetchCasts();
+  }, [fetchCasts]);
   
+  // Listen for feed-update events
+  useEffect(() => {
+    const handleFeedUpdate = () => {
+      fetchCasts();
+    };
+    
+    window.addEventListener('feed-update', handleFeedUpdate);
+    
+    return () => {
+      window.removeEventListener('feed-update', handleFeedUpdate);
+    };
+  }, [fetchCasts]);
+
   // Function to switch between tabs
   const switchTab = (tab: 'recent' | 'following') => {
     if (activeTab !== tab) {
@@ -226,14 +203,14 @@ export default function CastFeed({ userFid }: CastFeedProps = {}) {
         </div>
       )}
       
-      {loading && casts.length === 0 && (
+      {isLoading && casts.length === 0 && (
         <div className="p-4 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-600 mx-auto"></div>
           <p className="mt-2 text-gray-600">Loading casts...</p>
         </div>
       )}
       
-      {loading && casts.length > 0 && (
+      {isLoading && casts.length > 0 && (
         <div className="bg-blue-50 p-2 rounded text-center text-blue-700 text-sm mb-4">
           Refreshing...
         </div>
@@ -245,7 +222,7 @@ export default function CastFeed({ userFid }: CastFeedProps = {}) {
         </div>
       )}
       
-      {!loading && casts.length === 0 ? (
+      {!isLoading && casts.length === 0 ? (
         <div className="text-center p-8 bg-gray-50 rounded-lg border border-gray-200">
           <p className="text-gray-500 mb-2">
             {activeTab === 'following' 

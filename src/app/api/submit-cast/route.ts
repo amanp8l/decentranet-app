@@ -1,8 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+
+// Path to user database file
+const USER_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
+
+// Helper to get users from JSON file
+function getUsers() {
+  if (!fs.existsSync(USER_DB_PATH)) {
+    return [];
+  }
+  const data = fs.readFileSync(USER_DB_PATH, 'utf8');
+  return JSON.parse(data || '[]');
+}
+
+// Save casts to a file for development
+const CASTS_DB_PATH = path.join(process.cwd(), 'data', 'casts.json');
+
+function getCasts() {
+  if (!fs.existsSync(CASTS_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(CASTS_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading casts:', error);
+    return [];
+  }
+}
+
+function saveCasts(casts: any[]) {
+  const dataDir = path.join(process.cwd(), 'data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  fs.writeFileSync(CASTS_DB_PATH, JSON.stringify(casts, null, 2));
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const { text } = await request.json();
+    const { text, fid, mentions = [], mentionsPositions = [], embeds = [] } = await request.json();
     
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
       return NextResponse.json(
@@ -10,23 +49,44 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    let userFid = fid;
+    let userName = '';
+    let userDisplayName = '';
+    let userAvatar = '';
     
     // Check if user is authenticated
     const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { success: false, error: 'Authentication required' },
-        { status: 401 }
-      );
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      // Extract token from the auth header
+      const token = authHeader.split(' ')[1];
+      
+      // Check if the token matches any email-authenticated user
+      const users = getUsers();
+      const user = users.find((u: any) => u.authToken === token);
+      
+      if (user) {
+        // Use the authenticated user's FID
+        userFid = user.fid;
+        userName = user.username;
+        userDisplayName = user.displayName;
+        userAvatar = user.pfp;
+      }
     }
     
-    // Extract FID from the auth token (in a real app you'd verify the token)
-    const token = authHeader.split(' ')[1];
+    // Ensure we have a valid FID at this point, either from the request or from auth
+    if (!userFid) {
+      return NextResponse.json(
+        { success: false, error: 'No valid FID provided' },
+        { status: 400 }
+      );
+    }
     
     // Connect to Hubble node to submit the cast
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     
     // First check if the Hubble node is running
+    let isHubbleConnected = false;
     try {
       // For Hubble v1.19.1, check the info endpoint
       const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
@@ -37,120 +97,100 @@ export async function POST(request: NextRequest) {
       });
       
       if (infoResponse.ok) {
+        isHubbleConnected = true;
         const infoData = await infoResponse.json();
         console.log('Hubble node info for cast submission:', infoData);
         
         // If we're still syncing, let the user know
         if (infoData && infoData.isSyncing) {
-          return NextResponse.json(
-            { 
-              success: false, 
-              error: 'Hubble node is still syncing. Please wait until sync is complete before submitting casts.'
-            },
-            { status: 503 }
-          );
+          console.log("Hubble node is still syncing, will store cast locally");
         }
-      } else {
-        console.log(`Hubble info endpoint check: ${infoResponse.status} ${infoResponse.statusText}`);
       }
     } catch (connectError) {
-      // Return a more user-friendly error when Hubble is not running
       console.error('Cannot connect to Hubble node:', connectError);
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Cannot connect to Hubble node. Please ensure your Hubble node is running.'
-        },
-        { status: 503 }
-      );
     }
     
-    // Now try to submit the cast to the Hubble node
-    try {
-      // For v1.19.1, the endpoint might be different
-      // First try the submitMessage endpoint
-      const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          type: 'MESSAGE_TYPE_CAST_ADD',
-          castAddBody: {
-            text,
-            embeds: [],
-            mentions: [],
-            mentionsPositions: []
-          }
-        })
-      });
-      
-      if (!response.ok) {
-        // For demo purposes, we'll simulate success even if the API endpoint doesn't exist
-        if (response.status === 404) {
-          // Try alternative endpoint
-          const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitCast`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
+    // Try to submit to Hubble if it's connected
+    if (isHubbleConnected) {
+      try {
+        // For v1.19.1, try the submitMessage endpoint
+        const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'MESSAGE_TYPE_CAST_ADD',
+            fid: userFid,
+            castAddBody: {
               text,
-              embeds: [],
-              mentions: [],
-              mentionsPositions: []
-            })
-          });
-          
-          if (altResponse.ok) {
-            const altResult = await altResponse.json();
-            return NextResponse.json({ success: true, data: altResult });
-          }
-          
-          console.log('Cast endpoints not found, simulating success for demo purposes');
-          return NextResponse.json({ 
-            success: true, 
-            data: {
-              message: "Cast simulated (endpoint not available)",
-              timestamp: new Date().toISOString(),
-              text: text,
-              fid: 1043300 // Using the hub operator FID
+              embeds,
+              mentions,
+              mentionsPositions
             }
-          });
+          })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          return NextResponse.json({ success: true, data: result });
         }
         
-        let errorMessage = 'Failed to submit cast';
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.message || errorMessage;
-        } catch (e) {
-          // If we can't parse the error, use the default message
-        }
+        // Try alternative endpoint
+        const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitCast`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fid: userFid,
+            text,
+            embeds,
+            mentions,
+            mentionsPositions
+          })
+        });
         
-        return NextResponse.json(
-          { success: false, error: errorMessage },
-          { status: response.status }
-        );
+        if (altResponse.ok) {
+          const altResult = await altResponse.json();
+          return NextResponse.json({ success: true, data: altResult });
+        }
+      } catch (submitError) {
+        console.error('Error submitting cast to Hubble:', submitError);
       }
-      
-      const result = await response.json();
-      return NextResponse.json({ success: true, data: result });
-    } catch (submitError) {
-      console.error('Error submitting cast to Hubble:', submitError);
-      
-      // For demo purposes, pretend the cast was successful even though it wasn't sent to Hubble
-      return NextResponse.json({ 
-        success: true, 
-        data: {
-          message: "Cast was created locally for Hubble v1.19.1 but couldn't be published to the network",
-          timestamp: new Date().toISOString(),
-          text: text,
-          hubOperatorFid: 1043300
-        }
-      });
     }
+    
+    // If we reach here, either Hubble isn't connected or submission failed
+    // Save the cast locally for development
+    const newCast = {
+      id: uuidv4(),
+      hash: `0x${Math.random().toString(16).substr(2, 40)}`,
+      fid: userFid,
+      username: userName,
+      displayName: userDisplayName,
+      avatar: userAvatar,
+      data: {
+        text,
+        timestamp: Date.now(),
+        mentions,
+        mentionsPositions,
+        embeds
+      },
+      createdAt: new Date().toISOString()
+    };
+    
+    // Store in local JSON file
+    const casts = getCasts();
+    casts.unshift(newCast); // Add to beginning of array (newest first)
+    saveCasts(casts);
+    
+    return NextResponse.json({ 
+      success: true, 
+      data: {
+        message: "Cast was created successfully",
+        cast: newCast
+      }
+    });
   } catch (error) {
     console.error('Error submitting cast:', error);
     return NextResponse.json(

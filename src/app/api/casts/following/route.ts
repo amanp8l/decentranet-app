@@ -1,4 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+// Path to local casts and users databases
+const CASTS_DB_PATH = path.join(process.cwd(), 'data', 'casts.json');
+const USER_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
+
+// Get casts from JSON file
+function getLocalCasts() {
+  if (!fs.existsSync(CASTS_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(CASTS_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading local casts:', error);
+    return [];
+  }
+}
+
+// Get users from JSON file
+function getUsers() {
+  if (!fs.existsSync(USER_DB_PATH)) {
+    return [];
+  }
+  try {
+    const data = fs.readFileSync(USER_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+  } catch (error) {
+    console.error('Error reading users:', error);
+    return [];
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,10 +41,40 @@ export async function GET(request: NextRequest) {
     const fid = searchParams.get('fid');
     
     if (!fid) {
-      return NextResponse.json({
-        success: false,
-        error: 'Missing fid parameter'
-      }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'FID is required' },
+        { status: 400 }
+      );
+    }
+    
+    // First try to get user's following list from local storage
+    const users = getUsers();
+    const currentUser = users.find((u: any) => u.fid === parseInt(fid));
+    
+    // Get local casts
+    const localCasts = getLocalCasts();
+    
+    // If we have a local user with following data, use it
+    if (currentUser && currentUser.following && Array.isArray(currentUser.following) && currentUser.following.length > 0) {
+      const followingFids = currentUser.following;
+      
+      // Filter local casts by following FIDs
+      const followingCasts = localCasts.filter((cast: any) => 
+        followingFids.includes(cast.fid) || cast.fid === parseInt(fid)
+      );
+      
+      if (followingCasts.length > 0) {
+        // Sort by timestamp, newest first
+        followingCasts.sort((a: any, b: any) => 
+          (b.data?.timestamp || 0) - (a.data?.timestamp || 0)
+        );
+        
+        return NextResponse.json({ 
+          success: true, 
+          data: followingCasts,
+          source: 'local'
+        });
+      }
     }
     
     // First check if the Hubble node is running and accessible

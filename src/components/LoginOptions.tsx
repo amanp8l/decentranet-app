@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { createWalletClient, custom, http } from 'viem';
+import EmailLoginForm from './EmailLoginForm';
 
 interface LoginProps {
-  onLogin: (provider: string, address?: string) => void;
+  onLogin: (provider: string, address?: string, email?: string, password?: string, isRegister?: boolean) => void;
 }
 
 export default function LoginOptions({ onLogin }: LoginProps) {
@@ -15,6 +16,7 @@ export default function LoginOptions({ onLogin }: LoginProps) {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeTab, setActiveTab] = useState<'warpcast' | 'email'>('warpcast');
 
   // Detect if user is on mobile
   useEffect(() => {
@@ -258,152 +260,183 @@ export default function LoginOptions({ onLogin }: LoginProps) {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-      <h2 className="text-xl font-bold mb-4">Connect to Farcaster</h2>
-      <p className="text-gray-600 mb-6">
-        {isMobile 
-          ? "Tap the button below to open Warpcast and login"
-          : "Scan the QR code with your Warpcast app to login with your Farcaster account"
-        }
-      </p>
-      
-      {qrCode ? (
-        <div className="flex flex-col items-center mb-6">
-          {statusMessage && (
-            <p className="text-sm text-gray-700 mb-3">{statusMessage}</p>
-          )}
+      <div className="mb-6">
+        <div className="flex border-b border-gray-200">
+          <button 
+            onClick={() => setActiveTab('warpcast')}
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'warpcast' 
+                ? 'border-b-2 border-purple-600 text-purple-600' 
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Warpcast
+          </button>
+          <button 
+            onClick={() => setActiveTab('email')}
+            className={`py-2 px-4 font-medium text-sm ${
+              activeTab === 'email' 
+                ? 'border-b-2 border-purple-600 text-purple-600' 
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Email
+          </button>
+        </div>
+      </div>
+
+      {activeTab === 'email' ? (
+        <EmailLoginForm onLogin={onLogin} />
+      ) : (
+        <>
+          <h2 className="text-xl font-bold mb-4">Connect to Farcaster</h2>
+          <p className="text-gray-600 mb-6">
+            {isMobile 
+              ? "Tap the button below to open Warpcast and login"
+              : "Scan the QR code with your Warpcast app to login with your Farcaster account"
+            }
+          </p>
           
-          {!isMobile && (
-            <div className="w-64 h-64 bg-gray-100 flex items-center justify-center border border-gray-300">
-              <Image 
-                src={qrCode} 
-                alt="Warpcast Login QR Code"
-                width={250}
-                height={250}
-                unoptimized={true}
-              />
+          {qrCode ? (
+            <div className="flex flex-col items-center mb-6">
+              {statusMessage && (
+                <p className="text-sm text-gray-700 mb-3">{statusMessage}</p>
+              )}
+              
+              {!isMobile && (
+                <div className="w-64 h-64 bg-gray-100 flex items-center justify-center border border-gray-300">
+                  <Image 
+                    src={qrCode} 
+                    alt="Warpcast Login QR Code"
+                    width={250}
+                    height={250}
+                    unoptimized={true}
+                  />
+                </div>
+              )}
+              
+              <div className="flex flex-col space-y-2 mt-4">
+                <a 
+                  href={authUrl || '#'} 
+                  className="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                  </svg>
+                  Sign in with Warpcast
+                </a>
+                
+                <button
+                  onClick={() => {
+                    if (authUrl) {
+                      window.location.href = authUrl;
+                    }
+                  }}
+                  className="mt-2 text-purple-600 hover:text-purple-800 flex items-center justify-center"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                  Open in this window instead
+                </button>
+                
+                {qrCode && process.env.NODE_ENV !== 'production' && (
+                  <button
+                    onClick={() => {
+                      const storedNonce = sessionStorage.getItem('warpcast_auth_nonce');
+                      if (storedNonce) {
+                        debugLocalAuth(storedNonce);
+                      }
+                    }}
+                    className="mt-2 text-red-600 hover:text-red-800 flex items-center justify-center border border-red-300 px-2 py-1 rounded-md"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    Debug: Complete Auth (Local Dev Only)
+                  </button>
+                )}
+              </div>
+              
+              <div className="mt-6 text-center">
+                <p className="text-xs text-gray-500 mb-2">Having trouble connecting?</p>
+                <button
+                  onClick={() => {
+                    // Use demo login as fallback
+                    fetch('/api/auth/farcaster', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ useDemoAccount: true }),
+                    })
+                    .then(response => {
+                      if (response.ok) {
+                        onLogin('farcaster');
+                      }
+                    });
+                  }}
+                  className="text-purple-600 text-sm hover:underline"
+                >
+                  Use demo account instead
+                </button>
+              </div>
+              
+              <button
+                onClick={resetAuth}
+                className="mt-4 text-purple-600 hover:text-purple-800 text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <button
+                onClick={startWarpcastLogin}
+                disabled={isLoading}
+                className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-purple-50 transition-colors disabled:opacity-50"
+              >
+                <div className="flex items-center">
+                  <div className="bg-purple-600 w-8 h-8 rounded-md flex items-center justify-center text-white mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="font-medium">Warpcast App</span>
+                    <p className="text-xs text-gray-500">Connect with your Farcaster account</p>
+                  </div>
+                </div>
+                {isLoading ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-purple-600"></div>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                )}
+              </button>
             </div>
           )}
           
-          <div className="flex flex-col space-y-2 mt-4">
-            <a 
-              href={authUrl || '#'} 
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-              </svg>
-              Sign in with Warpcast
-            </a>
-            
-            <button
-              onClick={() => {
-                if (authUrl) {
-                  window.location.href = authUrl;
-                }
-              }}
-              className="mt-2 text-purple-600 hover:text-purple-800 flex items-center justify-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-              </svg>
-              Open in this window instead
-            </button>
-            
-            {qrCode && process.env.NODE_ENV !== 'production' && (
+          {statusMessage && statusMessage.includes("failed") && (
+            <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+              {statusMessage}
               <button
-                onClick={() => {
-                  const storedNonce = sessionStorage.getItem('warpcast_auth_nonce');
-                  if (storedNonce) {
-                    debugLocalAuth(storedNonce);
-                  }
-                }}
-                className="mt-2 text-red-600 hover:text-red-800 flex items-center justify-center border border-red-300 px-2 py-1 rounded-md"
+                onClick={resetAuth}
+                className="ml-2 text-red-700 hover:text-red-900 underline"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-1">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                </svg>
-                Debug: Complete Auth (Local Dev Only)
+                Try again
               </button>
-            )}
-          </div>
+            </div>
+          )}
           
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500 mb-2">Having trouble connecting?</p>
-            <button
-              onClick={() => {
-                // Use demo login as fallback
-                fetch('/api/auth/farcaster', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ useDemoAccount: true }),
-                })
-                .then(response => {
-                  if (response.ok) {
-                    onLogin('farcaster');
-                  }
-                });
-              }}
-              className="text-purple-600 text-sm hover:underline"
-            >
-              Use demo account instead
-            </button>
+            <a href="https://docs.farcaster.xyz/auth-kit/warpcast-auth" target="_blank" rel="noopener noreferrer" className="text-purple-600 text-sm hover:underline">
+              Learn more about Warpcast Login
+            </a>
           </div>
-          
-          <button
-            onClick={resetAuth}
-            className="mt-4 text-purple-600 hover:text-purple-800 text-sm"
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          <button
-            onClick={startWarpcastLogin}
-            disabled={isLoading}
-            className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-purple-50 transition-colors disabled:opacity-50"
-          >
-            <div className="flex items-center">
-              <div className="bg-purple-600 w-8 h-8 rounded-md flex items-center justify-center text-white mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-medium">Warpcast App</span>
-                <p className="text-xs text-gray-500">Connect with your Farcaster account</p>
-              </div>
-            </div>
-            {isLoading ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-purple-600"></div>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-400">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            )}
-          </button>
-        </div>
+        </>
       )}
-      
-      {statusMessage && statusMessage.includes("failed") && (
-        <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
-          {statusMessage}
-          <button
-            onClick={resetAuth}
-            className="ml-2 text-red-700 hover:text-red-900 underline"
-          >
-            Try again
-          </button>
-        </div>
-      )}
-      
-      <div className="mt-6 text-center">
-        <a href="https://docs.farcaster.xyz/auth-kit/warpcast-auth" target="_blank" rel="noopener noreferrer" className="text-purple-600 text-sm hover:underline">
-          Learn more about Warpcast Login
-        </a>
-      </div>
     </div>
   );
 } 

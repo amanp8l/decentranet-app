@@ -33,7 +33,7 @@ interface UserContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (provider: string, address?: string) => Promise<void>;
+  login: (provider: string, address?: string, email?: string, password?: string, isRegister?: boolean) => Promise<void>;
   logout: () => void;
 }
 
@@ -91,7 +91,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     checkExistingSession();
   }, []);
 
-  const login = async (provider: string, address?: string) => {
+  const login = async (provider: string, address?: string, email?: string, password?: string, isRegister?: boolean) => {
     setIsLoading(true);
     
     try {
@@ -198,6 +198,46 @@ export function UserProvider({ children }: { children: ReactNode }) {
             authToken: data.user.authToken,
             walletData: data.user.walletData,
             signedMessage: data.user.signedMessage
+          };
+        }
+      } else if (provider === 'email') {
+        // Authenticate with email/password
+        if (!email || !password) {
+          throw new Error('Email and password are required');
+        }
+        
+        const response = await fetch('/api/auth/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            action: isRegister ? 'register' : 'login'
+          })
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to authenticate with email/password');
+        }
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          userData = {
+            id: data.user.id,
+            username: data.user.username,
+            displayName: data.user.displayName,
+            fid: data.user.fid,
+            provider: 'email',
+            avatar: data.user.pfp || undefined,
+            bio: data.user.bio,
+            followers: data.user.followers,
+            following: data.user.following,
+            verifications: data.user.verifications,
+            authToken: data.user.authToken
           };
         }
       }

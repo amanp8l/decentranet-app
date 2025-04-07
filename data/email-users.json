@@ -1,0 +1,36 @@
+[
+  {
+    "id": "85227d42-3dc4-46f4-8261-e68e6017d8a5",
+    "email": "aman.patel@kareai.io",
+    "passwordHash": "5ee2ed002c62d05a486cf75e4e1bfc5f7029c56a8df98f59df4f16ee3b6d741fcfd6dbccf083927906fbee871302a5d689e864cb5a84abf2d39d7bf31eb8842e",
+    "passwordSalt": "dd383e67e76656a5fb8f9ea08e6dcecc",
+    "username": "amanpatel",
+    "displayName": "aman.patel",
+    "fid": 5253980722,
+    "provider": "email",
+    "pfp": null,
+    "bio": "I'm aman.patel, joined via email registration",
+    "followers": 0,
+    "following": 0,
+    "verifications": [],
+    "authToken": "783f3eee-2e4c-4c58-8541-8f291372c948",
+    "createdAt": "2025-04-06T15:53:13.780Z"
+  },
+  {
+    "id": "e9c19e4a-8de1-4095-bd54-1cf18380e89b",
+    "email": "dewas@gmail.com",
+    "passwordHash": "1bf0d054df1ebcd20475f32931b929f1dc5f742c93f67b80232b696b587a277fcd76c8a15fc490c020cad30e6dc4cf911ac1d7a405fdc0b2a9e7cbac3940cedb",
+    "passwordSalt": "54ee67ff71ff1b3e77ee31a3b55ddde9",
+    "username": "dewas",
+    "displayName": "dewas",
+    "fid": 1806866286,
+    "provider": "email",
+    "pfp": null,
+    "bio": "I'm dewas, joined via email registration",
+    "followers": 0,
+    "following": 0,
+    "verifications": [],
+    "authToken": "258f219d-5c5c-4d64-b573-368287928776",
+    "createdAt": "2025-04-07T12:40:41.863Z"
+  }
+]

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
+import { formatText } from '@/utils/textFormatting';
 
 interface CastData {
   text: string;
@@ -144,7 +145,7 @@ const CommentItem = ({
               })}
             </span>
           </div>
-          <p className="text-sm mt-1">{comment.text}</p>
+          <div className="text-sm mt-1">{formatText(comment.text, onViewProfile)}</div>
           
           {/* Comment actions */}
           <div className="flex items-center mt-2 text-xs text-gray-500 space-x-4">
@@ -738,7 +739,7 @@ export default function CastFeed({ userFid, onViewProfile }: CastFeedProps) {
               </div>
               
               {/* Cast content */}
-              <p className="mt-2 whitespace-pre-wrap">{cast.data?.text || 'No content'}</p>
+              <div className="mt-2 whitespace-pre-wrap">{formatText(cast.data?.text || 'No content', onViewProfile)}</div>
               
               {/* Cast timestamp */}
               <p className="text-gray-500 text-sm mt-2">

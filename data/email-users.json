@@ -47,10 +47,10 @@
     "stats": {
       "postCount": 0,
       "commentCount": 2,
-      "receivedUpvotes": 0,
-      "receivedDownvotes": 0,
-      "givenUpvotes": 1,
-      "givenDownvotes": 0
+      "receivedUpvotes": 2,
+      "receivedDownvotes": 1,
+      "givenUpvotes": 3,
+      "givenDownvotes": 1
     }
   }
 ]

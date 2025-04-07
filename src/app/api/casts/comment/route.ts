@@ -258,7 +258,7 @@ export async function POST(request: NextRequest) {
     comments[castId] = castComments;
     saveComments(comments);
     
-    // Update user stats
+    // Update user stats - count both regular comments and replies for points
     updateUserCommentStats(authorFid);
     
     // Get author information

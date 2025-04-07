@@ -48,8 +48,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col p-4 md:p-8 max-w-3xl mx-auto">
       {/* App Title */}
       <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Farcaster Social UI</h1>
-        <p className="text-gray-600">A minimal interface for the Farcaster social network</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">DecentraNet</h1>
+        <p className="text-gray-600">The DeSci-centric SocialFi platform for verified expertise</p>
       </div>
       
       {/* Login Section - Only show when user is not logged in */}

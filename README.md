@@ -1,4 +1,4 @@
-# Farcaster Social UI
+# DecentraNet
 
 A decentralized social media application that connects to a Hubble node (Farcaster protocol node).
 

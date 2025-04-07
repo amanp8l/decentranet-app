@@ -47,7 +47,15 @@ export async function GET(
         pfp: localUser.pfp,
         following: localUser.following?.length || 0,
         followers: localUser.followers?.length || 0,
-        provider: localUser.provider
+        provider: localUser.provider,
+        stats: localUser.stats || {
+          postCount: 0,
+          commentCount: 0,
+          receivedUpvotes: 0,
+          receivedDownvotes: 0,
+          givenUpvotes: 0,
+          givenDownvotes: 0
+        }
       };
       
       return NextResponse.json({
@@ -90,7 +98,15 @@ export async function GET(
               pfp: altData.user.pfp,
               followers: altData.user.followers || 0,
               following: altData.user.following || 0,
-              provider: 'hubble'
+              provider: 'hubble',
+              stats: altData.user.stats || {
+                postCount: 0,
+                commentCount: 0,
+                receivedUpvotes: 0,
+                receivedDownvotes: 0,
+                givenUpvotes: 0,
+                givenDownvotes: 0
+              }
             }
           });
         }
@@ -113,7 +129,15 @@ export async function GET(
           pfp: userData.data.pfp,
           followers: userData.data.followers || 0,
           following: userData.data.following || 0,
-          provider: 'hubble'
+          provider: 'hubble',
+          stats: userData.data.stats || {
+            postCount: 0,
+            commentCount: 0,
+            receivedUpvotes: 0,
+            receivedDownvotes: 0,
+            givenUpvotes: 0,
+            givenDownvotes: 0
+          }
         }
       });
     } catch (error) {
@@ -130,7 +154,15 @@ export async function GET(
           pfp: null,
           followers: Math.floor(Math.random() * 100),
           following: Math.floor(Math.random() * 50),
-          provider: 'mock'
+          provider: 'mock',
+          stats: {
+            postCount: Math.floor(Math.random() * 10),
+            commentCount: Math.floor(Math.random() * 30),
+            receivedUpvotes: Math.floor(Math.random() * 50),
+            receivedDownvotes: Math.floor(Math.random() * 5),
+            givenUpvotes: Math.floor(Math.random() * 20),
+            givenDownvotes: Math.floor(Math.random() * 3)
+          }
         }
       });
     }

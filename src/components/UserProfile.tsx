@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
 import CastFeed from './CastFeed';
 import FollowList from './FollowList';
+import UserStats from './UserStats';
 
 interface UserProfileProps {
   fid: number;
@@ -74,8 +75,9 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
       if (user && user.following) {
         if (Array.isArray(user.following)) {
           setIsFollowing(user.following.includes(targetFid));
-        } else if (Array.isArray(user.following) && user.following.length > 0 && typeof user.following[0] === 'object') {
-          setIsFollowing(user.following.some((followedUser: any) => 
+        } else if (typeof user.following === 'object' && user.following !== null) {
+          const followingArray = (user.following as any[]);
+          setIsFollowing(followingArray.some((followedUser: any) => 
             followedUser.fid === targetFid || followedUser.targetFid === targetFid
           ));
         }
@@ -255,19 +257,14 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
                 </button>
               </div>
               
-              {/* Vote and Comment Stats */}
-              {profileUser.stats && (
-                <>
-                  <div>
-                    <span className="font-semibold">{profileUser.stats.commentCount || 0}</span>{' '}
-                    <span className="text-gray-500">Comments</span>
-                  </div>
-                  <div>
-                    <span className="font-semibold">{profileUser.stats.receivedUpvotes || 0}</span>{' '}
-                    <span className="text-gray-500">Upvotes</span>
-                  </div>
-                </>
-              )}
+              {/* User Stats Section */}
+              <div className="ml-4 border-l border-gray-200 pl-4">
+                <UserStats 
+                  fid={profileUser.fid} 
+                  stats={profileUser.stats} 
+                  showDetailed={false}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -294,24 +291,12 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
       {profileUser.stats && (
         <div className="mt-4 pt-4 border-t border-gray-200">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Activity Stats</h3>
-          <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="bg-gray-50 p-2 rounded">
-              <p className="text-gray-500">Posts</p>
-              <p className="font-medium">{profileUser.stats.postCount || 0}</p>
-            </div>
-            <div className="bg-gray-50 p-2 rounded">
-              <p className="text-gray-500">Comments</p>
-              <p className="font-medium">{profileUser.stats.commentCount || 0}</p>
-            </div>
-            <div className="bg-gray-50 p-2 rounded">
-              <p className="text-gray-500">Received Upvotes</p>
-              <p className="font-medium">{profileUser.stats.receivedUpvotes || 0}</p>
-            </div>
-            <div className="bg-gray-50 p-2 rounded">
-              <p className="text-gray-500">Received Downvotes</p>
-              <p className="font-medium">{profileUser.stats.receivedDownvotes || 0}</p>
-            </div>
-          </div>
+          <UserStats 
+            fid={profileUser.fid} 
+            stats={profileUser.stats} 
+            showFid={false}
+            showDetailed={true}
+          />
         </div>
       )}
       

@@ -256,7 +256,7 @@ function generateMockCasts(fid: string | null): any[] {
     {
       fid: 1043300,
       data: {
-        text: "Welcome to Farcaster Social UI! This is the trending feed.",
+        text: "Welcome to DecentraNet! This is the trending feed.",
         timestamp: Date.now(),
         mentions: [],
         mentionsPositions: [],

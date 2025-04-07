@@ -2,19 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-
-interface FollowListProps {
-  fid: number;
-  type: 'followers' | 'following';
-  onViewProfile: (fid: number) => void;
-  onClose: () => void;
-}
+import UserCard from './UserCard';
+import { UserStats } from '@/types/social';
 
 interface UserItem {
   fid: number;
   username: string;
   displayName?: string;
-  pfp?: string | null;
+  pfp?: string;
+  bio?: string;
+  stats?: UserStats;
+}
+
+interface FollowListProps {
+  fid: number;
+  type: 'followers' | 'following';
+  onViewProfile?: (fid: number) => void;
+  onClose: () => void;
 }
 
 export default function FollowList({ fid, type, onViewProfile, onClose }: FollowListProps) {
@@ -68,7 +72,9 @@ export default function FollowList({ fid, type, onViewProfile, onClose }: Follow
                 fid: profileData.user.fid,
                 username: profileData.user.username,
                 displayName: profileData.user.displayName,
-                pfp: profileData.user.pfp
+                pfp: profileData.user.pfp,
+                bio: profileData.user.bio,
+                stats: profileData.user.stats
               };
             }
             return null;
@@ -110,51 +116,31 @@ export default function FollowList({ fid, type, onViewProfile, onClose }: Follow
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4">
           {isLoading ? (
-            <div className="flex justify-center items-center h-40">
-              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-600"></div>
-            </div>
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-600 mx-auto"></div>
           ) : error ? (
             <div className="bg-red-50 p-4 rounded-md text-red-700">
               {error}
             </div>
           ) : users.length === 0 ? (
-            <div className="text-center text-gray-500 p-8">
-              {type === 'followers' 
-                ? 'This user has no followers yet.' 
-                : 'This user is not following anyone yet.'}
-            </div>
+            <p className="text-center text-gray-500">No {type} to display</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="divide-y divide-gray-200">
               {users.map(user => (
                 <li 
                   key={user.fid}
-                  className="p-3 hover:bg-gray-50 rounded-lg cursor-pointer"
-                  onClick={() => {
-                    onViewProfile(user.fid);
-                    onClose();
-                  }}
+                  className="py-3 cursor-pointer hover:bg-gray-50"
+                  onClick={() => onViewProfile && onViewProfile(user.fid)}
                 >
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 mr-3 flex-shrink-0">
-                      {user.pfp ? (
-                        <Image 
-                          src={user.pfp} 
-                          alt={user.username}
-                          width={40}
-                          height={40}
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-purple-100 text-purple-600 font-bold">
-                          {user.username.charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <div className="font-medium">{user.displayName || user.username}</div>
-                      <div className="text-sm text-gray-500">@{user.username}</div>
-                    </div>
-                  </div>
+                  <UserCard
+                    fid={user.fid}
+                    username={user.username}
+                    displayName={user.displayName}
+                    pfp={user.pfp}
+                    bio={user.bio}
+                    stats={user.stats}
+                    onViewProfile={onViewProfile}
+                    compact={true}
+                  />
                 </li>
               ))}
             </ul>

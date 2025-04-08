@@ -1,117 +1,278 @@
 [
   {
-    "id": "topic-1744121197308-2225",
-    "title": "testing",
-    "content": "wedscxfwaesq",
-    "authorFid": 1806866286,
-    "authorName": "dewas",
-    "categoryId": "announcements",
-    "timestamp": 1744121197308,
-    "replyCount": 1,
-    "viewCount": 16,
+    "id": "topic-1744132958944-6701",
+    "title": "Seeking advice on challenging Pulmonology case",
+    "content": "Our institution is launching a multi-center study on mental health and we're looking for collaborators. The study aims to address long-standing questions about efficacy and safety across diverse patient populations. If your facility is interested in participating, please comment or contact me directly.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 4,
+    "viewCount": 41,
     "isPinned": false,
     "isLocked": false,
     "tags": [
-      "ai"
+      "cancer"
     ],
-    "lastReplyTimestamp": 1744121229053,
-    "lastReplyAuthorFid": 3999566875,
-    "lastReplyAuthorName": "aman"
+    "lastReplyTimestamp": 1744643856796,
+    "lastReplyAuthorFid": 7156422613,
+    "lastReplyAuthorName": "Prof. Emily Clark"
   },
   {
-    "id": "topic-001",
-    "title": "Welcome to the Medical Collaboration Forum!",
-    "content": "Welcome to our new platform for medical professionals and researchers to collaborate. Please read our community guidelines and introduce yourself in the comments!",
-    "authorFid": 1806866286,
-    "authorName": "Dr. Johnson",
+    "id": "topic-1744132958944-9522",
+    "title": "New research findings in gene therapy",
+    "content": "I'd like to discuss the implications of recent guidelines for managing internal medicine conditions. The changes in recommended treatment protocols seem significant, but I'm concerned about implementation challenges, especially in resource-limited settings. How is everyone adapting to these new recommendations?",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
     "categoryId": "announcements",
-    "timestamp": 1743033550320,
-    "lastReplyTimestamp": 1744120061976,
-    "lastReplyAuthorFid": 1806866286,
-    "lastReplyAuthorName": "dewas",
-    "replyCount": 9,
-    "viewCount": 74,
-    "isPinned": true,
-    "tags": [
-      "welcome",
-      "guidelines"
-    ]
-  },
-  {
-    "id": "topic-002",
-    "title": "New Research on Alzheimer's Treatment Shows Promise",
-    "content": "Recent clinical trials have shown promising results for a new drug targeting amyloid plaques. Has anyone else been following this research or participating in similar trials?",
-    "authorFid": 5253980722,
-    "authorName": "Dr. Smith",
-    "categoryId": "clinical-research",
-    "timestamp": 1743032550320,
-    "lastReplyTimestamp": 1743033550320,
-    "lastReplyAuthorFid": 1806866286,
-    "lastReplyAuthorName": "Dr. Johnson",
-    "replyCount": 8,
-    "viewCount": 78,
-    "tags": [
-      "alzheimers",
-      "clinical-trials",
-      "neurology"
-    ]
-  },
-  {
-    "id": "topic-003",
-    "title": "Unusual Presentation of Kawasaki Disease in Adult Patient",
-    "content": "I recently encountered an unusual case of Kawasaki disease in a 32-year-old male patient. The presentation included...[details omitted for privacy]. Has anyone seen similar cases in adult populations?",
-    "authorFid": 1806866286,
-    "authorName": "Dr. Johnson",
-    "categoryId": "medical-cases",
-    "timestamp": 1742033550320,
-    "lastReplyTimestamp": 1743031550320,
-    "lastReplyAuthorFid": 5253980722,
-    "lastReplyAuthorName": "Dr. Smith",
-    "replyCount": 12,
-    "viewCount": 104,
-    "tags": [
-      "kawasaki-disease",
-      "case-study",
-      "immunology"
-    ]
-  },
-  {
-    "id": "topic-004",
-    "title": "Latest Advances in Telemedicine Platforms",
-    "content": "What telemedicine platforms are you using in your practice? I'm looking for something with good integration for remote monitoring devices, especially for cardiac patients.",
-    "authorFid": 5253980722,
-    "authorName": "Dr. Smith",
-    "categoryId": "equipment-technology",
-    "timestamp": 1742033450320,
-    "lastReplyTimestamp": 1742033550320,
-    "lastReplyAuthorFid": 1806866286,
-    "lastReplyAuthorName": "Dr. Johnson",
+    "timestamp": 1744132958944,
     "replyCount": 7,
-    "viewCount": 83,
+    "viewCount": 75,
+    "isPinned": false,
+    "isLocked": false,
     "tags": [
-      "telemedicine",
-      "cardiac-care",
-      "remote-monitoring"
+      "cardiology",
+      "pediatrics",
+      "immunology"
+    ],
+    "lastReplyTimestamp": 1744708900350,
+    "lastReplyAuthorFid": 7804664446,
+    "lastReplyAuthorName": "Dr. Nancy Brown"
+  },
+  {
+    "id": "topic-1744132958944-2514",
+    "title": "Discussion: Latest treatment approaches for neurology patients",
+    "content": "I've been researching regenerative medicine and would like to share some preliminary findings. Our team has observed significant improvements in patient outcomes when implementing a new protocol that focuses on early intervention and personalized care plans. Has anyone else been experimenting with similar approaches?",
+    "authorFid": 6265018995,
+    "authorName": "Prof. Mary Gonzalez",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 1,
+    "viewCount": 73,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "technology"
+    ],
+    "lastReplyTimestamp": 1744658782559,
+    "lastReplyAuthorFid": 5924535590,
+    "lastReplyAuthorName": "Dr. Donna Perez"
+  },
+  {
+    "id": "topic-1744132958944-663",
+    "title": "Seeking advice on challenging Infectious Disease case",
+    "content": "I recently encountered a challenging case involving a patient with atypical presentation of neurology symptoms. Despite extensive testing, we're struggling to reach a definitive diagnosis. The patient presents with unusual symptoms but conventional treatments have been ineffective. I'd appreciate any insights or similar case experiences.",
+    "authorFid": 9767099251,
+    "authorName": "Prof. Betty Wilson",
+    "categoryId": "equipment-technology",
+    "timestamp": 1744132958944,
+    "replyCount": 2,
+    "viewCount": 112,
+    "isPinned": true,
+    "isLocked": false,
+    "tags": [
+      "neurology",
+      "cardiology"
+    ],
+    "lastReplyTimestamp": 1744471486642,
+    "lastReplyAuthorFid": 7985105704,
+    "lastReplyAuthorName": "Prof. Kimberly Thompson"
+  },
+  {
+    "id": "topic-1744132958944-5125",
+    "title": "Best practices for Geriatrics",
+    "content": "I recently encountered a challenging case involving a patient with atypical presentation of cardiology symptoms. Despite extensive testing, we're struggling to reach a definitive diagnosis. The patient presents with unusual symptoms but conventional treatments have been ineffective. I'd appreciate any insights or similar case experiences.",
+    "authorFid": 6555437277,
+    "authorName": "Prof. Thomas Thomas",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 1,
+    "viewCount": 116,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "ai",
+      "pediatrics",
+      "research"
+    ],
+    "lastReplyTimestamp": 1744362307462,
+    "lastReplyAuthorFid": 9829586784,
+    "lastReplyAuthorName": "Prof. Anthony Torres"
+  },
+  {
+    "id": "topic-1744132958944-3271",
+    "title": "Recent advances in Immunology",
+    "content": "I'd like to discuss the implications of recent guidelines for managing radiology conditions. The changes in recommended treatment protocols seem significant, but I'm concerned about implementation challenges, especially in resource-limited settings. How is everyone adapting to these new recommendations?",
+    "authorFid": 6563992371,
+    "authorName": "Prof. Daniel Williams",
+    "categoryId": "announcements",
+    "timestamp": 1744132958944,
+    "replyCount": 8,
+    "viewCount": 52,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "research"
+    ],
+    "lastReplyTimestamp": 1744726658498,
+    "lastReplyAuthorFid": 4653599081,
+    "lastReplyAuthorName": "Prof. Joshua Smith"
+  },
+  {
+    "id": "topic-1744132958944-8657",
+    "title": "Patient perspectives on Gastroenterology",
+    "content": "I recently encountered a challenging case involving a patient with atypical presentation of internal medicine symptoms. Despite extensive testing, we're struggling to reach a definitive diagnosis. The patient presents with unusual symptoms but conventional treatments have been ineffective. I'd appreciate any insights or similar case experiences.",
+    "authorFid": 7804664446,
+    "authorName": "Dr. Nancy Brown",
+    "categoryId": "announcements",
+    "timestamp": 1744132958944,
+    "replyCount": 0,
+    "viewCount": 23,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "research",
+      "ai",
+      "case-study"
     ]
   },
   {
-    "id": "topic-005",
-    "title": "Call for Participants: Multi-center Study on Long COVID",
-    "content": "We're organizing a multi-center study on long COVID symptoms and treatment efficacy. Looking for participating centers and researchers. Please comment if you're interested.",
-    "authorFid": 1806866286,
-    "authorName": "Dr. Johnson",
-    "categoryId": "clinical-research",
-    "timestamp": 1741033550320,
-    "lastReplyTimestamp": 1741033650320,
-    "lastReplyAuthorFid": 5253980722,
-    "lastReplyAuthorName": "Dr. Smith",
-    "replyCount": 15,
-    "viewCount": 120,
-    "isPinned": true,
+    "id": "topic-1744132958944-9624",
+    "title": "Discussion: Latest treatment approaches for hematology patients",
+    "content": "I'd like to discuss the implications of recent guidelines for managing emergency medicine conditions. The changes in recommended treatment protocols seem significant, but I'm concerned about implementation challenges, especially in resource-limited settings. How is everyone adapting to these new recommendations?",
+    "authorFid": 4927644238,
+    "authorName": "Prof. Kenneth Robinson",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 8,
+    "viewCount": 49,
+    "isPinned": false,
+    "isLocked": false,
     "tags": [
-      "covid-19",
-      "long-covid",
-      "research-collaboration"
-    ]
+      "technology"
+    ],
+    "lastReplyTimestamp": 1744702843572,
+    "lastReplyAuthorFid": 4995784589,
+    "lastReplyAuthorName": "Prof. Paul Scott"
+  },
+  {
+    "id": "topic-1744132958944-2988",
+    "title": "New research findings in patient outcomes",
+    "content": "Our institution is launching a multi-center study on immunotherapy and we're looking for collaborators. The study aims to address long-standing questions about efficacy and safety across diverse patient populations. If your facility is interested in participating, please comment or contact me directly.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "categoryId": "education-training",
+    "timestamp": 1744132958944,
+    "replyCount": 5,
+    "viewCount": 21,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "cancer",
+      "cardiology"
+    ],
+    "lastReplyTimestamp": 1744552113016,
+    "lastReplyAuthorFid": 7156422613,
+    "lastReplyAuthorName": "Prof. Emily Clark"
+  },
+  {
+    "id": "topic-1744132958944-5242",
+    "title": "A case study on Dermatology",
+    "content": "I recently encountered a challenging case involving a patient with atypical presentation of neurology symptoms. Despite extensive testing, we're struggling to reach a definitive diagnosis. The patient presents with unusual symptoms but conventional treatments have been ineffective. I'd appreciate any insights or similar case experiences.",
+    "authorFid": 6265018995,
+    "authorName": "Prof. Mary Gonzalez",
+    "categoryId": "equipment-technology",
+    "timestamp": 1744132958944,
+    "replyCount": 6,
+    "viewCount": 98,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "cancer",
+      "immunology",
+      "case-study"
+    ],
+    "lastReplyTimestamp": 1744697638699,
+    "lastReplyAuthorFid": 7985105704,
+    "lastReplyAuthorName": "Prof. Kimberly Thompson"
+  },
+  {
+    "id": "topic-1744132958944-2126",
+    "title": "Challenges in Psychiatry",
+    "content": "Our institution is launching a multi-center study on clinical trials and we're looking for collaborators. The study aims to address long-standing questions about efficacy and safety across diverse patient populations. If your facility is interested in participating, please comment or contact me directly.",
+    "authorFid": 5439473164,
+    "authorName": "Dr. Robert Ramirez",
+    "categoryId": "announcements",
+    "timestamp": 1744132958944,
+    "replyCount": 8,
+    "viewCount": 57,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "pediatrics"
+    ],
+    "lastReplyTimestamp": 1744721979545,
+    "lastReplyAuthorFid": 1077773730,
+    "lastReplyAuthorName": "Dr. David Walker"
+  },
+  {
+    "id": "topic-1744132958944-6642",
+    "title": "Discussion: Latest treatment approaches for urology patients",
+    "content": "I've been researching healthcare equity and would like to share some preliminary findings. Our team has observed significant improvements in patient outcomes when implementing a new protocol that focuses on early intervention and personalized care plans. Has anyone else been experimenting with similar approaches?",
+    "authorFid": 4995784589,
+    "authorName": "Prof. Paul Scott",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 1,
+    "viewCount": 69,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "pediatrics"
+    ],
+    "lastReplyTimestamp": 1744577250864,
+    "lastReplyAuthorFid": 9767099251,
+    "lastReplyAuthorName": "Prof. Betty Wilson"
+  },
+  {
+    "id": "topic-1744132958944-483",
+    "title": "Discussion: Latest treatment approaches for internal medicine patients",
+    "content": "What tools or technologies is everyone using for healthcare equity? We're in the process of upgrading our systems and would appreciate recommendations based on real-world clinical experience, especially regarding integration with existing EMR systems and patient data security.",
+    "authorFid": 2861071157,
+    "authorName": "Dr. Joshua Taylor",
+    "categoryId": "education-training",
+    "timestamp": 1744132958944,
+    "replyCount": 7,
+    "viewCount": 29,
+    "isPinned": false,
+    "isLocked": false,
+    "tags": [
+      "research",
+      "cardiology"
+    ],
+    "lastReplyTimestamp": 1744698994508,
+    "lastReplyAuthorFid": 9154908948,
+    "lastReplyAuthorName": "Prof. Andrew Garcia"
+  },
+  {
+    "id": "topic-1744132958944-6224",
+    "title": "Call for collaboration: vaccines study",
+    "content": "I'd like to discuss the implications of recent guidelines for managing rheumatology conditions. The changes in recommended treatment protocols seem significant, but I'm concerned about implementation challenges, especially in resource-limited settings. How is everyone adapting to these new recommendations?",
+    "authorFid": 4894749908,
+    "authorName": "Prof. Robert Jones",
+    "categoryId": "medical-cases",
+    "timestamp": 1744132958944,
+    "replyCount": 2,
+    "viewCount": 68,
+    "isPinned": true,
+    "isLocked": false,
+    "tags": [
+      "surgery",
+      "technology",
+      "neurology"
+    ],
+    "lastReplyTimestamp": 1744498877215,
+    "lastReplyAuthorFid": 2042580739,
+    "lastReplyAuthorName": "Dr. Donna Harris"
   }
 ]

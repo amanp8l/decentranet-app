@@ -1,126 +1,830 @@
 [
   {
-    "id": "reply-001",
-    "topicId": "topic-001",
-    "content": "This is a fantastic initiative! I'm Dr. Smith from Mayo Clinic, specializing in cardiology. Looking forward to collaborating with everyone.",
-    "authorFid": 5253980722,
-    "authorName": "Dr. Smith",
-    "timestamp": 1743033650320,
-    "votes": [
-      {
-        "userId": 1806866286,
-        "value": 1,
-        "timestamp": 1743033750320
-      }
-    ]
-  },
-  {
-    "id": "reply-002",
-    "topicId": "topic-002",
-    "content": "I've been following this research closely. While the results are promising, I'm concerned about the small sample size and relatively short follow-up period. Has anyone reviewed the full data set?",
-    "authorFid": 1806866286,
-    "authorName": "Dr. Johnson",
-    "timestamp": 1743033550320,
-    "votes": [
-      {
-        "userId": 5253980722,
-        "value": 1,
-        "timestamp": 1743033750320
-      }
-    ]
-  },
-  {
-    "id": "reply-003",
-    "topicId": "topic-002",
-    "content": "Good point about the sample size. I'm part of a similar study in Europe, and we're seeing comparable results but with a more diverse patient population. Happy to share our preliminary findings if anyone's interested.",
-    "authorFid": 5253980722,
-    "authorName": "Dr. Smith",
-    "timestamp": 1743032650320,
-    "parentId": "reply-002",
+    "id": "reply-1744432007872-6178",
+    "topicId": "topic-1744132958944-6701",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 5439473164,
+    "authorName": "Dr. Robert Ramirez",
+    "timestamp": 1744432007872,
+    "isAnswer": false,
     "votes": []
   },
   {
-    "id": "reply-004",
-    "topicId": "topic-003",
-    "content": "I treated a similar case last year - 29-year-old female with atypical Kawasaki. The literature on adult cases is sparse, but there seems to be an increase in reported cases. I believe we need a registry for adult Kawasaki to better understand the presentation and treatment outcomes.",
-    "authorFid": 5253980722,
-    "authorName": "Dr. Smith",
-    "timestamp": 1743031550320,
+    "id": "reply-1744374459271-7390",
+    "topicId": "topic-1744132958944-6701",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 6555437277,
+    "authorName": "Prof. Thomas Thomas",
+    "timestamp": 1744374459271,
+    "isAnswer": true,
+    "votes": [],
+    "replies": [
+      "reply-1744643856796-7916",
+      "reply-1744431294196-6453"
+    ]
+  },
+  {
+    "id": "reply-1744643856796-7916",
+    "topicId": "topic-1744132958944-6701",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 7156422613,
+    "authorName": "Prof. Emily Clark",
+    "timestamp": 1744643856796,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744374459271-7390"
+  },
+  {
+    "id": "reply-1744431294196-6453",
+    "topicId": "topic-1744132958944-6701",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 6269597478,
+    "authorName": "Dr. Mark Garcia",
+    "timestamp": 1744431294196,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744374459271-7390"
+  },
+  {
+    "id": "reply-1744605011847-6122",
+    "topicId": "topic-1744132958944-9522",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 7804664446,
+    "authorName": "Dr. Nancy Brown",
+    "timestamp": 1744605011847,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744608611847
+      },
+      {
+        "userId": 6563992371,
+        "value": -1,
+        "timestamp": 1744608611847
+      }
+    ],
+    "replies": [
+      "reply-1744488565670-247"
+    ]
+  },
+  {
+    "id": "reply-1744190921671-3152",
+    "topicId": "topic-1744132958944-9522",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 4995784589,
+    "authorName": "Prof. Paul Scott",
+    "timestamp": 1744190921671,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744325429885-5196",
+    "topicId": "topic-1744132958944-9522",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 6555437277,
+    "authorName": "Prof. Thomas Thomas",
+    "timestamp": 1744325429885,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": -1,
+        "timestamp": 1744329029885
+      }
+    ]
+  },
+  {
+    "id": "reply-1744708900350-3427",
+    "topicId": "topic-1744132958944-9522",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 7804664446,
+    "authorName": "Dr. Nancy Brown",
+    "timestamp": 1744708900350,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744488565670-247",
+    "topicId": "topic-1744132958944-9522",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744488565670,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744605011847-6122"
+  },
+  {
+    "id": "reply-1744648961544-8530",
+    "topicId": "topic-1744132958944-9522",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744648961544,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744621951304-1336",
+    "topicId": "topic-1744132958944-9522",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744621951304,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744658782559-5292",
+    "topicId": "topic-1744132958944-2514",
+    "content": "I'd caution against generalizing these findings too broadly. Our research suggests significant variability across different patient populations, particularly in response to the treatments you've described.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744658782559,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744662382559
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744662382559
+      }
+    ]
+  },
+  {
+    "id": "reply-1744399426727-3737",
+    "topicId": "topic-1744132958944-663",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 4653599081,
+    "authorName": "Prof. Joshua Smith",
+    "timestamp": 1744399426727,
+    "isAnswer": false,
+    "votes": [],
+    "replies": [
+      "reply-1744471486642-8853"
+    ]
+  },
+  {
+    "id": "reply-1744471486642-8853",
+    "topicId": "topic-1744132958944-663",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 7985105704,
+    "authorName": "Prof. Kimberly Thompson",
+    "timestamp": 1744471486642,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744399426727-3737"
+  },
+  {
+    "id": "reply-1744362307462-7492",
+    "topicId": "topic-1744132958944-5125",
+    "content": "I'd caution against generalizing these findings too broadly. Our research suggests significant variability across different patient populations, particularly in response to the treatments you've described.",
+    "authorFid": 9829586784,
+    "authorName": "Prof. Anthony Torres",
+    "timestamp": 1744362307462,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744578970290-5908",
+    "topicId": "topic-1744132958944-3271",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 2861071157,
+    "authorName": "Dr. Joshua Taylor",
+    "timestamp": 1744578970290,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744582570290
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744582570290
+      },
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744582570290
+      }
+    ]
+  },
+  {
+    "id": "reply-1744299351470-5949",
+    "topicId": "topic-1744132958944-3271",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744299351470,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744455576815-5695",
+    "topicId": "topic-1744132958944-3271",
+    "content": "I'd caution against generalizing these findings too broadly. Our research suggests significant variability across different patient populations, particularly in response to the treatments you've described.",
+    "authorFid": 6555437277,
+    "authorName": "Prof. Thomas Thomas",
+    "timestamp": 1744455576815,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744459176815
+      }
+    ]
+  },
+  {
+    "id": "reply-1744668895426-3240",
+    "topicId": "topic-1744132958944-3271",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744668895426,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744145898677-8215",
+    "topicId": "topic-1744132958944-3271",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 2861071157,
+    "authorName": "Dr. Joshua Taylor",
+    "timestamp": 1744145898677,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744426248428-2302",
+    "topicId": "topic-1744132958944-3271",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 5439473164,
+    "authorName": "Dr. Robert Ramirez",
+    "timestamp": 1744426248428,
+    "isAnswer": false,
+    "votes": [],
+    "replies": [
+      "reply-1744706961285-348"
+    ]
+  },
+  {
+    "id": "reply-1744726658498-8219",
+    "topicId": "topic-1744132958944-3271",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 4653599081,
+    "authorName": "Prof. Joshua Smith",
+    "timestamp": 1744726658498,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744730258498
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744730258498
+      },
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744730258498
+      }
+    ]
+  },
+  {
+    "id": "reply-1744706961285-348",
+    "topicId": "topic-1744132958944-3271",
+    "content": "I'd caution against generalizing these findings too broadly. Our research suggests significant variability across different patient populations, particularly in response to the treatments you've described.",
+    "authorFid": 7804664446,
+    "authorName": "Dr. Nancy Brown",
+    "timestamp": 1744706961285,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744426248428-2302"
+  },
+  {
+    "id": "reply-1744615083543-3142",
+    "topicId": "topic-1744132958944-9624",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744615083543,
+    "isAnswer": false,
+    "votes": [],
+    "replies": [
+      "reply-1744699349209-4873"
+    ]
+  },
+  {
+    "id": "reply-1744699349209-4873",
+    "topicId": "topic-1744132958944-9624",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 4995784589,
+    "authorName": "Prof. Paul Scott",
+    "timestamp": 1744699349209,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744615083543-3142"
+  },
+  {
+    "id": "reply-1744304373161-9000",
+    "topicId": "topic-1744132958944-9624",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 9767099251,
+    "authorName": "Prof. Betty Wilson",
+    "timestamp": 1744304373161,
     "isAnswer": true,
     "votes": [
       {
-        "userId": 1806866286,
-        "value": 1,
-        "timestamp": 1743031650320
+        "userId": 7156422613,
+        "value": -1,
+        "timestamp": 1744307973161
       }
+    ],
+    "replies": [
+      "reply-1744284838211-975"
     ]
   },
   {
-    "id": "reply-005",
-    "topicId": "topic-004",
-    "content": "We've had good results with TeleMed+ for our cardiac monitoring program. The integration with most ECG devices is seamless, and their analytics dashboard has been helpful for our team. Happy to give you a demo if you're interested.",
-    "authorFid": 1806866286,
-    "authorName": "Dr. Johnson",
-    "timestamp": 1742033550320,
+    "id": "reply-1744702843572-7571",
+    "topicId": "topic-1744132958944-9624",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 4995784589,
+    "authorName": "Prof. Paul Scott",
+    "timestamp": 1744702843572,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744284838211-975",
+    "topicId": "topic-1744132958944-9624",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744284838211,
+    "isAnswer": false,
     "votes": [
       {
-        "userId": 5253980722,
+        "userId": 7156422613,
         "value": 1,
-        "timestamp": 1742033650320
+        "timestamp": 1744288438211
+      }
+    ],
+    "parentId": "reply-1744304373161-9000"
+  },
+  {
+    "id": "reply-1744690026292-5388",
+    "topicId": "topic-1744132958944-9624",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 7156422613,
+    "authorName": "Prof. Emily Clark",
+    "timestamp": 1744690026292,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744391938014-5127",
+    "topicId": "topic-1744132958944-9624",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 4995784589,
+    "authorName": "Prof. Paul Scott",
+    "timestamp": 1744391938014,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744541893640-4416",
+    "topicId": "topic-1744132958944-9624",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744541893640,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744265719527-4913",
+    "topicId": "topic-1744132958944-2988",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 9767099251,
+    "authorName": "Prof. Betty Wilson",
+    "timestamp": 1744265719527,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744135307102-3213",
+    "topicId": "topic-1744132958944-2988",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 4927644238,
+    "authorName": "Prof. Kenneth Robinson",
+    "timestamp": 1744135307102,
+    "isAnswer": false,
+    "votes": [],
+    "replies": [
+      "reply-1744144213907-5723"
+    ]
+  },
+  {
+    "id": "reply-1744150092653-8349",
+    "topicId": "topic-1744132958944-2988",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744150092653,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744153692653
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744153692653
+      },
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744153692653
       }
     ]
   },
   {
-    "id": "reply-1744120009779-6153",
-    "topicId": "topic-001",
-    "content": "6rd",
-    "authorFid": 1806866286,
-    "authorName": "dewas",
-    "timestamp": 1744120009779,
+    "id": "reply-1744144213907-5723",
+    "topicId": "topic-1744132958944-2988",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744144213907,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744135307102-3213"
+  },
+  {
+    "id": "reply-1744552113016-2237",
+    "topicId": "topic-1744132958944-2988",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 7156422613,
+    "authorName": "Prof. Emily Clark",
+    "timestamp": 1744552113016,
+    "isAnswer": true,
+    "votes": []
+  },
+  {
+    "id": "reply-1744697638699-5514",
+    "topicId": "topic-1744132958944-5242",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 7985105704,
+    "authorName": "Prof. Kimberly Thompson",
+    "timestamp": 1744697638699,
     "isAnswer": false,
     "votes": []
   },
   {
-    "id": "reply-1744120034370-9587",
-    "topicId": "topic-001",
-    "content": "tdxcdtxc",
-    "authorFid": 1806866286,
-    "authorName": "dewas",
-    "timestamp": 1744120034370,
-    "parentId": "reply-001",
+    "id": "reply-1744278748747-1829",
+    "topicId": "topic-1744132958944-5242",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 4894749908,
+    "authorName": "Prof. Robert Jones",
+    "timestamp": 1744278748747,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": -1,
+        "timestamp": 1744282348747
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744282348747
+      }
+    ]
+  },
+  {
+    "id": "reply-1744581364320-4749",
+    "topicId": "topic-1744132958944-5242",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 9154908948,
+    "authorName": "Prof. Andrew Garcia",
+    "timestamp": 1744581364320,
     "isAnswer": false,
     "votes": []
   },
   {
-    "id": "reply-1744120044332-1977",
-    "topicId": "topic-001",
-    "content": "ufvv\n",
-    "authorFid": 1806866286,
-    "authorName": "dewas",
-    "timestamp": 1744120044332,
-    "parentId": "reply-001",
+    "id": "reply-1744416723295-6529",
+    "topicId": "topic-1744132958944-5242",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744416723295,
     "isAnswer": false,
     "votes": []
   },
   {
-    "id": "reply-1744120061976-1302",
-    "topicId": "topic-001",
-    "content": "yhf",
-    "authorFid": 1806866286,
-    "authorName": "dewas",
-    "timestamp": 1744120061976,
-    "parentId": "reply-1744120044332-1977",
+    "id": "reply-1744171157865-5233",
+    "topicId": "topic-1744132958944-5242",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 4653599081,
+    "authorName": "Prof. Joshua Smith",
+    "timestamp": 1744171157865,
+    "isAnswer": true,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744174757865
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744174757865
+      }
+    ]
+  },
+  {
+    "id": "reply-1744548386031-5207",
+    "topicId": "topic-1744132958944-5242",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744548386031,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": -1,
+        "timestamp": 1744551986031
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744551986031
+      }
+    ]
+  },
+  {
+    "id": "reply-1744466047254-4879",
+    "topicId": "topic-1744132958944-2126",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 7156422613,
+    "authorName": "Prof. Emily Clark",
+    "timestamp": 1744466047254,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744469647254
+      }
+    ],
+    "replies": [
+      "reply-1744623983773-7150",
+      "reply-1744721979545-227"
+    ]
+  },
+  {
+    "id": "reply-1744623983773-7150",
+    "topicId": "topic-1744132958944-2126",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 7156422613,
+    "authorName": "Prof. Emily Clark",
+    "timestamp": 1744623983773,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744466047254-4879"
+  },
+  {
+    "id": "reply-1744721979545-227",
+    "topicId": "topic-1744132958944-2126",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744721979545,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744725579545
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744725579545
+      }
+    ],
+    "parentId": "reply-1744466047254-4879"
+  },
+  {
+    "id": "reply-1744686127083-7163",
+    "topicId": "topic-1744132958944-2126",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744686127083,
+    "isAnswer": true,
+    "votes": []
+  },
+  {
+    "id": "reply-1744645637646-9724",
+    "topicId": "topic-1744132958944-2126",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 6555437277,
+    "authorName": "Prof. Thomas Thomas",
+    "timestamp": 1744645637646,
     "isAnswer": false,
     "votes": []
   },
   {
-    "id": "reply-1744121229053-9396",
-    "topicId": "topic-1744121197308-2225",
-    "content": "HEY",
-    "authorFid": 3999566875,
-    "authorName": "aman",
-    "timestamp": 1744121229053,
+    "id": "reply-1744441608614-5606",
+    "topicId": "topic-1744132958944-2126",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 9154908948,
+    "authorName": "Prof. Andrew Garcia",
+    "timestamp": 1744441608614,
     "isAnswer": false,
     "votes": []
+  },
+  {
+    "id": "reply-1744169828092-3998",
+    "topicId": "topic-1744132958944-2126",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744169828092,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744306479922-9136",
+    "topicId": "topic-1744132958944-2126",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744306479922,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744577250864-3353",
+    "topicId": "topic-1744132958944-6642",
+    "content": "Have you reviewed the recent meta-analysis published in the Journal of Medical Research? It offers a comprehensive assessment of the very questions you're raising, particularly regarding long-term efficacy.",
+    "authorFid": 9767099251,
+    "authorName": "Prof. Betty Wilson",
+    "timestamp": 1744577250864,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744580850864
+      }
+    ]
+  },
+  {
+    "id": "reply-1744183677088-7171",
+    "topicId": "topic-1744132958944-483",
+    "content": "We've implemented these guidelines at our institution with some modifications to address the resource constraints you mentioned. Key adaptations included prioritizing high-risk patients, which helped maintain quality while reducing implementation barriers.",
+    "authorFid": 4927644238,
+    "authorName": "Prof. Kenneth Robinson",
+    "timestamp": 1744183677088,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744698994508-9512",
+    "topicId": "topic-1744132958944-483",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 9154908948,
+    "authorName": "Prof. Andrew Garcia",
+    "timestamp": 1744698994508,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744702594508
+      }
+    ],
+    "replies": [
+      "reply-1744141500230-5526"
+    ]
+  },
+  {
+    "id": "reply-1744630233254-7997",
+    "topicId": "topic-1744132958944-483",
+    "content": "This is fascinating research. Our team has been working on related questions in mental health, and we're seeing complementary results. I'd be interested in discussing potential collaboration opportunities.",
+    "authorFid": 9154908948,
+    "authorName": "Prof. Andrew Garcia",
+    "timestamp": 1744630233254,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744633833254
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744633833254
+      }
+    ]
+  },
+  {
+    "id": "reply-1744141500230-5526",
+    "topicId": "topic-1744132958944-483",
+    "content": "This aligns with emerging trends we're observing in our clinic. The shift toward preventive medicine is promising, though challenges remain in standardization and quality control.",
+    "authorFid": 5439473164,
+    "authorName": "Dr. Robert Ramirez",
+    "timestamp": 1744141500230,
+    "isAnswer": false,
+    "votes": [],
+    "parentId": "reply-1744698994508-9512",
+    "replies": [
+      "reply-1744499301185-9662"
+    ]
+  },
+  {
+    "id": "reply-1744499301185-9662",
+    "topicId": "topic-1744132958944-483",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744499301185,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744502901185
+      }
+    ],
+    "parentId": "reply-1744141500230-5526"
+  },
+  {
+    "id": "reply-1744491784191-2596",
+    "topicId": "topic-1744132958944-483",
+    "content": "I encountered a similar case last year. What helped us reach a diagnosis was a specialized approach to imaging. It might be worth exploring in your patient's case, especially given the atypical presentation you described.",
+    "authorFid": 1077773730,
+    "authorName": "Dr. David Walker",
+    "timestamp": 1744491784191,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744534029627-8179",
+    "topicId": "topic-1744132958944-483",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 5924535590,
+    "authorName": "Dr. Donna Perez",
+    "timestamp": 1744534029627,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744498877215-9964",
+    "topicId": "topic-1744132958944-6224",
+    "content": "Thank you for sharing this. In my experience with surgery patients, I've observed similar patterns. Have you considered the impact of comorbidities on these outcomes?",
+    "authorFid": 2042580739,
+    "authorName": "Dr. Donna Harris",
+    "timestamp": 1744498877215,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744475056796-6245",
+    "topicId": "topic-1744132958944-6224",
+    "content": "The methodology looks solid, but I'm curious about your approach to patient selection. In our studies, we've found that mental health outcomes can vary significantly based on subtle demographic factors.",
+    "authorFid": 5439473164,
+    "authorName": "Dr. Robert Ramirez",
+    "timestamp": 1744475056796,
+    "isAnswer": false,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744478656796
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1744478656796
+      }
+    ]
   }
 ]

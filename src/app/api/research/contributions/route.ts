@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createContribution, getContributions } from '@/lib/contribution';
 import { v4 as uuidv4 } from 'uuid';
 
+// Hubble node URL
+const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+
 // GET /api/research/contributions - Get all research contributions with optional filters
 export async function GET(request: NextRequest) {
   try {
@@ -67,9 +70,60 @@ export async function POST(request: NextRequest) {
       collaborators
     );
     
+    // Try to submit to Farcaster directly
+    let farcasterSubmissionSuccess = false;
+    let farcasterHash = null;
+    
+    try {
+      // Check if Hubble node is connected
+      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (infoResponse.ok) {
+        // Try to submit the contribution to Farcaster
+        const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'MESSAGE_TYPE_CAST_ADD',
+            fid: authorFid,
+            castAddBody: {
+              text: `Research: ${title}\n\n${abstract.substring(0, 240)}${abstract.length > 240 ? '...' : ''}\n\nTags: ${tags.join(', ')}`,
+              mentions: [],
+              mentionsPositions: [],
+              embeds: []
+            }
+          })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Contribution submitted to Farcaster:', result);
+          farcasterSubmissionSuccess = true;
+          
+          if (result.hash) {
+            farcasterHash = result.hash;
+            // Update the contribution with the hash
+            contribution.farcasterHash = farcasterHash;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting to Farcaster:', error);
+      // Don't fail if Farcaster submission fails
+    }
+    
     return NextResponse.json({
       success: true,
-      contribution
+      contribution,
+      farcasterSubmissionSuccess,
+      farcasterHash
     });
   } catch (error) {
     console.error('Error creating contribution:', error);

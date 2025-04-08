@@ -3,6 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { ForumTopic } from '@/types/forum';
 
+// Hubble node URL
+const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -76,9 +79,67 @@ export async function POST(request: Request) {
     comments[topicId] = [];
     fs.writeFileSync(commentsFilePath, JSON.stringify(comments, null, 2));
     
+    // Try to submit to Farcaster directly
+    let farcasterSubmissionSuccess = false;
+    let farcasterHash = null;
+    
+    try {
+      // Check if Hubble node is connected
+      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (infoResponse.ok) {
+        // Try to submit the topic to Farcaster
+        const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'MESSAGE_TYPE_CAST_ADD',
+            fid: body.authorFid,
+            castAddBody: {
+              text: `${body.title}\n\n${body.content.substring(0, 280)}${body.content.length > 280 ? '...' : ''}`,
+              mentions: [],
+              mentionsPositions: [],
+              embeds: []
+            }
+          })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Topic submitted to Farcaster:', result);
+          farcasterSubmissionSuccess = true;
+          
+          if (result.hash) {
+            farcasterHash = result.hash;
+            // Update the topic with the hash
+            newTopic.farcasterHash = farcasterHash;
+            
+            // Update the topic in the file
+            const topicIndex = topics.findIndex(t => t.id === topicId);
+            if (topicIndex !== -1) {
+              topics[topicIndex].farcasterHash = farcasterHash;
+              fs.writeFileSync(topicsFilePath, JSON.stringify(topics, null, 2));
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting to Farcaster:', error);
+      // Don't fail if Farcaster submission fails
+    }
+    
     return NextResponse.json({
       success: true,
-      topic: newTopic
+      topic: newTopic,
+      farcasterSubmissionSuccess,
+      farcasterHash
     });
   } catch (error) {
     console.error('Error creating forum topic:', error);

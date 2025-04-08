@@ -797,4 +797,348 @@ export async function syncFollowsToFarcaster(hubbleUrl: string = process.env.NEX
     console.error('Error syncing follows to Farcaster:', error);
     return stats;
   }
+}
+
+/**
+ * Sync forum topics from local storage to Farcaster Hubble node
+ * 
+ * @param hubbleUrl The URL of the Hubble node to sync with
+ * @returns Object containing success status and stats
+ */
+export async function syncForumTopicsToFarcaster(hubbleUrl: string = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281'): Promise<{
+  success: boolean;
+  totalTopics: number;
+  synced: number;
+  failed: number;
+  errors: string[];
+}> {
+  // Tracking variables
+  const stats = {
+    success: false,
+    totalTopics: 0,
+    synced: 0,
+    failed: 0,
+    errors: [] as string[]
+  };
+  
+  try {
+    // First, check if the Hubble node is available
+    const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!infoResponse.ok) {
+      stats.errors.push(`Hubble node not available: ${infoResponse.status} ${infoResponse.statusText}`);
+      return stats;
+    }
+    
+    // Load topics from file
+    const fs = require('fs');
+    const path = require('path');
+    const topicsFilePath = path.join(process.cwd(), 'data', 'forum-topics.json');
+    
+    if (!fs.existsSync(topicsFilePath)) {
+      stats.errors.push('Topics file not found');
+      return stats;
+    }
+    
+    const fileData = fs.readFileSync(topicsFilePath, 'utf8');
+    const topics = JSON.parse(fileData);
+    
+    stats.totalTopics = topics.length;
+    
+    if (topics.length === 0) {
+      stats.success = true;
+      return stats;
+    }
+    
+    // Process each topic
+    for (const topic of topics) {
+      try {
+        // Skip if already synced (has a Farcaster hash)
+        if (topic.farcasterHash && topic.farcasterHash.startsWith('0x') && topic.farcasterHash.length > 10) {
+          console.log(`Topic ${topic.id} appears to be already synced to Farcaster with hash ${topic.farcasterHash}`);
+          stats.synced++;
+          continue;
+        }
+        
+        // Submit the topic to Farcaster as a cast
+        const response = await fetch(`${hubbleUrl}/v1/submitMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'MESSAGE_TYPE_CAST_ADD',
+            fid: topic.authorFid,
+            castAddBody: {
+              text: `${topic.title}\n\n${topic.content.substring(0, 280)}${topic.content.length > 280 ? '...' : ''}`,
+              mentions: [],
+              mentionsPositions: [],
+              embeds: []
+            }
+          })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Topic submitted to Farcaster:', result);
+          
+          // Save the Farcaster hash back to the topic
+          if (result.hash) {
+            topic.farcasterHash = result.hash;
+            stats.synced++;
+          }
+        } else {
+          const errorText = await response.text();
+          stats.errors.push(`Failed to sync topic ${topic.id}: ${errorText}`);
+          stats.failed++;
+        }
+      } catch (error) {
+        stats.failed++;
+        stats.errors.push(`Error processing topic: ${error}`);
+        console.error('Error syncing topic:', error);
+      }
+    }
+    
+    // Save updated topics with Farcaster hashes back to file
+    fs.writeFileSync(topicsFilePath, JSON.stringify(topics, null, 2));
+    
+    stats.success = stats.synced > 0;
+    return stats;
+    
+  } catch (error) {
+    stats.errors.push(`General error: ${error}`);
+    console.error('Error syncing topics to Farcaster:', error);
+    return stats;
+  }
+}
+
+/**
+ * Sync research contributions from local storage to Farcaster Hubble node
+ * 
+ * @param hubbleUrl The URL of the Hubble node to sync with
+ * @returns Object containing success status and stats
+ */
+export async function syncResearchToFarcaster(hubbleUrl: string = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281'): Promise<{
+  success: boolean;
+  totalContributions: number;
+  synced: number;
+  failed: number;
+  errors: string[];
+}> {
+  // Tracking variables
+  const stats = {
+    success: false,
+    totalContributions: 0,
+    synced: 0,
+    failed: 0,
+    errors: [] as string[]
+  };
+  
+  try {
+    // First, check if the Hubble node is available
+    const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!infoResponse.ok) {
+      stats.errors.push(`Hubble node not available: ${infoResponse.status} ${infoResponse.statusText}`);
+      return stats;
+    }
+    
+    // Get research contributions (in real implementation, this would use the actual storage)
+    // For this demo, we'll fetch them via API
+    const contributionsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/research/contributions`);
+    
+    if (!contributionsResponse.ok) {
+      stats.errors.push(`Failed to fetch contributions: ${contributionsResponse.status} ${contributionsResponse.statusText}`);
+      return stats;
+    }
+    
+    const contributionsData = await contributionsResponse.json();
+    const contributions = contributionsData.success ? contributionsData.contributions : [];
+    
+    stats.totalContributions = contributions.length;
+    
+    if (contributions.length === 0) {
+      stats.success = true;
+      return stats;
+    }
+    
+    // Process each contribution
+    for (const contribution of contributions) {
+      try {
+        // Skip if already synced
+        if (contribution.farcasterHash && contribution.farcasterHash.startsWith('0x') && contribution.farcasterHash.length > 10) {
+          console.log(`Contribution ${contribution.id} appears to be already synced to Farcaster with hash ${contribution.farcasterHash}`);
+          stats.synced++;
+          continue;
+        }
+        
+        // Submit the contribution to Farcaster as a cast
+        const response = await fetch(`${hubbleUrl}/v1/submitMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'MESSAGE_TYPE_CAST_ADD',
+            fid: contribution.authorFid,
+            castAddBody: {
+              text: `Research: ${contribution.title}\n\n${contribution.abstract.substring(0, 240)}${contribution.abstract.length > 240 ? '...' : ''}\n\nTags: ${contribution.tags.join(', ')}`,
+              mentions: [],
+              mentionsPositions: [],
+              embeds: []
+            }
+          })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Contribution submitted to Farcaster:', result);
+          
+          // In a real implementation, update the contribution with the Farcaster hash
+          if (result.hash) {
+            // Update contribution hash
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/research/contributions/${contribution.id}/farcaster`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                farcasterHash: result.hash
+              })
+            });
+            
+            stats.synced++;
+          }
+        } else {
+          const errorText = await response.text();
+          stats.errors.push(`Failed to sync contribution ${contribution.id}: ${errorText}`);
+          stats.failed++;
+        }
+      } catch (error) {
+        stats.failed++;
+        stats.errors.push(`Error processing contribution: ${error}`);
+        console.error('Error syncing contribution:', error);
+      }
+    }
+    
+    stats.success = stats.synced > 0;
+    return stats;
+    
+  } catch (error) {
+    stats.errors.push(`General error: ${error}`);
+    console.error('Error syncing contributions to Farcaster:', error);
+    return stats;
+  }
+}
+
+/**
+ * Sync all content to Farcaster
+ * This function syncs all content types to Farcaster in a single call
+ * 
+ * @param hubbleUrl The URL of the Hubble node to sync with
+ * @returns Object containing success status and overall stats
+ */
+export async function syncAllToFarcaster(hubbleUrl: string = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281'): Promise<{
+  success: boolean;
+  stats: {
+    casts: {
+      total: number;
+      synced: number;
+      failed: number;
+    };
+    votes: {
+      total: number;
+      synced: number;
+      failed: number;
+    };
+    follows: {
+      total: number;
+      synced: number;
+      failed: number;
+    };
+    topics: {
+      total: number;
+      synced: number;
+      failed: number;
+    };
+    research: {
+      total: number;
+      synced: number;
+      failed: number;
+    };
+  };
+  errors: string[];
+}> {
+  const result = {
+    success: false,
+    stats: {
+      casts: { total: 0, synced: 0, failed: 0 },
+      votes: { total: 0, synced: 0, failed: 0 },
+      follows: { total: 0, synced: 0, failed: 0 },
+      topics: { total: 0, synced: 0, failed: 0 },
+      research: { total: 0, synced: 0, failed: 0 }
+    },
+    errors: [] as string[]
+  };
+  
+  try {
+    // Sync casts
+    const castsResult = await syncCastsToFarcaster(hubbleUrl);
+    result.stats.casts.total = castsResult.totalCasts;
+    result.stats.casts.synced = castsResult.synced;
+    result.stats.casts.failed = castsResult.failed;
+    result.errors.push(...castsResult.errors);
+    
+    // Sync votes
+    const votesResult = await syncVotesToFarcaster(hubbleUrl);
+    result.stats.votes.total = votesResult.totalVotes;
+    result.stats.votes.synced = votesResult.synced;
+    result.stats.votes.failed = votesResult.failed;
+    result.errors.push(...votesResult.errors);
+    
+    // Sync follows
+    const followsResult = await syncFollowsToFarcaster(hubbleUrl);
+    result.stats.follows.total = followsResult.totalFollows;
+    result.stats.follows.synced = followsResult.synced;
+    result.stats.follows.failed = followsResult.failed;
+    result.errors.push(...followsResult.errors);
+    
+    // Sync forum topics
+    const topicsResult = await syncForumTopicsToFarcaster(hubbleUrl);
+    result.stats.topics.total = topicsResult.totalTopics;
+    result.stats.topics.synced = topicsResult.synced;
+    result.stats.topics.failed = topicsResult.failed;
+    result.errors.push(...topicsResult.errors);
+    
+    // Sync research contributions
+    const researchResult = await syncResearchToFarcaster(hubbleUrl);
+    result.stats.research.total = researchResult.totalContributions;
+    result.stats.research.synced = researchResult.synced;
+    result.stats.research.failed = researchResult.failed;
+    result.errors.push(...researchResult.errors);
+    
+    // Consider sync successful if any content was synced
+    result.success = 
+      castsResult.success || 
+      votesResult.success || 
+      followsResult.success || 
+      topicsResult.success || 
+      researchResult.success;
+    
+    return result;
+  } catch (error) {
+    result.errors.push(`General error during sync: ${error}`);
+    console.error('Error during complete sync:', error);
+    return result;
+  }
 } 

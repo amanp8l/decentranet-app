@@ -3,6 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { ForumReply, ForumTopic } from '@/types/forum';
 
+// Hubble node URL
+const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+
 // Helper function to save to comments format
 async function saveToCommentsFormat(reply: ForumReply, topic: ForumTopic) {
   try {
@@ -57,7 +60,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Validate required fields
-    if (!body.content || !body.topicId || !body.authorFid) {
+    if (!body.content || !body.authorFid || !body.topicId) {
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
@@ -71,33 +74,39 @@ export async function POST(request: Request) {
     // Create new reply object
     const newReply: ForumReply = {
       id: replyId,
-      topicId: body.topicId,
       content: body.content,
       authorFid: body.authorFid,
       authorName: body.authorName,
+      topicId: body.topicId,
       timestamp,
-      parentId: body.parentId, // Optional - for nested replies
-      isAnswer: body.isAnswer || false, // Optional - mark as accepted answer
+      isAnswer: body.isAnswer || false,
+      parentId: body.parentId || null,
       votes: []
     };
     
-    // Read existing replies
-    const repliesFilePath = path.join(process.cwd(), 'data', 'forum-replies.json');
-    let replies: ForumReply[] = [];
+    // Read comments from the JSON file
+    const filePath = path.join(process.cwd(), 'data', 'comments.json');
+    let comments: Record<string, any[]> = {};
     
-    if (fs.existsSync(repliesFilePath)) {
-      const fileData = fs.readFileSync(repliesFilePath, 'utf8');
-      replies = JSON.parse(fileData);
+    if (fs.existsSync(filePath)) {
+      const fileData = fs.readFileSync(filePath, 'utf8');
+      comments = JSON.parse(fileData);
     }
     
-    // Add the new reply
-    replies.push(newReply);
+    // Add the new reply to the topic's comments
+    if (!comments[body.topicId]) {
+      comments[body.topicId] = [];
+    }
+    
+    comments[body.topicId].push(newReply);
     
     // Write back to the file
-    fs.writeFileSync(repliesFilePath, JSON.stringify(replies, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(comments, null, 2));
     
     // Update topic reply count and last reply info
     const topicsFilePath = path.join(process.cwd(), 'data', 'forum-topics.json');
+    let topicData = null;
+    
     if (fs.existsSync(topicsFilePath)) {
       const topicsData = fs.readFileSync(topicsFilePath, 'utf8');
       const topics: ForumTopic[] = JSON.parse(topicsData);
@@ -109,6 +118,7 @@ export async function POST(request: Request) {
         topic.lastReplyTimestamp = timestamp;
         topic.lastReplyAuthorFid = body.authorFid;
         topic.lastReplyAuthorName = body.authorName;
+        topicData = topic;
         
         // Save in comments format
         await saveToCommentsFormat(newReply, topic);
@@ -117,9 +127,92 @@ export async function POST(request: Request) {
       }
     }
     
+    // Try to submit to Farcaster directly
+    let farcasterSubmissionSuccess = false;
+    let farcasterHash = null;
+    
+    try {
+      if (topicData) {
+        // Check if Hubble node is connected
+        const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (infoResponse.ok) {
+          // If topic has a Farcaster hash, submit as a reply to that cast
+          // Otherwise submit as a new cast mentioning the topic
+          let requestBody;
+          
+          if (topicData.farcasterHash) {
+            // Submit as a reply to the original topic cast
+            requestBody = {
+              type: 'MESSAGE_TYPE_CAST_ADD',
+              fid: body.authorFid,
+              castAddBody: {
+                text: body.content.substring(0, 280) + (body.content.length > 280 ? '...' : ''),
+                mentions: [],
+                mentionsPositions: [],
+                embeds: [],
+                parentCastId: {
+                  fid: topicData.authorFid,
+                  hash: topicData.farcasterHash
+                }
+              }
+            };
+          } else {
+            // Submit as a new cast mentioning the topic
+            requestBody = {
+              type: 'MESSAGE_TYPE_CAST_ADD',
+              fid: body.authorFid,
+              castAddBody: {
+                text: `Re: ${topicData.title}\n\n${body.content.substring(0, 240)}${body.content.length > 240 ? '...' : ''}`,
+                mentions: [],
+                mentionsPositions: [],
+                embeds: []
+              }
+            };
+          }
+          
+          // Submit the reply to Farcaster
+          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Reply submitted to Farcaster:', result);
+            farcasterSubmissionSuccess = true;
+            
+            if (result.hash) {
+              farcasterHash = result.hash;
+              
+              // Update the reply with the hash in the comments file
+              const replyIndex = comments[body.topicId].findIndex(r => r.id === replyId);
+              if (replyIndex !== -1) {
+                comments[body.topicId][replyIndex].farcasterHash = farcasterHash;
+                fs.writeFileSync(filePath, JSON.stringify(comments, null, 2));
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting to Farcaster:', error);
+      // Don't fail if Farcaster submission fails
+    }
+    
     return NextResponse.json({
       success: true,
-      reply: newReply
+      reply: newReply,
+      farcasterSubmissionSuccess,
+      farcasterHash
     });
   } catch (error) {
     console.error('Error creating forum reply:', error);

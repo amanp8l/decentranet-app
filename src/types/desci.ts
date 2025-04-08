@@ -21,6 +21,7 @@ export interface ResearchContribution {
     role: string;
   }[];
   verificationProof?: string; // Blockchain hash for verification
+  farcasterHash?: string; // Hash of the Farcaster cast for this contribution
 }
 
 export interface ResearchReview {

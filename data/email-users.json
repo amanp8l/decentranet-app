@@ -1,73 +1,818 @@
 [
   {
-    "id": "85227d42-3dc4-46f4-8261-e68e6017d8a5",
-    "email": "aman.patel@kareai.io",
-    "passwordHash": "5ee2ed002c62d05a486cf75e4e1bfc5f7029c56a8df98f59df4f16ee3b6d741fcfd6dbccf083927906fbee871302a5d689e864cb5a84abf2d39d7bf31eb8842e",
-    "passwordSalt": "dd383e67e76656a5fb8f9ea08e6dcecc",
-    "username": "amanpatel",
-    "displayName": "aman.patel",
-    "fid": 5253980722,
+    "id": "d18e5bc8-e0f7-4bb5-9df6-111c7dcde15f",
+    "email": "emily.clark@stanford.edu",
+    "passwordHash": "3c057f9fbde7a4a29093186dc8193a48a4709fef32b4f692dd64a2cb5e327e45de0f0954f29c8dd49b52ee1fda0210b9d0eedd1e9ff9587fb4a7f7b71780d951",
+    "passwordSalt": "46de40a3b2da635946775218d3e0d5ac",
+    "username": "emilyclark19",
+    "displayName": "Prof. Emily Clark",
+    "fid": 7156422613,
     "provider": "email",
     "pfp": null,
-    "bio": "I'm aman.patel, joined via email registration",
-    "followers": [],
+    "bio": "Prof. Emily Clark, specializing in Radiology. Research interests include bioinformatics.",
+    "followers": [
+      6269597478,
+      4927644238,
+      9767099251,
+      6265018995
+    ],
     "following": [
-      1806866286
+      5439473164,
+      4653599081,
+      9829586784
     ],
     "verifications": [],
-    "authToken": "8451ea21-b8dc-41a7-9776-6f14af5d1140",
-    "createdAt": "2025-04-06T15:53:13.780Z",
+    "authToken": "66d0e161-e988-4724-b721-ef90e8058bfd",
+    "createdAt": "2025-04-08T17:22:38.941Z",
     "stats": {
-      "postCount": 0,
-      "commentCount": 2,
-      "receivedUpvotes": 2,
-      "receivedDownvotes": 0,
-      "givenUpvotes": 1,
+      "postCount": 11,
+      "commentCount": 25,
+      "receivedUpvotes": 23,
+      "receivedDownvotes": 8,
+      "givenUpvotes": 23,
+      "givenDownvotes": 4
+    }
+  },
+  {
+    "id": "41971296-ea92-44c4-9c56-6ca08cf28421",
+    "email": "daniel.williams@yahoo.com",
+    "passwordHash": "d4dc0adc4c2564d9b257d216138877d6c2f66fd5e155328886106d1e2245cfb55445c3f5b7be95a21fcbff080670cdab268579c7d4f4ba4a51c055652b77b186",
+    "passwordSalt": "e0e932b4797ec165bf89e4e2405ba1d7",
+    "username": "danielwilliams25",
+    "displayName": "Prof. Daniel Williams",
+    "fid": 6563992371,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Daniel Williams, specializing in Geriatrics. Research interests include AI in medical diagnostics.",
+    "followers": [
+      2042580739,
+      6269597478,
+      5924535590,
+      7804664446,
+      3697287180,
+      2783902758
+    ],
+    "following": [
+      2042580739,
+      2861071157,
+      7804664446,
+      1077773730,
+      6269597478,
+      5439473164,
+      6265018995,
+      4894749908,
+      4927644238,
+      4995784589
+    ],
+    "verifications": [],
+    "authToken": "fd8fbaf7-0ca7-4931-ae66-e5bcbc4f353b",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 7,
+      "commentCount": 18,
+      "receivedUpvotes": 36,
+      "receivedDownvotes": 6,
+      "givenUpvotes": 18,
+      "givenDownvotes": 4
+    }
+  },
+  {
+    "id": "e930cde8-80a7-4f5d-aaeb-3790455b763b",
+    "email": "donna.harris@harvard.edu",
+    "passwordHash": "bb0915c693f076b53a7324bbcd9756e5836a648e956d921a13e6fd77477a8848fccadb6aad26ba1833e94e8b107917c6f9a73b053cbfb060aec70ce7bb97e6b8",
+    "passwordSalt": "2403340b014d7afbd993bc61d026cde7",
+    "username": "donnaharris86",
+    "displayName": "Dr. Donna Harris",
+    "fid": 2042580739,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Donna Harris, specializing in Internal Medicine. Research interests include clinical trials.",
+    "followers": [
+      6563992371,
+      9829586784,
+      9154908948,
+      4927644238,
+      5924535590,
+      1077773730,
+      9767099251,
+      7804664446,
+      6265018995
+    ],
+    "following": [
+      5924535590,
+      9829586784,
+      6563992371,
+      4894749908,
+      2861071157,
+      6265018995,
+      2723708084,
+      5439473164
+    ],
+    "verifications": [],
+    "authToken": "5c47e412-2f86-438c-afed-0a9d4892dfd5",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 12,
+      "commentCount": 21,
+      "receivedUpvotes": 17,
+      "receivedDownvotes": 3,
+      "givenUpvotes": 20,
+      "givenDownvotes": 13
+    }
+  },
+  {
+    "id": "b86025db-37a8-4b13-a64b-407f7fa592cf",
+    "email": "mark.garcia@mayoclinic.org",
+    "passwordHash": "b097d72b972c89d5920570fe05fc3fd7b1a7f0f4f75b43e6794d05143132d5307475df96aa9eb425cf8e0f83d4b3e7e679c03fa4a9a4c025a0c27a6f8062df2f",
+    "passwordSalt": "96984a4418504564b52ef2a343a47f59",
+    "username": "markgarcia96",
+    "displayName": "Dr. Mark Garcia",
+    "fid": 6269597478,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Mark Garcia, specializing in Pulmonology. Research interests include public health.",
+    "followers": [
+      6563992371,
+      7985105704,
+      9154908948,
+      5439473164,
+      2723708084,
+      5924535590,
+      9767099251
+    ],
+    "following": [
+      4653599081,
+      4927644238,
+      1077773730,
+      6563992371,
+      4995784589,
+      6555437277,
+      6265018995,
+      7156422613,
+      9154908948,
+      9767099251
+    ],
+    "verifications": [],
+    "authToken": "2e86125b-c248-442a-af90-035a8d9fa071",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 8,
+      "commentCount": 11,
+      "receivedUpvotes": 32,
+      "receivedDownvotes": 3,
+      "givenUpvotes": 10,
+      "givenDownvotes": 3
+    }
+  },
+  {
+    "id": "6ab42063-7e0e-4422-9e74-0ecb84c56f28",
+    "email": "anthony.torres@hotmail.com",
+    "passwordHash": "2839782b05cb16afb1a5de74fe37010e141f54471c6f695a722503ba20e7d7bd0577f1974407b541fc5b4a21958ac77db860148b916c00bded00bf949f8a4571",
+    "passwordSalt": "878b5eb730eab70a598e144eac6bc9a1",
+    "username": "anthonytorres52",
+    "displayName": "Prof. Anthony Torres",
+    "fid": 9829586784,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Anthony Torres, specializing in Geriatrics. Research interests include chronic disease management.",
+    "followers": [
+      7156422613,
+      2042580739,
+      7985105704,
+      1077773730,
+      4995784589,
+      7804664446,
+      6555437277
+    ],
+    "following": [
+      5439473164,
+      7804664446,
+      7985105704,
+      4995784589,
+      2042580739,
+      1077773730
+    ],
+    "verifications": [],
+    "authToken": "544a504a-eb1c-476a-9963-22616b73bb13",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 9,
+      "commentCount": 5,
+      "receivedUpvotes": 25,
+      "receivedDownvotes": 6,
+      "givenUpvotes": 38,
+      "givenDownvotes": 3
+    }
+  },
+  {
+    "id": "79821600-3939-4604-9ce0-40350247d331",
+    "email": "kimberly.thompson@icloud.com",
+    "passwordHash": "9063786996b6ad8140d5f4ad4abd2db6aa3af723891bf92eb0d98ed67ca73267b46346dcd423ccf5efdf144a995608f79f0c85be4f7daa7dc4fc4ba1c252e10e",
+    "passwordSalt": "4b0336694400b8d0a1f61843a52e981d",
+    "username": "kimberlythompson60",
+    "displayName": "Prof. Kimberly Thompson",
+    "fid": 7985105704,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Kimberly Thompson, specializing in Pediatrics. Research interests include immunotherapy.",
+    "followers": [
+      9829586784,
+      2723708084,
+      4894749908,
+      1077773730,
+      9767099251,
+      4995784589,
+      6555437277
+    ],
+    "following": [
+      5924535590,
+      2723708084,
+      9829586784,
+      4653599081,
+      4995784589,
+      6269597478,
+      6265018995
+    ],
+    "verifications": [],
+    "authToken": "db517ad1-0fcd-432e-b033-45877a556f20",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 9,
+      "commentCount": 14,
+      "receivedUpvotes": 14,
+      "receivedDownvotes": 5,
+      "givenUpvotes": 21,
       "givenDownvotes": 0
     }
   },
   {
-    "id": "e9c19e4a-8de1-4095-bd54-1cf18380e89b",
-    "email": "dewas@gmail.com",
-    "passwordHash": "1bf0d054df1ebcd20475f32931b929f1dc5f742c93f67b80232b696b587a277fcd76c8a15fc490c020cad30e6dc4cf911ac1d7a405fdc0b2a9e7cbac3940cedb",
-    "passwordSalt": "54ee67ff71ff1b3e77ee31a3b55ddde9",
-    "username": "dewas",
-    "displayName": "dewas",
-    "fid": 1806866286,
+    "id": "745dd75c-20a4-46ed-9497-67de794659ad",
+    "email": "andrew.garcia@yahoo.com",
+    "passwordHash": "c18a056502c812c09a9821ada003ea54d5e0fb9bde43dd500d475872ff2f0dffe3f1dad5f294a9a50663df4ae15c6d85472d3bc9c12d4323caf4e65cc61df9af",
+    "passwordSalt": "05f470885058d92acf098a771c177088",
+    "username": "andrewgarcia99",
+    "displayName": "Prof. Andrew Garcia",
+    "fid": 9154908948,
     "provider": "email",
     "pfp": null,
-    "bio": "I'm dewas, joined via email registration",
+    "bio": "Prof. Andrew Garcia, specializing in Emergency Medicine. Research interests include public health.",
     "followers": [
-      5253980722,
-      3999566875
+      6269597478,
+      4653599081,
+      4927644238,
+      4894749908
     ],
-    "following": [],
+    "following": [
+      2042580739,
+      6269597478,
+      4927644238,
+      9767099251,
+      4653599081,
+      2861071157,
+      2723708084,
+      6265018995
+    ],
     "verifications": [],
-    "authToken": "8ced7523-8dcd-466c-9a4d-d8f3e464dc4b",
-    "createdAt": "2025-04-07T12:40:41.863Z",
+    "authToken": "5b3a4eb3-6cab-4e83-8a3a-162c305feb5b",
+    "createdAt": "2025-04-08T17:22:38.941Z",
     "stats": {
-      "postCount": 0,
-      "commentCount": 2,
-      "receivedUpvotes": 2,
-      "receivedDownvotes": 1,
-      "givenUpvotes": 3,
-      "givenDownvotes": 1
+      "postCount": 3,
+      "commentCount": 22,
+      "receivedUpvotes": 36,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 30,
+      "givenDownvotes": 14
     }
   },
   {
-    "id": "a3bb354e-30ea-4335-9ec2-9669cd883d34",
-    "email": "aman@gmail.com",
-    "passwordHash": "bfecb3e0ddb8ad9fa076b16e432f08dfdc8fc18fd5eda427edfdb75e3a1d21ece6c319ba46dc167a434982fa4c4ce9bcfa3c3ba42ff0953611b9c023148264d6",
-    "passwordSalt": "79ce50eec47f34ea9c174ae99eea02e2",
-    "username": "aman",
-    "displayName": "aman",
-    "fid": 3999566875,
+    "id": "50d6943b-bc5b-4274-a844-ea0a7b502b56",
+    "email": "joshua.smith@hotmail.com",
+    "passwordHash": "cadb806398400db3b39aa292daaf0a08535b0a23582546400eced372a8fa5cf5b1b0a643d4dd185d37515869b6be1067f420b68b19c40ebe6f0b73f0d4c4ed39",
+    "passwordSalt": "37e6b3f9db1b87f6c553392666ee0bd3",
+    "username": "joshuasmith9",
+    "displayName": "Prof. Joshua Smith",
+    "fid": 4653599081,
     "provider": "email",
     "pfp": null,
-    "bio": "I'm aman, joined via email registration",
+    "bio": "Prof. Joshua Smith, specializing in Urology. Research interests include regenerative medicine.",
+    "followers": [
+      7156422613,
+      6269597478,
+      7985105704,
+      9154908948,
+      7804664446
+    ],
+    "following": [
+      1077773730,
+      9154908948,
+      6265018995
+    ],
+    "verifications": [],
+    "authToken": "75ba1fe0-0d3b-4eb4-a39c-8090eac1bdec",
+    "createdAt": "2025-04-08T17:22:38.941Z",
+    "stats": {
+      "postCount": 10,
+      "commentCount": 22,
+      "receivedUpvotes": 30,
+      "receivedDownvotes": 6,
+      "givenUpvotes": 16,
+      "givenDownvotes": 13
+    }
+  },
+  {
+    "id": "ea3ab0db-ae30-40ad-a165-b2a6a7481872",
+    "email": "robert.ramirez@stanford.edu",
+    "passwordHash": "c7be68d157f3f6476201f222d5748f03e82d7b5c92a5878c47e9b8f9c8af877bca7af941387155818f97365d7f50485daa0f7a4fff2881ae8e0dbbca809eea57",
+    "passwordSalt": "78c2603a851913c275fcc406bf2aa5b3",
+    "username": "robertramirez98",
+    "displayName": "Dr. Robert Ramirez",
+    "fid": 5439473164,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Robert Ramirez, specializing in Cardiology. Research interests include mental health.",
+    "followers": [
+      7156422613,
+      6563992371,
+      2042580739,
+      9829586784,
+      2723708084,
+      4927644238,
+      4894749908,
+      1077773730,
+      2861071157,
+      9767099251
+    ],
+    "following": [
+      7804664446,
+      6269597478,
+      4927644238
+    ],
+    "verifications": [],
+    "authToken": "7b9a667d-8cfa-4818-b22a-a1153bc815cb",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 13,
+      "commentCount": 1,
+      "receivedUpvotes": 34,
+      "receivedDownvotes": 6,
+      "givenUpvotes": 0,
+      "givenDownvotes": 4
+    }
+  },
+  {
+    "id": "55857fcd-61a2-4f75-b8a5-0e3bc9918069",
+    "email": "barbara.smith@yahoo.com",
+    "passwordHash": "798a5ff15052fb282211e758d4c875b860f2d3cfafb6c5ebe7564fc8cd28392077e45795f4091eeecc178d0647f7ad68767ca5ffa7eaad4b0ce515fed401c1f3",
+    "passwordSalt": "abc0699e519182b53e4a3712ea19d28f",
+    "username": "barbarasmith43",
+    "displayName": "Prof. Barbara Smith",
+    "fid": 2723708084,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Barbara Smith, specializing in Geriatrics. Research interests include neurodegenerative diseases.",
+    "followers": [
+      2042580739,
+      7985105704,
+      9154908948,
+      1077773730
+    ],
+    "following": [
+      1077773730,
+      2861071157,
+      5439473164,
+      6265018995,
+      6555437277,
+      4927644238,
+      7985105704,
+      6269597478,
+      4995784589,
+      5924535590
+    ],
+    "verifications": [],
+    "authToken": "8ba3d980-2c50-4c97-b512-f7b1a9f6b3b0",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 3,
+      "commentCount": 19,
+      "receivedUpvotes": 25,
+      "receivedDownvotes": 5,
+      "givenUpvotes": 4,
+      "givenDownvotes": 13
+    }
+  },
+  {
+    "id": "bf9e8920-c9cd-4802-b7ad-8ef76e675960",
+    "email": "kenneth.robinson@johnsHopkins.edu",
+    "passwordHash": "2f0b30bd887963f7f8bbc3d59ccb6d897d75b79a7f8e22a22124ce87fe25e7258acee96912ab0f01ef672ae4822112c68dd12975b5bcbe1941e0526f1be0637f",
+    "passwordSalt": "af69378231a1d930f46fc1e8099fd369",
+    "username": "kennethrobinson44",
+    "displayName": "Prof. Kenneth Robinson",
+    "fid": 4927644238,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Kenneth Robinson, specializing in Immunology. Research interests include patient outcomes.",
+    "followers": [
+      6563992371,
+      6269597478,
+      9154908948,
+      5439473164,
+      2723708084,
+      2861071157,
+      6265018995,
+      6555437277
+    ],
+    "following": [
+      5439473164,
+      4995784589,
+      9154908948,
+      2042580739,
+      7156422613
+    ],
+    "verifications": [],
+    "authToken": "a67b84ea-b18d-4351-a08b-20ede68fd84e",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 12,
+      "commentCount": 8,
+      "receivedUpvotes": 2,
+      "receivedDownvotes": 9,
+      "givenUpvotes": 39,
+      "givenDownvotes": 9
+    }
+  },
+  {
+    "id": "1ffa68b2-6b43-4db4-9cb1-28b5ee37ce47",
+    "email": "robert.jones@clevelandclinic.org",
+    "passwordHash": "8a45af27556e91efeb169a0e590ebdc46df4041000fc18cf55582d284614c102a362abd4d4e27b129f2eb31d4320791041b512b00b56c8fb9db9b42fad0c9932",
+    "passwordSalt": "b07501ae8275e690df379711181ab7d4",
+    "username": "robertjones64",
+    "displayName": "Prof. Robert Jones",
+    "fid": 4894749908,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Robert Jones, specializing in Cardiology. Research interests include neurodegenerative diseases.",
+    "followers": [
+      6563992371,
+      2042580739,
+      2861071157,
+      7804664446
+    ],
+    "following": [
+      9154908948,
+      5439473164,
+      7985105704,
+      7804664446,
+      6555437277,
+      9767099251
+    ],
+    "verifications": [],
+    "authToken": "1f5dede9-22d9-48f5-a7b1-92994f71e978",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 2,
+      "commentCount": 17,
+      "receivedUpvotes": 0,
+      "receivedDownvotes": 1,
+      "givenUpvotes": 33,
+      "givenDownvotes": 0
+    }
+  },
+  {
+    "id": "bc022db2-2edd-4d7b-b2d5-89130bde58a6",
+    "email": "donna.perez@clevelandclinic.org",
+    "passwordHash": "b56ccc2d5ac1a2756e00d4941c37e014cd4d7680e8bd8ec1b451d7cd390260f4f7b22125411f77e9c018b0e7eb991a87bdf9fa04582edeba31222adff4461056",
+    "passwordSalt": "448b90892713db72b6c122870e1e8ceb",
+    "username": "donnaperez59",
+    "displayName": "Dr. Donna Perez",
+    "fid": 5924535590,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Donna Perez, specializing in Radiology. Research interests include infectious diseases.",
+    "followers": [
+      2042580739,
+      7985105704,
+      2723708084,
+      1077773730,
+      7804664446,
+      6265018995
+    ],
+    "following": [
+      6563992371,
+      6269597478,
+      6265018995,
+      2042580739
+    ],
+    "verifications": [],
+    "authToken": "9ddc6f0c-db2e-479f-951b-9f5c3b1e40f6",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 10,
+      "commentCount": 3,
+      "receivedUpvotes": 14,
+      "receivedDownvotes": 8,
+      "givenUpvotes": 18,
+      "givenDownvotes": 10
+    }
+  },
+  {
+    "id": "cd4c7e3b-4b05-4a61-891f-a2bf9c67c33c",
+    "email": "david.walker@yahoo.com",
+    "passwordHash": "948b4e82be8d2ca638386de65b92947cf6442c73d2d7adf6da06df885f5d483f31a80d4275fd5c2c13c8247d5467f548bd312a5b7cea6c9f75df477e02b6c661",
+    "passwordSalt": "1e3036248845fcfa0f3ad9fc8f945c42",
+    "username": "davidwalker29",
+    "displayName": "Dr. David Walker",
+    "fid": 1077773730,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. David Walker, specializing in Surgery. Research interests include regenerative medicine.",
+    "followers": [
+      6563992371,
+      6269597478,
+      9829586784,
+      4653599081,
+      2723708084,
+      7804664446
+    ],
+    "following": [
+      7985105704,
+      5924535590,
+      2723708084,
+      2042580739,
+      9829586784,
+      5439473164
+    ],
+    "verifications": [],
+    "authToken": "bca12b76-aa5d-4fe4-a0ff-662cc9c9b3d4",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 0,
+      "commentCount": 28,
+      "receivedUpvotes": 5,
+      "receivedDownvotes": 8,
+      "givenUpvotes": 28,
+      "givenDownvotes": 7
+    }
+  },
+  {
+    "id": "fb4a5870-3786-41d3-a3e4-eee575840d6a",
+    "email": "joshua.taylor@icloud.com",
+    "passwordHash": "edf0c65c0e9af4ad7836be55c06650e70a679605cc9b8321bb440d03660aed574a5c033191b1b0e0c1ce72526c92aad049bf5e11fa499bc0c26ff4fa5f84bfdb",
+    "passwordSalt": "18165218e4c88ad6500950fc34af5e2f",
+    "username": "joshuataylor2",
+    "displayName": "Dr. Joshua Taylor",
+    "fid": 2861071157,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Joshua Taylor, specializing in Cardiology. Research interests include precision medicine.",
+    "followers": [
+      6563992371,
+      2042580739,
+      9154908948,
+      2723708084,
+      4995784589,
+      6265018995,
+      6555437277
+    ],
+    "following": [
+      4894749908,
+      4927644238,
+      5439473164,
+      7804664446,
+      6555437277,
+      4995784589
+    ],
+    "verifications": [],
+    "authToken": "60166fe5-5a7b-49c4-beb9-938b4377a7a9",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 2,
+      "commentCount": 25,
+      "receivedUpvotes": 47,
+      "receivedDownvotes": 1,
+      "givenUpvotes": 10,
+      "givenDownvotes": 8
+    }
+  },
+  {
+    "id": "fefd5000-6b59-46d9-ab3c-91eed2f53cfe",
+    "email": "betty.wilson@clevelandclinic.org",
+    "passwordHash": "86a550084e2435fa7af4bb4f8efa31a2950b6ff15c10e7a700ea7743239bb6966f90ccd79bc0241655089a2224bd32971aefd89dea4e219194a5a7678b74ff13",
+    "passwordSalt": "7481527494778aeae27949c06f6bddce",
+    "username": "bettywilson99",
+    "displayName": "Prof. Betty Wilson",
+    "fid": 9767099251,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Betty Wilson, specializing in Geriatrics. Research interests include precision medicine.",
+    "followers": [
+      6269597478,
+      9154908948,
+      4894749908,
+      6265018995
+    ],
+    "following": [
+      7985105704,
+      6555437277,
+      6265018995,
+      7156422613,
+      5439473164,
+      6269597478,
+      2042580739
+    ],
+    "verifications": [],
+    "authToken": "29cd9b07-d2a7-4108-89cf-cab3efb83cf6",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 0,
+      "commentCount": 27,
+      "receivedUpvotes": 49,
+      "receivedDownvotes": 9,
+      "givenUpvotes": 6,
+      "givenDownvotes": 7
+    }
+  },
+  {
+    "id": "580cbc46-5b34-4250-b137-ffd628af9316",
+    "email": "paul.scott@mountsinai.org",
+    "passwordHash": "a0ff1a45e5308bdc30953790374778f97067e562e0e18c69438bf683829bc8cf08f6410eb5c814bb94beb47c83a8657523963654e05b500a81052280db4e8a01",
+    "passwordSalt": "42789d03b2f9bd73b2c36b10a3917215",
+    "username": "paulscott53",
+    "displayName": "Prof. Paul Scott",
+    "fid": 4995784589,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Paul Scott, specializing in Geriatrics. Research interests include public health.",
+    "followers": [
+      6563992371,
+      6269597478,
+      9829586784,
+      7985105704,
+      2723708084,
+      4927644238,
+      2861071157,
+      7804664446,
+      6265018995
+    ],
+    "following": [
+      9829586784,
+      7985105704,
+      7804664446,
+      6265018995,
+      2861071157
+    ],
+    "verifications": [],
+    "authToken": "3bb9dcd4-69d6-4bfa-80a7-7d6a95eadcce",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 5,
+      "commentCount": 6,
+      "receivedUpvotes": 19,
+      "receivedDownvotes": 3,
+      "givenUpvotes": 9,
+      "givenDownvotes": 14
+    }
+  },
+  {
+    "id": "969596d0-1f9e-41a4-992f-b93e79c95065",
+    "email": "nancy.brown@hotmail.com",
+    "passwordHash": "33ef90948d1a96ed81edf9ad320396342d64f6bd72dc5779dc9cf3cf32d133b3ac1da78f3b016044bf319528b86ee003dd72b39a2610e49c457a4282119b70ce",
+    "passwordSalt": "96a613288ce27ba94cf4194d104fe54c",
+    "username": "nancybrown45",
+    "displayName": "Dr. Nancy Brown",
+    "fid": 7804664446,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Dr. Nancy Brown, specializing in Nephrology. Research interests include medical devices.",
+    "followers": [
+      6563992371,
+      9829586784,
+      5439473164,
+      4894749908,
+      2861071157,
+      4995784589
+    ],
+    "following": [
+      6265018995,
+      4653599081,
+      9829586784,
+      2042580739,
+      6563992371,
+      6555437277,
+      1077773730,
+      5924535590,
+      4995784589,
+      4894749908
+    ],
+    "verifications": [],
+    "authToken": "d6ea74d8-d069-4773-b400-a08ae2cc0edd",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 6,
+      "commentCount": 26,
+      "receivedUpvotes": 22,
+      "receivedDownvotes": 3,
+      "givenUpvotes": 32,
+      "givenDownvotes": 14
+    }
+  },
+  {
+    "id": "b092aa57-9638-4a85-9aca-f8634fd3dc09",
+    "email": "mary.gonzalez@icloud.com",
+    "passwordHash": "be91d6f7b39e7b5b429ead231ab9fb5c724df9ba3b15628d47e233977cc9366279f50b634172f64ba6b7621d0d8c7d52e231edc59a378e972525eb46599b1ad0",
+    "passwordSalt": "917181d1e78067921005c52ebdc552c6",
+    "username": "marygonzalez80",
+    "displayName": "Prof. Mary Gonzalez",
+    "fid": 6265018995,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Mary Gonzalez, specializing in Hematology. Research interests include AI in medical diagnostics.",
+    "followers": [
+      6563992371,
+      2042580739,
+      6269597478,
+      7985105704,
+      9154908948,
+      4653599081,
+      2723708084,
+      5924535590,
+      9767099251,
+      4995784589,
+      7804664446
+    ],
+    "following": [
+      7156422613,
+      4927644238,
+      2042580739,
+      9767099251,
+      4995784589,
+      5924535590,
+      2861071157,
+      6555437277
+    ],
+    "verifications": [],
+    "authToken": "e1dcf0e4-3315-4202-bab0-36f4ac33d328",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 4,
+      "commentCount": 12,
+      "receivedUpvotes": 46,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 35,
+      "givenDownvotes": 12
+    }
+  },
+  {
+    "id": "efbc5f89-f194-465a-badf-65f5265f9d88",
+    "email": "thomas.thomas@berkeley.edu",
+    "passwordHash": "0ed94c613d2eec619eaded1210bb66dfb57ff192966591be27da451960bba4b053ae3c0862b6381595e8bbfed55529ce32dad777b98baaa5365c823c3036fa40",
+    "passwordSalt": "c3bf0d3fbc05b53815a446f2c0dffccc",
+    "username": "thomasthomas93",
+    "displayName": "Prof. Thomas Thomas",
+    "fid": 6555437277,
+    "provider": "email",
+    "pfp": null,
+    "bio": "Prof. Thomas Thomas, specializing in Radiology. Research interests include bioinformatics.",
+    "followers": [
+      6269597478,
+      2723708084,
+      4894749908,
+      2861071157,
+      9767099251,
+      7804664446,
+      6265018995
+    ],
+    "following": [
+      4927644238,
+      7985105704,
+      2861071157,
+      9829586784
+    ],
+    "verifications": [],
+    "authToken": "ab9b45a1-33b3-4a03-a3b6-fe48fc1f60f7",
+    "createdAt": "2025-04-08T17:22:38.942Z",
+    "stats": {
+      "postCount": 1,
+      "commentCount": 27,
+      "receivedUpvotes": 9,
+      "receivedDownvotes": 7,
+      "givenUpvotes": 8,
+      "givenDownvotes": 10
+    }
+  },
+  {
+    "id": "fef22963-d456-454e-8e41-9c6994812d0a",
+    "email": "dewas@gmail.com",
+    "passwordHash": "5cd4671da91b14fbf1839d7447658d738dfa7827af6539ace0bab990b01d55c603bd68cdaa36d5f2a097335c9b9becdeadb9ac7f95fc0d7c7d73aa7c18cb32ee",
+    "passwordSalt": "ee32b4f658aa25f069a127ddb7159733",
+    "username": "dewas",
+    "displayName": "dewas",
+    "fid": 2783902758,
+    "provider": "email",
+    "pfp": null,
+    "bio": "I'm dewas, joined via email registration",
     "followers": [],
     "following": [
-      1806866286
+      6563992371
     ],
     "stats": {
       "postCount": 0,
@@ -78,7 +823,34 @@
       "givenDownvotes": 0
     },
     "verifications": [],
-    "authToken": "24992e15-122c-49df-a479-d56561fe8961",
-    "createdAt": "2025-04-08T12:36:35.834Z"
+    "authToken": "da807304-b3d1-425c-a318-47a938ecb9b9",
+    "createdAt": "2025-04-08T17:32:17.954Z"
+  },
+  {
+    "id": "07fae5d9-9059-452e-9c3c-a55a6bc560c3",
+    "email": "aman@gmail.com",
+    "passwordHash": "4f4f84ad44134e1a145f50903bdf96031d7202353be1536258ade5f4650903827b0a5be5f91b776ca853f9154fb4fdd5a2dbad853cbcf4ceca1b9a892b3e6e50",
+    "passwordSalt": "668522e521afa3f0078e87d4a6f59c06",
+    "username": "aman",
+    "displayName": "aman",
+    "fid": 3697287180,
+    "provider": "email",
+    "pfp": null,
+    "bio": "I'm aman, joined via email registration",
+    "followers": [],
+    "following": [
+      6563992371
+    ],
+    "stats": {
+      "postCount": 0,
+      "commentCount": 0,
+      "receivedUpvotes": 0,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 0,
+      "givenDownvotes": 0
+    },
+    "verifications": [],
+    "authToken": "4f06d5d4-b1e7-4030-97f0-4e3ed56320ed",
+    "createdAt": "2025-04-08T17:32:27.143Z"
   }
 ]

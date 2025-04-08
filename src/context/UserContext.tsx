@@ -14,6 +14,7 @@ export interface User {
   following?: number[];
   followers?: number[];
   authToken?: string;
+  isAdmin?: boolean;
   stats?: {
     postCount: number;
     commentCount: number;

@@ -1,89 +1,1440 @@
 {
-  "1af5ccad-861c-44d7-91da-0f7132501ac4": [
+  "67caa86d-26be-45e0-acfe-ab1b3cbb2ae3": [
     {
-      "id": "b015ecef-a7e0-4b82-817a-ba467895a5fb",
-      "text": "nice",
-      "authorFid": 1806866286,
-      "timestamp": 1744033645203,
-      "votes": [],
-      "replies": [
-        "409859f2-6baf-4abe-8ece-84cfb29f8833"
-      ]
-    },
-    {
-      "id": "f361dccb-a2b4-4191-81db-2e5885ff467b",
-      "text": "thanks ❤️",
-      "authorFid": 5253980722,
-      "timestamp": 1744033672527,
+      "id": "fb5034cc-488d-4682-8425-e3ba2f47af73",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 9829586784,
+      "timestamp": 1744198462793,
       "votes": []
     },
     {
-      "id": "409859f2-6baf-4abe-8ece-84cfb29f8833",
-      "text": "reply3",
-      "authorFid": 1806866286,
-      "timestamp": 1744033696624,
-      "parentId": "b015ecef-a7e0-4b82-817a-ba467895a5fb",
-      "votes": [],
-      "replies": [
-        "f9503ea3-bc77-4f1d-b960-ce7d65453556"
+      "id": "c59ff40f-736f-4763-bbd8-c947b84fb0b1",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 4653599081,
+      "timestamp": 1744135251967,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744138851967
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744138851967
+        }
       ]
     },
     {
-      "id": "f9503ea3-bc77-4f1d-b960-ce7d65453556",
-      "text": "reply4",
-      "authorFid": 5253980722,
-      "timestamp": 1744033742236,
-      "parentId": "409859f2-6baf-4abe-8ece-84cfb29f8833",
+      "id": "a18f9ea6-7d4e-4fc0-b4bd-228a6c39ea9a",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 7804664446,
+      "timestamp": 1744143841217,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744147441217
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744147441217
+        }
+      ]
+    },
+    {
+      "id": "dc669de8-2bad-4e04-ad2e-0206a203cebd",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 7985105704,
+      "timestamp": 1744198012847,
+      "votes": []
+    },
+    {
+      "id": "856302b1-30a4-455f-a100-b0113de0035a",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 9154908948,
+      "timestamp": 1744133290745,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744136890745
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744136890745
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744136890745
+        }
+      ]
+    }
+  ],
+  "764b3cec-30e5-43f6-88b5-8bf401a62b4d": [
+    {
+      "id": "3ca8fe4a-fbbd-42ab-a756-d62b1b3004dc",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 2861071157,
+      "timestamp": 1744137907294,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744141507294
+        }
+      ]
+    },
+    {
+      "id": "f2ac689a-a5f2-4ab2-b91b-f79f6dcde11c",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 4927644238,
+      "timestamp": 1744150674989,
+      "votes": []
+    },
+    {
+      "id": "0c0a6d3a-d9dd-4a0b-93ee-0fd0b9d80f8a",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 1077773730,
+      "timestamp": 1744136653786,
+      "parentId": "7422e4a1-b315-499d-8ec8-9f4f5a045ce5",
+      "votes": []
+    },
+    {
+      "id": "58727b34-fae2-41cd-bc67-bd2bc050a6ff",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 5439473164,
+      "timestamp": 1744137691979,
+      "parentId": "7422e4a1-b315-499d-8ec8-9f4f5a045ce5",
+      "votes": []
+    },
+    {
+      "id": "7422e4a1-b315-499d-8ec8-9f4f5a045ce5",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 5924535590,
+      "timestamp": 1744136038819,
+      "votes": [],
+      "replies": [
+        "0c0a6d3a-d9dd-4a0b-93ee-0fd0b9d80f8a",
+        "58727b34-fae2-41cd-bc67-bd2bc050a6ff"
+      ]
+    },
+    {
+      "id": "bf51e075-5368-47b1-aeac-31eef4b38f29",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 6265018995,
+      "timestamp": 1744194338244,
+      "votes": []
+    },
+    {
+      "id": "c9159847-a5ad-4e91-84a9-f3976a0d1175",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 4894749908,
+      "timestamp": 1744151058226,
       "votes": []
     }
   ],
-  "topic-001": [
+  "3b71e82a-7f41-45d2-8ab3-5fabd0ac703e": [
     {
-      "id": "reply-1744120009779-6153",
-      "text": "6rd",
-      "authorFid": 1806866286,
-      "timestamp": 1744120009779,
-      "votes": [],
-      "replies": []
+      "id": "298e8d0d-cf25-4ca2-98d8-11c843e185f5",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 9767099251,
+      "timestamp": 1744143502050,
+      "votes": []
     },
     {
-      "id": "reply-1744120034370-9587",
-      "text": "tdxcdtxc",
-      "authorFid": 1806866286,
-      "timestamp": 1744120034370,
-      "parentId": "reply-001",
-      "votes": [],
-      "replies": []
+      "id": "1aae289a-2aa9-4f2d-8ff4-991babcc6547",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 9154908948,
+      "timestamp": 1744144440448,
+      "votes": []
     },
     {
-      "id": "reply-1744120044332-1977",
-      "text": "ufvv\n",
-      "authorFid": 1806866286,
-      "timestamp": 1744120044332,
-      "parentId": "reply-001",
-      "votes": [],
+      "id": "2cf2f1d2-7b34-46a7-a930-c7f773db99f6",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 2861071157,
+      "timestamp": 1744142052897,
+      "votes": []
+    },
+    {
+      "id": "4f594028-bce6-44ed-9de3-c7a57429ea9f",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 5439473164,
+      "timestamp": 1744136167152,
+      "votes": []
+    },
+    {
+      "id": "0b4ac0d4-6707-4f5a-a3a8-e49c308b889b",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 9829586784,
+      "timestamp": 1744176961540,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744180561540
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744180561540
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744180561540
+        }
+      ]
+    }
+  ],
+  "f53325c4-a572-4f20-8b42-1d42365ea672": [
+    {
+      "id": "4dfaf4dc-5cdb-49d7-bb2b-ef10a2a72a42",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 6269597478,
+      "timestamp": 1744212560611,
+      "votes": []
+    },
+    {
+      "id": "1e263894-f55a-4eff-9977-8b782e4bf57f",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 9829586784,
+      "timestamp": 1744155633725,
+      "parentId": "1474f53b-2128-493b-ac17-f2d2a45c0955",
+      "votes": []
+    },
+    {
+      "id": "6c201b18-417c-48b6-9467-a9bb7de8a5fe",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 7985105704,
+      "timestamp": 1744154969365,
+      "parentId": "1474f53b-2128-493b-ac17-f2d2a45c0955",
+      "votes": []
+    },
+    {
+      "id": "1474f53b-2128-493b-ac17-f2d2a45c0955",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 7156422613,
+      "timestamp": 1744152237460,
+      "votes": [
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744155837460
+        }
+      ],
       "replies": [
-        "reply-1744120061976-1302"
+        "1e263894-f55a-4eff-9977-8b782e4bf57f",
+        "6c201b18-417c-48b6-9467-a9bb7de8a5fe"
       ]
     },
     {
-      "id": "reply-1744120061976-1302",
-      "text": "yhf",
-      "authorFid": 1806866286,
-      "timestamp": 1744120061976,
-      "parentId": "reply-1744120044332-1977",
+      "id": "34715156-d58f-470a-8f51-5ec6d663adce",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 1077773730,
+      "timestamp": 1744146627146,
+      "parentId": "88f19c25-6767-455b-8301-ace9387dce49",
+      "votes": []
+    },
+    {
+      "id": "e9843ac8-cad0-4bcc-b2bf-2419c0445eb8",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 5439473164,
+      "timestamp": 1744147944055,
+      "parentId": "88f19c25-6767-455b-8301-ace9387dce49",
+      "votes": []
+    },
+    {
+      "id": "88f19c25-6767-455b-8301-ace9387dce49",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 4995784589,
+      "timestamp": 1744146393243,
       "votes": [],
-      "replies": []
+      "replies": [
+        "34715156-d58f-470a-8f51-5ec6d663adce",
+        "e9843ac8-cad0-4bcc-b2bf-2419c0445eb8"
+      ]
+    },
+    {
+      "id": "4fb5c42c-8269-47bf-8a6a-a38eef7690c3",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 9829586784,
+      "timestamp": 1744175748379,
+      "votes": []
     }
   ],
-  "topic-1744121197308-2225": [
+  "eb948f09-228a-471a-80aa-d01708ce9be4": [
     {
-      "id": "reply-1744121229053-9396",
-      "text": "HEY",
-      "authorFid": 3999566875,
-      "timestamp": 1744121229053,
+      "id": "07f5e4c6-ab94-490d-84f8-81d0fa8909ce",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 4653599081,
+      "timestamp": 1744179448037,
+      "votes": []
+    },
+    {
+      "id": "03c689ce-e3cc-4f2c-a1a0-29e0bf864a36",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 4653599081,
+      "timestamp": 1744164501527,
+      "parentId": "ec78ea0a-5ee7-40ae-a774-5dd2d9a5a0ed",
+      "votes": []
+    },
+    {
+      "id": "ec78ea0a-5ee7-40ae-a774-5dd2d9a5a0ed",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 7804664446,
+      "timestamp": 1744162620429,
       "votes": [],
-      "replies": []
+      "replies": [
+        "03c689ce-e3cc-4f2c-a1a0-29e0bf864a36"
+      ]
+    },
+    {
+      "id": "2fe6ef36-e91a-4f7b-b71f-5aa92136bd51",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 7985105704,
+      "timestamp": 1744133741078,
+      "votes": []
+    },
+    {
+      "id": "237675e5-2861-46cd-ab37-76ddc3b7f4af",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 9829586784,
+      "timestamp": 1744190617635,
+      "parentId": "0e2e46d3-1a3c-43f5-b257-a7737d90769b",
+      "votes": []
+    },
+    {
+      "id": "0e2e46d3-1a3c-43f5-b257-a7737d90769b",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 6269597478,
+      "timestamp": 1744187962071,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744191562071
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744191562071
+        }
+      ],
+      "replies": [
+        "237675e5-2861-46cd-ab37-76ddc3b7f4af"
+      ]
+    }
+  ],
+  "3bca714b-56b5-445d-9d0e-ae094ec8127e": [
+    {
+      "id": "f3f117d3-b380-4f56-8d90-9b9e2533699d",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 4995784589,
+      "timestamp": 1744140672729,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744144272729
+        }
+      ]
+    },
+    {
+      "id": "81553d0c-5458-45a6-840b-84eb744a7ae4",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 7804664446,
+      "timestamp": 1744147053074,
+      "votes": []
+    },
+    {
+      "id": "0218b204-c420-4927-92ed-90087f18a54d",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 6265018995,
+      "timestamp": 1744141338129,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744144938129
+        }
+      ]
+    },
+    {
+      "id": "b78bd522-8362-4ec2-8088-808544373c54",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 7156422613,
+      "timestamp": 1744147790726,
+      "votes": []
+    }
+  ],
+  "9ae4619f-f89a-45c5-82de-763688d147da": [
+    {
+      "id": "dc2102de-708f-4bbc-b9d1-92b48698a1e3",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 2042580739,
+      "timestamp": 1744139582603,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744143182603
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744143182603
+        },
+        {
+          "userId": 6269597478,
+          "value": 1,
+          "timestamp": 1744143182603
+        }
+      ]
+    },
+    {
+      "id": "70621f94-8981-45d1-8af1-9f03b9300493",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 9154908948,
+      "timestamp": 1744171293989,
+      "votes": []
+    },
+    {
+      "id": "340bf71a-22d2-474c-908d-dfda77869789",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 5924535590,
+      "timestamp": 1744186764848,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744190364848
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744190364848
+        },
+        {
+          "userId": 2042580739,
+          "value": -1,
+          "timestamp": 1744190364848
+        }
+      ]
+    }
+  ],
+  "ecddbcd4-c5f9-417a-9109-7eebc6d18928": [
+    {
+      "id": "0c0601b9-74c5-43db-aad6-951120051be0",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 4894749908,
+      "timestamp": 1744163313589,
+      "votes": []
+    }
+  ],
+  "e6735d0a-35cc-435f-9a6b-eb5d1e06d377": [
+    {
+      "id": "def7742c-c5be-4990-b3d8-c28bcdb03bc7",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 5439473164,
+      "timestamp": 1744177961750,
+      "parentId": "f6506a96-311a-4f99-8359-e6a5fa447f14",
+      "votes": []
+    },
+    {
+      "id": "f6506a96-311a-4f99-8359-e6a5fa447f14",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 6563992371,
+      "timestamp": 1744175055967,
+      "votes": [],
+      "replies": [
+        "def7742c-c5be-4990-b3d8-c28bcdb03bc7"
+      ]
+    },
+    {
+      "id": "edcdce93-c27f-41e2-9e99-abf8a9afbe20",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 6555437277,
+      "timestamp": 1744202128753,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744205728753
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744205728753
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744205728753
+        }
+      ]
+    },
+    {
+      "id": "5e1eff15-6c65-4e0d-b8de-8e8dde4d39ac",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 7156422613,
+      "timestamp": 1744172679431,
+      "votes": [
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744176279431
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744176279431
+        },
+        {
+          "userId": 6269597478,
+          "value": 1,
+          "timestamp": 1744176279431
+        }
+      ]
+    },
+    {
+      "id": "19c07ce9-df96-4950-ae2e-6a4ca3ec55da",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 4995784589,
+      "timestamp": 1744137728450,
+      "votes": []
+    },
+    {
+      "id": "fb5a455b-222f-477c-aa34-5c50e1068df1",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 9154908948,
+      "timestamp": 1744145733495,
+      "votes": []
+    }
+  ],
+  "99b333ee-48a7-4de8-ae55-7bad1c863936": [
+    {
+      "id": "d126c2ed-f276-445b-b21c-4b61ca513453",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 6555437277,
+      "timestamp": 1744199411028,
+      "votes": []
+    },
+    {
+      "id": "a8c3d679-1345-4254-aac2-7a3037019bfd",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6555437277,
+      "timestamp": 1744168965031,
+      "parentId": "65f84a0a-b198-45db-b7e0-98fe25bb5127",
+      "votes": []
+    },
+    {
+      "id": "4d813ad7-bfc3-4ce0-a235-4261b0f9204b",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 7804664446,
+      "timestamp": 1744166606192,
+      "parentId": "65f84a0a-b198-45db-b7e0-98fe25bb5127",
+      "votes": []
+    },
+    {
+      "id": "65f84a0a-b198-45db-b7e0-98fe25bb5127",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 6265018995,
+      "timestamp": 1744166406630,
+      "votes": [],
+      "replies": [
+        "a8c3d679-1345-4254-aac2-7a3037019bfd",
+        "4d813ad7-bfc3-4ce0-a235-4261b0f9204b"
+      ]
+    },
+    {
+      "id": "e0a78c73-6886-4f34-b2fb-e977f0e621eb",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 4927644238,
+      "timestamp": 1744207658914,
+      "votes": []
+    },
+    {
+      "id": "679dd5c0-532a-4b7f-a40f-c15adb0e3d82",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 4995784589,
+      "timestamp": 1744176660176,
+      "parentId": "0f30b2dd-471a-4150-97af-258931414f98",
+      "votes": []
+    },
+    {
+      "id": "a74d74b6-8998-4a58-b985-62cc91bece04",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 9829586784,
+      "timestamp": 1744177555217,
+      "parentId": "0f30b2dd-471a-4150-97af-258931414f98",
+      "votes": []
+    },
+    {
+      "id": "0f30b2dd-471a-4150-97af-258931414f98",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 6563992371,
+      "timestamp": 1744175597871,
+      "votes": [],
+      "replies": [
+        "679dd5c0-532a-4b7f-a40f-c15adb0e3d82",
+        "a74d74b6-8998-4a58-b985-62cc91bece04"
+      ]
+    }
+  ],
+  "6b34fed3-323e-4b02-b433-f5eeb80bdffe": [
+    {
+      "id": "4ff7a000-1cf1-4c48-b427-1cfe8e6491f4",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 7804664446,
+      "timestamp": 1744169358899,
+      "votes": []
+    },
+    {
+      "id": "2acd50d3-1904-4277-af9d-acb0f4901296",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 2042580739,
+      "timestamp": 1744211333145,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744214933145
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744214933145
+        },
+        {
+          "userId": 6269597478,
+          "value": 1,
+          "timestamp": 1744214933145
+        }
+      ]
+    },
+    {
+      "id": "95cc44e6-e2b6-4017-86ce-50b2513850bd",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 2723708084,
+      "timestamp": 1744182427376,
+      "votes": []
+    },
+    {
+      "id": "a74ae6c9-dd9f-4d48-aabe-34fedadbfabf",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 4927644238,
+      "timestamp": 1744201109207,
+      "votes": []
+    },
+    {
+      "id": "e633b1df-b85b-48df-9b33-b8d540b21789",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6265018995,
+      "timestamp": 1744202665659,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744206265659
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744206265659
+        }
+      ]
+    }
+  ],
+  "019026a5-3f22-431d-b5d0-941d0e5d2d57": [
+    {
+      "id": "a3178f2b-bb60-4dd8-a021-b01de7ba1dd9",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6563992371,
+      "timestamp": 1744154153733,
+      "parentId": "33cc6766-6a21-4a82-9921-1784536e2054",
+      "votes": []
+    },
+    {
+      "id": "33cc6766-6a21-4a82-9921-1784536e2054",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 2042580739,
+      "timestamp": 1744153197929,
+      "votes": [],
+      "replies": [
+        "a3178f2b-bb60-4dd8-a021-b01de7ba1dd9"
+      ]
+    },
+    {
+      "id": "f1000264-6efc-4aa7-933a-ea087eec28b8",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6563992371,
+      "timestamp": 1744200774384,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744204374384
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744204374384
+        },
+        {
+          "userId": 6269597478,
+          "value": 1,
+          "timestamp": 1744204374384
+        }
+      ]
+    },
+    {
+      "id": "85a90eec-a441-42ed-a4e3-e8ab1362e2ba",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 9829586784,
+      "timestamp": 1744205551033,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744209151033
+        }
+      ]
+    },
+    {
+      "id": "76368eb6-aaef-4d2b-9022-72a1329a408f",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 5924535590,
+      "timestamp": 1744161292820,
+      "votes": []
+    }
+  ],
+  "219c07fb-ca06-4acf-83e2-c35519f62eb3": [
+    {
+      "id": "efb6ebfb-97d6-41fc-a54b-99019c9196e6",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 7804664446,
+      "timestamp": 1744146300889,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744149900889
+        }
+      ]
+    },
+    {
+      "id": "37e46738-de93-4d9f-9f68-b4db9e11be30",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 7985105704,
+      "timestamp": 1744134093526,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744137693526
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744137693526
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744137693526
+        }
+      ]
+    }
+  ],
+  "aba25bf7-2741-49f2-ac8a-f160d7fa75eb": [
+    {
+      "id": "69d8d6d0-62e4-477a-942c-30721e85c57c",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 6555437277,
+      "timestamp": 1744152423391,
+      "votes": []
+    },
+    {
+      "id": "203b6208-b42f-40a1-a939-e080aee6d1bc",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 6269597478,
+      "timestamp": 1744159163918,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744162763918
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744162763918
+        },
+        {
+          "userId": 2042580739,
+          "value": -1,
+          "timestamp": 1744162763918
+        }
+      ]
+    }
+  ],
+  "43412a75-d3b2-416a-8cdc-d634c3f9d574": [
+    {
+      "id": "1fd11e12-0699-4f76-ade8-ffbbb525e003",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 2042580739,
+      "timestamp": 1744145835509,
+      "votes": []
+    },
+    {
+      "id": "715b74dc-d17c-46b8-9ea8-0489e0aed4a2",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 7804664446,
+      "timestamp": 1744196719130,
+      "votes": []
+    },
+    {
+      "id": "847386c8-fd39-4d27-9264-4e2fc203fcda",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 2861071157,
+      "timestamp": 1744182345067,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744185945067
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744185945067
+        }
+      ]
+    }
+  ],
+  "e4ca7510-933f-42ce-a6dc-31278377a2c5": [
+    {
+      "id": "821660de-903d-4cfd-b661-b1d18329e395",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 6269597478,
+      "timestamp": 1744180525801,
+      "votes": []
+    },
+    {
+      "id": "71615b73-0f5d-454c-bd42-7d9d559144f1",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 2861071157,
+      "timestamp": 1744214081562,
+      "votes": []
+    }
+  ],
+  "6d832633-f0a2-41cc-ab9a-7dcb80aa787b": [
+    {
+      "id": "424bccf6-8312-4e04-8f00-167907b7f70b",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 6555437277,
+      "timestamp": 1744169881903,
+      "votes": []
+    },
+    {
+      "id": "16a0add1-1649-4705-b03c-f3b7eaf4fa34",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 9767099251,
+      "timestamp": 1744138185892,
+      "votes": []
+    },
+    {
+      "id": "16592196-cf58-42e5-b922-788e4f9c5673",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 9154908948,
+      "timestamp": 1744180521192,
+      "votes": []
+    }
+  ],
+  "57669b9b-4659-470f-b7a7-3d36a10482f2": [
+    {
+      "id": "34934f16-8be5-45c2-9713-c91678f8e553",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 9767099251,
+      "timestamp": 1744166881229,
+      "parentId": "8b35365c-5c79-4ff7-b4bb-0f0a6700ebb1",
+      "votes": []
+    },
+    {
+      "id": "8b35365c-5c79-4ff7-b4bb-0f0a6700ebb1",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 7985105704,
+      "timestamp": 1744163528393,
+      "votes": [],
+      "replies": [
+        "34934f16-8be5-45c2-9713-c91678f8e553"
+      ]
+    },
+    {
+      "id": "965ce6af-e6b8-4a04-aaac-e769c4926944",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 4894749908,
+      "timestamp": 1744170456766,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744174056766
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744174056766
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744174056766
+        }
+      ]
+    }
+  ],
+  "7b7f431b-c527-4733-85bd-8e74ba1030b6": [
+    {
+      "id": "fd1f6eda-5056-4716-9954-3659d626c279",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 4653599081,
+      "timestamp": 1744199660230,
+      "votes": []
+    }
+  ],
+  "7e1553e2-4044-4ef0-86ca-31d50abfc232": [
+    {
+      "id": "28f7aee2-eef6-4cbe-bfc7-467f4477d709",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 6555437277,
+      "timestamp": 1744210047803,
+      "votes": []
+    }
+  ],
+  "8585b7cf-33df-46ab-8d8f-993d1facd27a": [
+    {
+      "id": "365a932b-379e-4259-9b64-43fa2ee5143b",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 6269597478,
+      "timestamp": 1744196295815,
+      "votes": []
+    },
+    {
+      "id": "0981f9bd-9a8d-4237-b7d2-d4e6f53969b5",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 6563992371,
+      "timestamp": 1744209909761,
+      "parentId": "55e26612-7fa3-4e4b-96b6-d88c8c01ad05",
+      "votes": []
+    },
+    {
+      "id": "14cad9d7-cca3-4ede-91db-3653e07d7499",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 9154908948,
+      "timestamp": 1744210775025,
+      "parentId": "55e26612-7fa3-4e4b-96b6-d88c8c01ad05",
+      "votes": []
+    },
+    {
+      "id": "55e26612-7fa3-4e4b-96b6-d88c8c01ad05",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 4894749908,
+      "timestamp": 1744207415512,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744211015512
+        }
+      ],
+      "replies": [
+        "0981f9bd-9a8d-4237-b7d2-d4e6f53969b5",
+        "14cad9d7-cca3-4ede-91db-3653e07d7499"
+      ]
+    },
+    {
+      "id": "9825456a-9f03-4c95-9164-16e1406cc966",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 1077773730,
+      "timestamp": 1744205694440,
+      "votes": []
+    },
+    {
+      "id": "8a2f1a0f-1eec-45e2-92d6-8f695d0d30fe",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 6563992371,
+      "timestamp": 1744143795635,
+      "votes": []
+    },
+    {
+      "id": "5c2c7a5f-62de-4131-b39c-216af97e08a7",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 7804664446,
+      "timestamp": 1744174827696,
+      "parentId": "42ae9daf-562f-46b3-8022-29c8dee4cca9",
+      "votes": []
+    },
+    {
+      "id": "c8297935-7d07-48ce-b6f7-c7324a1e95f1",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 9767099251,
+      "timestamp": 1744174531690,
+      "parentId": "42ae9daf-562f-46b3-8022-29c8dee4cca9",
+      "votes": []
+    },
+    {
+      "id": "42ae9daf-562f-46b3-8022-29c8dee4cca9",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6265018995,
+      "timestamp": 1744172413650,
+      "votes": [],
+      "replies": [
+        "5c2c7a5f-62de-4131-b39c-216af97e08a7",
+        "c8297935-7d07-48ce-b6f7-c7324a1e95f1"
+      ]
+    }
+  ],
+  "ee67ab05-04be-49d3-9481-fd80c908d007": [
+    {
+      "id": "39c49141-b849-4c1d-bbb7-3df2411c2674",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 1077773730,
+      "timestamp": 1744162955085,
+      "parentId": "42c7abcf-47d2-469f-b868-4add58d9e81c",
+      "votes": []
+    },
+    {
+      "id": "42c7abcf-47d2-469f-b868-4add58d9e81c",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 6265018995,
+      "timestamp": 1744159360665,
+      "votes": [],
+      "replies": [
+        "39c49141-b849-4c1d-bbb7-3df2411c2674"
+      ]
+    },
+    {
+      "id": "b9bcdc56-e517-4e1e-9c41-c2996028537a",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 6265018995,
+      "timestamp": 1744170352722,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744173952722
+        },
+        {
+          "userId": 6563992371,
+          "value": -1,
+          "timestamp": 1744173952722
+        },
+        {
+          "userId": 2042580739,
+          "value": 1,
+          "timestamp": 1744173952722
+        }
+      ]
+    },
+    {
+      "id": "d1b8543a-dba3-4a69-8cbb-4eb3970f624b",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 6555437277,
+      "timestamp": 1744217605667,
+      "parentId": "df408c64-96b3-4f60-9013-2db894594b62",
+      "votes": []
+    },
+    {
+      "id": "df408c64-96b3-4f60-9013-2db894594b62",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 2723708084,
+      "timestamp": 1744217116366,
+      "votes": [],
+      "replies": [
+        "d1b8543a-dba3-4a69-8cbb-4eb3970f624b"
+      ]
+    },
+    {
+      "id": "1b7512fa-4a86-47f8-ab2a-9a219b35248c",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 5439473164,
+      "timestamp": 1744181576193,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744185176193
+        }
+      ]
+    }
+  ],
+  "44aae754-d854-43da-843e-967ae02a69ae": [
+    {
+      "id": "7958ef4c-5f4b-4407-9e3d-6cd207ffffba",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 4927644238,
+      "timestamp": 1744144360408,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744147960408
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744147960408
+        },
+        {
+          "userId": 2042580739,
+          "value": -1,
+          "timestamp": 1744147960408
+        }
+      ]
+    },
+    {
+      "id": "0e87a4b7-4b1d-492f-8135-d11d17ed5ffe",
+      "text": "Interesting perspective. I've seen similar outcomes in my practice.",
+      "authorFid": 5924535590,
+      "timestamp": 1744165594955,
+      "votes": []
+    },
+    {
+      "id": "1fb01c35-1c0e-4523-8287-659e7765d546",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 2861071157,
+      "timestamp": 1744176815244,
+      "votes": []
+    },
+    {
+      "id": "42f720e1-d6e1-4f7a-aa2e-3f3431ce9705",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 2042580739,
+      "timestamp": 1744204417719,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744208017719
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744208017719
+        },
+        {
+          "userId": 6269597478,
+          "value": 1,
+          "timestamp": 1744208017719
+        }
+      ]
+    },
+    {
+      "id": "999216dd-f0b5-4e03-bc8c-fd14c476653c",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 2723708084,
+      "timestamp": 1744184947593,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744188547593
+        }
+      ]
+    }
+  ],
+  "89bf94ae-4f71-4995-bcee-4423316cb1ba": [
+    {
+      "id": "86085e4d-3411-452b-8baf-d7dfb404e4cd",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 7804664446,
+      "timestamp": 1744149434459,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744153034459
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744153034459
+        }
+      ]
+    }
+  ],
+  "90ef1d06-2598-48bd-a441-c9cf4b5568a6": [
+    {
+      "id": "ceddc684-cb89-42fa-97da-4402bf4cf53d",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 7804664446,
+      "timestamp": 1744183413913,
+      "votes": []
+    },
+    {
+      "id": "1826762a-2528-4a85-9d5a-d9c6aaa3e358",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 4653599081,
+      "timestamp": 1744152927249,
+      "votes": []
+    },
+    {
+      "id": "20ca2735-f43f-44f9-91aa-608a162b67a5",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 4894749908,
+      "timestamp": 1744202993472,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744206593472
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744206593472
+        }
+      ]
+    },
+    {
+      "id": "5009c18c-3353-48b0-9400-b508dc97e056",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 6555437277,
+      "timestamp": 1744217959005,
+      "votes": []
+    }
+  ],
+  "1a5bb21d-ec76-494e-b951-28dc69098f1a": [
+    {
+      "id": "8511df31-4f74-49e1-ab5f-43c1db3eb80a",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 4927644238,
+      "timestamp": 1744202790062,
+      "parentId": "ee7855f2-ee0b-4bf6-a705-0a9d6c4450aa",
+      "votes": []
+    },
+    {
+      "id": "ee7855f2-ee0b-4bf6-a705-0a9d6c4450aa",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 6563992371,
+      "timestamp": 1744202687241,
+      "votes": [],
+      "replies": [
+        "8511df31-4f74-49e1-ab5f-43c1db3eb80a"
+      ]
+    },
+    {
+      "id": "2037fb73-5af4-4e7d-ac49-a9954d88ddcc",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 2042580739,
+      "timestamp": 1744176430410,
+      "votes": []
+    },
+    {
+      "id": "64875a5d-e3bf-4025-ae9d-53ec3fb8ac37",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 4927644238,
+      "timestamp": 1744197124871,
+      "votes": []
+    }
+  ],
+  "51339ce3-4a4e-4639-8a01-3f7836b23ee9": [
+    {
+      "id": "7417a696-11f8-4e1c-b937-91992c028e8d",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 4894749908,
+      "timestamp": 1744197965943,
+      "votes": []
+    },
+    {
+      "id": "e8a6f7bf-8564-443d-be18-28e897ce1035",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 4927644238,
+      "timestamp": 1744207130673,
+      "votes": []
+    },
+    {
+      "id": "d326623c-2b31-432c-b9d9-c59bb8add471",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 2723708084,
+      "timestamp": 1744172479254,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744176079254
+        }
+      ]
+    },
+    {
+      "id": "bd9d0fdf-1bb4-4139-b9d2-efe647e11a64",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 7985105704,
+      "timestamp": 1744160865749,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": -1,
+          "timestamp": 1744164465749
+        }
+      ]
+    },
+    {
+      "id": "7e3ef9bd-6440-4591-9e24-6a4ebc5e0ac3",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 5439473164,
+      "timestamp": 1744182868066,
+      "parentId": "79d4f218-0143-47fb-8b57-23c007cc6889",
+      "votes": []
+    },
+    {
+      "id": "17011a75-1ee4-448c-9e48-778c85f8aa8c",
+      "text": "Have you seen the recent meta-analysis on this topic?",
+      "authorFid": 7804664446,
+      "timestamp": 1744184010316,
+      "parentId": "79d4f218-0143-47fb-8b57-23c007cc6889",
+      "votes": []
+    },
+    {
+      "id": "79d4f218-0143-47fb-8b57-23c007cc6889",
+      "text": "What methodology did you use? I'm curious about replicating this.",
+      "authorFid": 6563992371,
+      "timestamp": 1744181857470,
+      "votes": [],
+      "replies": [
+        "7e3ef9bd-6440-4591-9e24-6a4ebc5e0ac3",
+        "17011a75-1ee4-448c-9e48-778c85f8aa8c"
+      ]
+    }
+  ],
+  "8eb06a95-7edf-485a-82ae-0b9c5bf53cad": [
+    {
+      "id": "bbf36e50-6213-4d2a-97bb-2ee9c4f8b97a",
+      "text": "This aligns with my clinical experience as well.",
+      "authorFid": 9767099251,
+      "timestamp": 1744138340724,
+      "votes": []
+    },
+    {
+      "id": "e38d5ab8-3387-4d34-80ef-b20f834d6972",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 4894749908,
+      "timestamp": 1744160583045,
+      "votes": []
+    },
+    {
+      "id": "6462bc66-61da-4e02-9ed9-24155c4add05",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 9154908948,
+      "timestamp": 1744154706780,
+      "parentId": "3dec3a4e-1c24-4952-832b-ffc74c78074c",
+      "votes": []
+    },
+    {
+      "id": "40100550-cc75-4e20-93bf-f582deb3d0f1",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 2861071157,
+      "timestamp": 1744152004841,
+      "parentId": "3dec3a4e-1c24-4952-832b-ffc74c78074c",
+      "votes": []
+    },
+    {
+      "id": "3dec3a4e-1c24-4952-832b-ffc74c78074c",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 6563992371,
+      "timestamp": 1744151498048,
+      "votes": [],
+      "replies": [
+        "6462bc66-61da-4e02-9ed9-24155c4add05",
+        "40100550-cc75-4e20-93bf-f582deb3d0f1"
+      ]
+    },
+    {
+      "id": "223b298d-3e83-4333-bd32-21ce68f32d08",
+      "text": "Important findings. Do you have the full paper available?",
+      "authorFid": 6563992371,
+      "timestamp": 1744160006973,
+      "parentId": "f3039472-3f3b-4951-ad82-0caf2d3e162d",
+      "votes": []
+    },
+    {
+      "id": "20d77f02-00da-4292-8d56-58aed6a06319",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 1077773730,
+      "timestamp": 1744159753345,
+      "parentId": "f3039472-3f3b-4951-ad82-0caf2d3e162d",
+      "votes": []
+    },
+    {
+      "id": "f3039472-3f3b-4951-ad82-0caf2d3e162d",
+      "text": "This could change our approach to treatment protocols.",
+      "authorFid": 5924535590,
+      "timestamp": 1744159000290,
+      "votes": [
+        {
+          "userId": 7156422613,
+          "value": 1,
+          "timestamp": 1744162600290
+        },
+        {
+          "userId": 6563992371,
+          "value": 1,
+          "timestamp": 1744162600290
+        },
+        {
+          "userId": 2042580739,
+          "value": -1,
+          "timestamp": 1744162600290
+        }
+      ],
+      "replies": [
+        "223b298d-3e83-4333-bd32-21ce68f32d08",
+        "20d77f02-00da-4292-8d56-58aed6a06319"
+      ]
+    },
+    {
+      "id": "e78c5ee4-3e43-48f9-a66e-404cd935d489",
+      "text": "Great points! Have you considered the implications for long-term patient outcomes?",
+      "authorFid": 1077773730,
+      "timestamp": 1744191733919,
+      "votes": []
+    }
+  ],
+  "abcbecd0-7093-49e5-ab17-67fee5cca122": [
+    {
+      "id": "36e4ffea-2248-437c-8079-5d065e9abb29",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 7985105704,
+      "timestamp": 1744156914481,
+      "votes": []
+    }
+  ],
+  "67b3b79d-8623-4dd7-8421-4a62dfe5e8cd": [
+    {
+      "id": "6799c5eb-05a9-4cc8-aeae-afc0af2c50ac",
+      "text": "Thanks for sharing this. Very relevant to my current research.",
+      "authorFid": 7985105704,
+      "timestamp": 1744194231533,
+      "votes": []
+    },
+    {
+      "id": "c44c76cb-7ab2-454f-a55d-cd6459269281",
+      "text": "I'd love to discuss this further. Our team is working on something similar.",
+      "authorFid": 1077773730,
+      "timestamp": 1744194768549,
+      "votes": []
+    },
+    {
+      "id": "c62a82c9-1e75-40cd-996f-2552b02dd613",
+      "text": "Compelling argument. We should collaborate on a follow-up study.",
+      "authorFid": 7804664446,
+      "timestamp": 1744147890543,
+      "votes": []
     }
   ]
 }

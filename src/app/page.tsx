@@ -60,6 +60,25 @@ export default function Home() {
           console.error('Error fetching research:', error);
           // Don't fail the whole page if research isn't available yet
         }
+        
+        // Try to sync all content to Farcaster
+        try {
+          const syncResponse = await fetch('/api/sync/all', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+          });
+          
+          if (syncResponse.ok) {
+            const syncResult = await syncResponse.json();
+            console.log('Farcaster sync result:', syncResult);
+          }
+        } catch (error) {
+          console.error('Error syncing to Farcaster:', error);
+          // Don't fail the page load if sync fails
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

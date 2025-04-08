@@ -1,35 +1,637 @@
 {
-  "1af5ccad-861c-44d7-91da-0f7132501ac4": [
+  "ed851258-bc11-4dcd-aff6-62f5343b27aa": [
     {
-      "userId": 5253980722,
+      "userId": 6563992371,
       "value": 1,
-      "timestamp": 1744033616632
+      "timestamp": 1744181459654
+    }
+  ],
+  "67caa86d-26be-45e0-acfe-ab1b3cbb2ae3": [
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744173319246
+    }
+  ],
+  "44b31699-1905-4f70-9127-7de2b87ed9a7": [
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744133611398
     },
     {
-      "userId": 1806866286,
-      "value": 1,
-      "timestamp": 1744033626702
-    }
-  ],
-  "1162065f-8218-4808-87cd-adc4cd068512": [
-    {
-      "userId": 1806866286,
-      "value": 1,
-      "timestamp": 1744038403272
-    }
-  ],
-  "69091b44-11b7-48c2-9a53-a7c7e9c88f71": [
-    {
-      "userId": 1806866286,
+      "userId": 2042580739,
       "value": -1,
-      "timestamp": 1744038422464
+      "timestamp": 1744176582551
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744165451232
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744217948278
     }
   ],
-  "ae1f9884-ea78-4e44-9930-1c99ad643d42": [
+  "6a366763-5358-43f9-aa56-64d640ba8b76": [
     {
-      "userId": 1806866286,
+      "userId": 6563992371,
       "value": 1,
-      "timestamp": 1744038425880
+      "timestamp": 1744184869198
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744175383860
+    },
+    {
+      "userId": 6269597478,
+      "value": -1,
+      "timestamp": 1744147730639
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744192849207
+    }
+  ],
+  "764b3cec-30e5-43f6-88b5-8bf401a62b4d": [
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744142472281
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744192866663
+    },
+    {
+      "userId": 6269597478,
+      "value": -1,
+      "timestamp": 1744170374713
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744168916048
+    }
+  ],
+  "3b71e82a-7f41-45d2-8ab3-5fabd0ac703e": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744180295083
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744169532777
+    },
+    {
+      "userId": 6269597478,
+      "value": -1,
+      "timestamp": 1744197015419
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744182063338
+    }
+  ],
+  "729d30e6-b5b0-44f3-bd99-c557be96e306": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744213556709
+    }
+  ],
+  "eb948f09-228a-471a-80aa-d01708ce9be4": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744201012263
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744162904606
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744218777933
+    }
+  ],
+  "3bca714b-56b5-445d-9d0e-ae094ec8127e": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744138431754
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744188634421
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744193187403
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744198228014
+    }
+  ],
+  "ecddbcd4-c5f9-417a-9109-7eebc6d18928": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744156057192
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744160935113
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744136713037
+    }
+  ],
+  "6b34fed3-323e-4b02-b433-f5eeb80bdffe": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744197731130
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744218008470
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744217871106
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744149337506
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744169479404
+    }
+  ],
+  "2d8c0772-1bed-443c-8139-1b310c10b468": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744217137361
+    },
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744161229156
+    }
+  ],
+  "219c07fb-ca06-4acf-83e2-c35519f62eb3": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744159127023
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744149540723
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744143360923
+    }
+  ],
+  "a4d888f9-7b01-49de-9fe4-36b8e7156ad5": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744149915946
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744200962622
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744164246658
+    }
+  ],
+  "43412a75-d3b2-416a-8cdc-d634c3f9d574": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744136520529
+    }
+  ],
+  "949786dc-9402-48d4-8401-83448137c368": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744149807944
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744160712814
+    }
+  ],
+  "e4ca7510-933f-42ce-a6dc-31278377a2c5": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744159013789
+    }
+  ],
+  "7d6fbdb7-f972-44d8-ab1d-44feb47ffa13": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744174995361
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744215571946
+    },
+    {
+      "userId": 2042580739,
+      "value": -1,
+      "timestamp": 1744158696813
+    }
+  ],
+  "6d832633-f0a2-41cc-ab9a-7dcb80aa787b": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744151714049
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744213928316
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744134363922
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744199080448
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744208667277
+    }
+  ],
+  "7b7f431b-c527-4733-85bd-8e74ba1030b6": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744207878544
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744158677648
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744142937532
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744150724249
+    }
+  ],
+  "7e1553e2-4044-4ef0-86ca-31d50abfc232": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744150546851
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744153433251
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744193383028
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744192840674
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744205338004
+    }
+  ],
+  "8585b7cf-33df-46ab-8d8f-993d1facd27a": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744195548876
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744206039927
+    }
+  ],
+  "ee67ab05-04be-49d3-9481-fd80c908d007": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744179296880
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744137740135
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744198334416
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744165790949
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744170513196
+    }
+  ],
+  "44aae754-d854-43da-843e-967ae02a69ae": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744183455364
+    },
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744150997460
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744166360824
+    }
+  ],
+  "e483b153-6176-4411-9973-6cfab1c97420": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744143603292
+    },
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744213946656
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744179963371
+    }
+  ],
+  "7f87dfe5-45ff-4c84-be92-bfcb39c6805e": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744193006839
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744208140903
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744177556935
+    }
+  ],
+  "c24a7664-bc25-4945-b342-f21caa007f77": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744146439034
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744197223622
+    }
+  ],
+  "89bf94ae-4f71-4995-bcee-4423316cb1ba": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744139971888
+    },
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744188095381
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744179816911
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744191282745
+    }
+  ],
+  "90ef1d06-2598-48bd-a441-c9cf4b5568a6": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744169672385
+    },
+    {
+      "userId": 6563992371,
+      "value": -1,
+      "timestamp": 1744170334213
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744192757360
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744156133767
+    },
+    {
+      "userId": 9829586784,
+      "value": 1,
+      "timestamp": 1744201079382
+    }
+  ],
+  "18b07d89-2794-4d4a-b6d1-87a4ad738c31": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744162805769
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744191677489
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744210034487
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744141375589
+    },
+    {
+      "userId": 9829586784,
+      "value": -1,
+      "timestamp": 1744151877068
+    }
+  ],
+  "1a5bb21d-ec76-494e-b951-28dc69098f1a": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744160042540
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744144314521
+    },
+    {
+      "userId": 2042580739,
+      "value": -1,
+      "timestamp": 1744210573933
+    },
+    {
+      "userId": 6269597478,
+      "value": -1,
+      "timestamp": 1744169569240
+    }
+  ],
+  "51339ce3-4a4e-4639-8a01-3f7836b23ee9": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744139149865
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744166246292
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744168321919
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744177382993
+    },
+    {
+      "userId": 9829586784,
+      "value": -1,
+      "timestamp": 1744145667407
+    }
+  ],
+  "8eb06a95-7edf-485a-82ae-0b9c5bf53cad": [
+    {
+      "userId": 7156422613,
+      "value": 1,
+      "timestamp": 1744178803049
+    }
+  ],
+  "abcbecd0-7093-49e5-ab17-67fee5cca122": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744164680545
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744218814624
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744159519878
+    },
+    {
+      "userId": 6269597478,
+      "value": -1,
+      "timestamp": 1744204813880
+    }
+  ],
+  "3ca18398-8eac-4b6a-9156-a3ca55735b57": [
+    {
+      "userId": 7156422613,
+      "value": -1,
+      "timestamp": 1744169027043
+    },
+    {
+      "userId": 6563992371,
+      "value": 1,
+      "timestamp": 1744174580271
+    },
+    {
+      "userId": 2042580739,
+      "value": 1,
+      "timestamp": 1744169046758
+    },
+    {
+      "userId": 6269597478,
+      "value": 1,
+      "timestamp": 1744167368713
     }
   ]
 }

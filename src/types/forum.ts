@@ -28,6 +28,7 @@ export interface ForumTopic {
     value: 1 | -1;
     timestamp: number;
   }[];
+  farcasterHash?: string;
 }
 
 export interface ForumReply {
@@ -44,6 +45,7 @@ export interface ForumReply {
     value: 1 | -1;
     timestamp: number;
   }[];
+  farcasterHash?: string; // Hash of the Farcaster cast for this reply
 }
 
 export interface Tag {

@@ -32,66 +32,148 @@ function saveUsers(users: any[]) {
 // Follow/unfollow a user
 export async function POST(request: NextRequest) {
   try {
-    const { userFid, targetFid, action = 'follow' } = await request.json();
+    const { userFid, targetFid, action } = await request.json();
     
-    if (!userFid || !targetFid) {
+    if (!userFid || !targetFid || (action !== 'follow' && action !== 'unfollow')) {
       return NextResponse.json(
-        { success: false, error: 'Both userFid and targetFid are required' },
+        { success: false, error: 'Invalid follow data' },
         { status: 400 }
       );
     }
     
-    // Make sure the FIDs are numbers
-    const userFidNum = parseInt(userFid);
-    const targetFidNum = parseInt(targetFid);
+    // Convert to numbers if they aren't already
+    const userFidNum = typeof userFid === 'string' ? parseInt(userFid) : userFid;
+    const targetFidNum = typeof targetFid === 'string' ? parseInt(targetFid) : targetFid;
     
     if (isNaN(userFidNum) || isNaN(targetFidNum)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid FID format' },
+        { success: false, error: 'FIDs must be valid numbers' },
         { status: 400 }
       );
     }
     
-    // Check user authentication
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (userFidNum === targetFidNum) {
       return NextResponse.json(
-        { success: false, error: 'Authentication required' },
-        { status: 401 }
+        { success: false, error: 'You cannot follow yourself' },
+        { status: 400 }
       );
     }
     
-    const token = authHeader.split(' ')[1];
-    
-    // Load users data
+    // Load users from database
     const users = getUsers();
     
-    // Find the user making the request
-    const user = users.find((u: any) => u.authToken === token && u.fid === userFidNum);
+    // Find the user and target
+    const userIndex = users.findIndex((u: any) => u.fid === userFidNum);
+    const targetUserIndex = users.findIndex((u: any) => u.fid === targetFidNum);
     
-    if (!user) {
+    // If we can't find the user, return an error
+    if (userIndex === -1) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized or user not found' },
-        { status: 401 }
+        { success: false, error: 'User not found' },
+        { status: 404 }
       );
     }
     
+    // Get user objects
+    const user = users[userIndex];
+    const targetUser = targetUserIndex !== -1 ? users[targetUserIndex] : null;
+    
     // Initialize following array if it doesn't exist
-    if (!user.following || !Array.isArray(user.following)) {
+    if (!user.following) {
       user.following = [];
     }
     
-    // Find the target user
-    const targetUser = users.find((u: any) => u.fid === targetFidNum);
-    
-    if (targetUser) {
-      // Initialize followers array for target user if it doesn't exist
-      if (!targetUser.followers || !Array.isArray(targetUser.followers)) {
-        targetUser.followers = [];
-      }
+    if (targetUser && !targetUser.followers) {
+      targetUser.followers = [];
     }
     
     let message = '';
+    
+    // Try to submit to Farcaster (Hubble) first
+    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    let farcasterSubmissionSuccess = false;
+    
+    try {
+      // Check if Hubble node is connected
+      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (infoResponse.ok) {
+        if (action === 'follow') {
+          // Try to submit the follow action to Farcaster
+          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitLink`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              type: 'LINK_TYPE_FOLLOW',
+              fid: userFidNum,
+              targetFid: targetFidNum
+            })
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Follow submitted to Farcaster:', result);
+            farcasterSubmissionSuccess = true;
+          } else {
+            // Try alternative endpoint format
+            const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                type: 'MESSAGE_TYPE_LINK_ADD',
+                fid: userFidNum,
+                linkBody: {
+                  type: 'follow',
+                  targetFid: targetFidNum
+                }
+              })
+            });
+            
+            if (altResponse.ok) {
+              const altResult = await altResponse.json();
+              console.log('Follow submitted to Farcaster (alt method):', altResult);
+              farcasterSubmissionSuccess = true;
+            }
+          }
+        } else if (action === 'unfollow') {
+          // Try to remove the follow link on Farcaster
+          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              type: 'MESSAGE_TYPE_LINK_REMOVE',
+              fid: userFidNum,
+              linkBody: {
+                type: 'follow', 
+                targetFid: targetFidNum
+              }
+            })
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Unfollow submitted to Farcaster:', result);
+            farcasterSubmissionSuccess = true;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting follow/unfollow to Farcaster:', error);
+    }
+    
+    // Always update local storage regardless of Farcaster success
+    // This ensures we have local state for users who authenticate with email
     
     // Follow or unfollow user
     if (action === 'follow') {
@@ -121,34 +203,15 @@ export async function POST(request: NextRequest) {
     // Save updated user data
     saveUsers(users);
     
-    // Try to follow/unfollow on Hubble node if connected
-    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
-    
-    try {
-      // Check if Hubble node is available
-      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, { method: 'GET' });
-      
-      if (infoResponse.ok) {
-        // For Hubble v1.19.1, the following/unfollowing endpoints might be different
-        // This is a placeholder for actual Hubble API call
-        console.log(`Would send ${action} request to Hubble for user ${userFidNum} to ${action} ${targetFidNum}`);
-      }
-    } catch (error) {
-      // Ignore Hubble connection errors - we've already saved locally
-      console.error('Error connecting to Hubble node:', error);
-    }
-    
     return NextResponse.json({
       success: true,
       message,
-      isFollowing: action === 'follow',
-      following: user.following.length,
-      followers: user.followers?.length || 0
+      farcasterSynced: farcasterSubmissionSuccess
     });
   } catch (error) {
-    console.error('Error in follow/unfollow API:', error);
+    console.error('Error processing follow/unfollow:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to process follow/unfollow request' },
+      { success: false, error: 'Failed to process follow request' },
       { status: 500 }
     );
   }

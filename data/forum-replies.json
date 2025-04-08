@@ -1,0 +1,126 @@
+[
+  {
+    "id": "reply-001",
+    "topicId": "topic-001",
+    "content": "This is a fantastic initiative! I'm Dr. Smith from Mayo Clinic, specializing in cardiology. Looking forward to collaborating with everyone.",
+    "authorFid": 5253980722,
+    "authorName": "Dr. Smith",
+    "timestamp": 1743033650320,
+    "votes": [
+      {
+        "userId": 1806866286,
+        "value": 1,
+        "timestamp": 1743033750320
+      }
+    ]
+  },
+  {
+    "id": "reply-002",
+    "topicId": "topic-002",
+    "content": "I've been following this research closely. While the results are promising, I'm concerned about the small sample size and relatively short follow-up period. Has anyone reviewed the full data set?",
+    "authorFid": 1806866286,
+    "authorName": "Dr. Johnson",
+    "timestamp": 1743033550320,
+    "votes": [
+      {
+        "userId": 5253980722,
+        "value": 1,
+        "timestamp": 1743033750320
+      }
+    ]
+  },
+  {
+    "id": "reply-003",
+    "topicId": "topic-002",
+    "content": "Good point about the sample size. I'm part of a similar study in Europe, and we're seeing comparable results but with a more diverse patient population. Happy to share our preliminary findings if anyone's interested.",
+    "authorFid": 5253980722,
+    "authorName": "Dr. Smith",
+    "timestamp": 1743032650320,
+    "parentId": "reply-002",
+    "votes": []
+  },
+  {
+    "id": "reply-004",
+    "topicId": "topic-003",
+    "content": "I treated a similar case last year - 29-year-old female with atypical Kawasaki. The literature on adult cases is sparse, but there seems to be an increase in reported cases. I believe we need a registry for adult Kawasaki to better understand the presentation and treatment outcomes.",
+    "authorFid": 5253980722,
+    "authorName": "Dr. Smith",
+    "timestamp": 1743031550320,
+    "isAnswer": true,
+    "votes": [
+      {
+        "userId": 1806866286,
+        "value": 1,
+        "timestamp": 1743031650320
+      }
+    ]
+  },
+  {
+    "id": "reply-005",
+    "topicId": "topic-004",
+    "content": "We've had good results with TeleMed+ for our cardiac monitoring program. The integration with most ECG devices is seamless, and their analytics dashboard has been helpful for our team. Happy to give you a demo if you're interested.",
+    "authorFid": 1806866286,
+    "authorName": "Dr. Johnson",
+    "timestamp": 1742033550320,
+    "votes": [
+      {
+        "userId": 5253980722,
+        "value": 1,
+        "timestamp": 1742033650320
+      }
+    ]
+  },
+  {
+    "id": "reply-1744120009779-6153",
+    "topicId": "topic-001",
+    "content": "6rd",
+    "authorFid": 1806866286,
+    "authorName": "dewas",
+    "timestamp": 1744120009779,
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744120034370-9587",
+    "topicId": "topic-001",
+    "content": "tdxcdtxc",
+    "authorFid": 1806866286,
+    "authorName": "dewas",
+    "timestamp": 1744120034370,
+    "parentId": "reply-001",
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744120044332-1977",
+    "topicId": "topic-001",
+    "content": "ufvv\n",
+    "authorFid": 1806866286,
+    "authorName": "dewas",
+    "timestamp": 1744120044332,
+    "parentId": "reply-001",
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744120061976-1302",
+    "topicId": "topic-001",
+    "content": "yhf",
+    "authorFid": 1806866286,
+    "authorName": "dewas",
+    "timestamp": 1744120061976,
+    "parentId": "reply-1744120044332-1977",
+    "isAnswer": false,
+    "votes": []
+  },
+  {
+    "id": "reply-1744121229053-9396",
+    "topicId": "topic-1744121197308-2225",
+    "content": "HEY",
+    "authorFid": 3999566875,
+    "authorName": "aman",
+    "timestamp": 1744121229053,
+    "isAnswer": false,
+    "votes": []
+  }
+]

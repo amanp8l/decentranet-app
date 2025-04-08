@@ -17,7 +17,7 @@ export default function EmailLoginForm({ onLogin }: EmailLoginFormProps) {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-
+    
     try {
       await onLogin('email', undefined, email, password, isRegistering);
     } catch (err) {

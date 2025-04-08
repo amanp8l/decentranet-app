@@ -166,6 +166,88 @@ export async function GET(request: NextRequest) {
       );
     }
     
+    // Try to get comments from Farcaster first
+    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    let farcasterComments = null;
+    
+    try {
+      // Check if the Hubble node is connected
+      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (infoResponse.ok) {
+        // Extract FID and hash from the castId if it has the format fid-hash
+        const castFid = parseInt(castId.split('-')[0]) || 0;
+        const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+        
+        // Try to get reactions (replies) for this cast
+        if (castFid > 0 || castHash) {
+          const endpoint = castFid > 0 
+            ? `${HUBBLE_HTTP_URL}/v1/castReactions?fid=${castFid}&hash=${castHash}&reactionType=1` 
+            : `${HUBBLE_HTTP_URL}/v1/castReactions?hash=${castHash}&reactionType=1`;
+          
+          const reactionsResponse = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          if (reactionsResponse.ok) {
+            const reactionsData = await reactionsResponse.json();
+            
+            if (reactionsData && reactionsData.reactions && Array.isArray(reactionsData.reactions)) {
+              // Map reactions to our comment format
+              farcasterComments = reactionsData.reactions.map((reaction: any) => ({
+                id: reaction.hash || uuidv4(),
+                text: reaction.text || '',
+                authorFid: reaction.fid || 0,
+                timestamp: reaction.timestamp || Date.now(),
+                votes: [],
+                replies: []
+              }));
+              
+              console.log(`Found ${farcasterComments.length} comments for cast ${castId} from Farcaster`);
+            }
+          }
+        }
+      }
+    } catch (farcasterError) {
+      console.error('Error fetching comments from Farcaster:', farcasterError);
+    }
+    
+    // If we got comments from Farcaster, use those
+    if (farcasterComments && farcasterComments.length > 0) {
+      // Fetch user info for each comment author
+      const users = getUsers();
+      const commentData = farcasterComments.map((comment: CommentData) => {
+        const user = users.find((u: any) => u.fid === comment.authorFid);
+        return {
+          ...comment,
+          author: user ? {
+            username: user.username,
+            displayName: user.displayName,
+            pfp: user.pfp
+          } : {
+            username: `user_${comment.authorFid}`,
+            displayName: `User ${comment.authorFid}`,
+            pfp: null
+          }
+        };
+      });
+      
+      return NextResponse.json({
+        success: true,
+        comments: commentData,
+        source: 'farcaster'
+      });
+    }
+    
+    // Fallback to local storage if Farcaster fetch failed or returned empty
     const comments = getComments();
     const castComments = comments[castId] || [];
     
@@ -189,7 +271,8 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      comments: commentData
+      comments: commentData,
+      source: 'local'
     });
   } catch (error) {
     console.error('Error fetching comments:', error);
@@ -212,28 +295,10 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const comments = getComments();
-    const castComments = comments[castId] || [];
-    
-    // Check if this is a reply to a comment
-    if (parentId) {
-      const parentIndex = castComments.findIndex((c: CommentData) => c.id === parentId);
-      
-      if (parentIndex === -1) {
-        return NextResponse.json(
-          { success: false, error: 'Parent comment not found' },
-          { status: 400 }
-        );
-      }
-      
-      // Initialize replies array if it doesn't exist
-      if (!castComments[parentIndex].replies) {
-        castComments[parentIndex].replies = [];
-      }
-    }
-    
-    // Create a new comment
+    // Generate a unique ID for the comment
     const commentId = uuidv4();
+    
+    // Create a new comment object
     const newComment: CommentData = {
       id: commentId,
       text,
@@ -243,20 +308,129 @@ export async function POST(request: NextRequest) {
       votes: []
     };
     
-    // Add the comment to the array
-    castComments.push(newComment);
+    // Try to submit to Hubble/Farcaster first
+    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+    let farcasterSubmissionSuccess = false;
     
-    // If this is a reply, add the comment ID to the parent's replies
-    if (parentId) {
-      const parentIndex = castComments.findIndex((c: CommentData) => c.id === parentId);
-      if (parentIndex !== -1 && castComments[parentIndex].replies) {
-        (castComments[parentIndex].replies as string[]).push(commentId);
+    try {
+      // Check if Hubble node is connected
+      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (infoResponse.ok) {
+        // Try to submit the comment as a reaction to the cast
+        // For Farcaster, we'll submit this as a "reply" reaction type
+        const submitResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            type: 'REACTION_TYPE_REPLY',
+            fid: authorFid,
+            targetCastId: {
+              fid: parseInt(castId.split('-')[0]) || 0,
+              hash: castId.includes('-') ? castId.split('-')[1] : castId
+            },
+            replyBody: {
+              text,
+              parentCastId: parentId ? {
+                fid: parseInt(parentId.split('-')[0]) || 0,
+                hash: parentId.includes('-') ? parentId.split('-')[1] : parentId
+              } : undefined
+            }
+          })
+        });
+        
+        if (submitResponse.ok) {
+          const result = await submitResponse.json();
+          console.log('Comment submitted to Farcaster:', result);
+          farcasterSubmissionSuccess = true;
+          
+          // If successful, we can use the Farcaster reaction hash as our ID
+          if (result && result.hash) {
+            newComment.id = result.hash;
+          }
+        } else {
+          // Alternative method for v1.19.1 - try as a cast with reference
+          const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              type: 'MESSAGE_TYPE_CAST_ADD',
+              fid: authorFid,
+              castAddBody: {
+                text: text,
+                mentions: [],
+                mentionsPositions: [],
+                parentCastId: {
+                  fid: parseInt(castId.split('-')[0]) || 0,
+                  hash: castId.includes('-') ? castId.split('-')[1] : castId
+                }
+              }
+            })
+          });
+          
+          if (altResponse.ok) {
+            const altResult = await altResponse.json();
+            console.log('Comment submitted to Farcaster as cast:', altResult);
+            farcasterSubmissionSuccess = true;
+            
+            // If successful, we can use the Farcaster cast hash as our ID
+            if (altResult && altResult.hash) {
+              newComment.id = altResult.hash;
+            }
+          }
+        }
       }
+    } catch (error) {
+      console.error('Error submitting comment to Farcaster:', error);
     }
     
-    // Save the updated comments
-    comments[castId] = castComments;
-    saveComments(comments);
+    // If Farcaster submission failed or we're in development mode, save locally
+    if (!farcasterSubmissionSuccess) {
+      console.log('Saving comment locally as fallback');
+      const comments = getComments();
+      const castComments = comments[castId] || [];
+      
+      // Check if this is a reply to a comment
+      if (parentId) {
+        const parentIndex = castComments.findIndex((c: CommentData) => c.id === parentId);
+        
+        if (parentIndex === -1) {
+          return NextResponse.json(
+            { success: false, error: 'Parent comment not found' },
+            { status: 400 }
+          );
+        }
+        
+        // Initialize replies array if it doesn't exist
+        if (!castComments[parentIndex].replies) {
+          castComments[parentIndex].replies = [];
+        }
+      }
+      
+      // Add the comment to the array
+      castComments.push(newComment);
+      
+      // If this is a reply, add the comment ID to the parent's replies
+      if (parentId) {
+        const parentIndex = castComments.findIndex((c: CommentData) => c.id === parentId);
+        if (parentIndex !== -1 && castComments[parentIndex].replies) {
+          (castComments[parentIndex].replies as string[]).push(newComment.id);
+        }
+      }
+      
+      // Save the updated comments
+      comments[castId] = castComments;
+      saveComments(comments);
+    }
     
     // Update user stats - count both regular comments and replies for points
     updateUserCommentStats(authorFid);
@@ -278,7 +452,8 @@ export async function POST(request: NextRequest) {
           displayName: `User ${authorFid}`,
           pfp: null
         }
-      }
+      },
+      farcasterSynced: farcasterSubmissionSuccess
     });
   } catch (error) {
     console.error('Error creating comment:', error);

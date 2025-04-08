@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
-import CastFeed from './CastFeed';
 import FollowList from './FollowList';
 import UserStats from './UserStats';
 
@@ -299,9 +298,6 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
           />
         </div>
       )}
-      
-      {/* User's Casts Feed */}
-      <CastFeed userFid={fid} onViewProfile={handleViewProfile} />
       
       {/* Follow List Modal */}
       {showFollowList && (

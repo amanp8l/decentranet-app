@@ -1,38 +1,172 @@
-# DecentraNet
+# MedConnect - DeSci SocialFi Platform
 
-A decentralized social media application that connects to a Hubble node (Farcaster protocol node).
+A decentralized science (DeSci) platform built specifically for medical researchers and doctors, featuring a reputation system and SocialFi elements to incentivize high-quality contributions and collaborations.
 
 ## Features
 
-- View casts from the Farcaster network
-- Post new casts as an authenticated user
-- Multiple authentication methods:
-  - Warpcast app login with QR code
-  - Ethereum wallet connection
-  - Local Hubble node authentication
-- Profile display with connection details
+### Decentralized Science (DeSci) Framework
+- Submit research contributions, papers, and findings
+- Peer review system with transparent voting mechanisms
+- Blockchain-verified research records and credentials
+- Verified contribution badges and achievements
 
-## Tech Stack
+### Reputation System
+- Score-based reputation tracking across medical specializations
+- Academic, clinical, industry, and research credential verification
+- Specialization-specific reputation metrics
+- Transparent blockchain verification of credentials
 
-- Next.js 13+ with App Router
-- TypeScript
-- Tailwind CSS
-- Farcaster Protocol
+### Token Incentives (SocialFi)
+- Earn tokens for valuable research contributions
+- Rewards for peer reviewing and validating others' work
+- Token incentives for community nomination and upvotes
+- Transparent reward system tied to contribution quality
+
+### Collaboration Features
+- Contributor co-authorship and attribution system
+- Interactive discussion on research contributions
+- Nomination mechanism for recognizing excellent research
+- Collaborative research project management
+
+## Technical Stack
+
+- **Frontend**: React, Next.js, TypeScript, TailwindCSS
+- **Authentication**: Farcaster Auth Kit
+- **Blockchain Integration**: Ethereum (via ethers.js)
+- **Data Storage**: Local development storage with blockchain hash verification
+
+## Project Structure
+
+```
+/src
+  /app - Next.js application routes
+    /api - Backend API endpoints
+      /research - Research-related API endpoints
+      /reputation - Reputation-related API endpoints
+      /tokens - Token-related API endpoints
+    /research - Research pages
+    /profile - User profile pages
+  /components - React components
+  /context - Context providers
+  /lib - Service layer with business logic
+  /types - TypeScript type definitions
+  /utils - Utility functions
+```
 
 ## Getting Started
 
+### Prerequisites
+- Node.js 18+ and npm/yarn
+
+### Installation
+
 1. Clone the repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
-3. Run the development server:
-   ```
-   npm run dev
-   ```
-4. Connect to your local Hubble node (should be running at http://localhost:2281)
+```bash
+git clone https://github.com/yourusername/medconnect.git
+cd medconnect
+```
 
-## Requirements
+2. Install dependencies
+```bash
+npm install
+# or
+yarn
+```
 
-- Node.js 18+
-- Local Hubble node (v1.19.1+)
+3. Run the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## System Architecture
+
+### Reputation System
+The reputation system tracks contributions across various categories:
+- Research papers and findings
+- Peer reviews
+- Collaboration
+- Community engagement
+
+Each action has associated reputation points that contribute to an overall score and specialized field scores. Credentials can be verified on-chain for transparency.
+
+### Token Economy
+The platform uses a token incentive system to reward:
+- Publishing valuable research
+- Providing quality peer reviews
+- Nominating exceptional contributions
+- Having work verified by peers
+
+Tokens can be earned through positive contributions to the platform ecosystem.
+
+### Blockchain Integration
+For development, blockchain interactions are simulated in-memory, but the system is designed to integrate with:
+- Ethereum for verification records
+- Smart contracts for reputation and token management
+- Decentralized credential verification
+
+## API Structure
+
+### Research Contributions
+- `GET /api/research/contributions` - List contributions with filters
+- `POST /api/research/contributions` - Create new contribution
+- `GET /api/research/contributions/:id` - Get specific contribution
+- `POST /api/research/contributions/:id/reviews` - Submit a review
+- `GET /api/research/contributions/:id/reviews` - Get reviews for a contribution
+- `POST /api/research/contributions/:id/nominate` - Nominate a contribution
+
+### Reputation
+- `GET /api/reputation/:fid` - Get user reputation
+- `POST /api/reputation/:fid` - Verify credentials
+
+### Tokens
+- `GET /api/tokens/balance/:fid` - Get token balance
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Deployment to cPanel
+
+Follow these steps to deploy this application to cPanel:
+
+1. **Prepare the build**:
+   ```bash
+   # Run the deployment script
+   bash deploy-cpanel.sh
+   ```
+   This will create a `build.zip` file containing the standalone Next.js application.
+
+2. **Upload to cPanel**:
+   - Log in to your cPanel account
+   - Navigate to File Manager
+   - Go to the directory where you want to deploy the app (usually `public_html`)
+   - Upload `build.zip` and extract it
+
+3. **Configure .htaccess**:
+   - Make sure the `.htaccess` file from this repository is uploaded to the same directory
+   - If it doesn't exist, create it with the content provided in this repository
+
+4. **Environment Variables**:
+   - Ensure your environment variables are properly set
+   - You can configure them through cPanel's .env file or modify the .env.production file before deployment
+
+5. **Testing**:
+   - Visit your domain to ensure the application is running correctly
+   - Check the browser console for any errors related to API connections or environment variables
+
+## Troubleshooting
+
+If you encounter issues with the deployment:
+
+- Make sure all file permissions are set correctly (typically 644 for files and 755 for directories)
+- Check if the server has all the required modules enabled (like mod_rewrite)
+- Ensure your domain's DNS is properly configured
+- Verify that the API endpoints in the environment variables are correct and accessible from your server

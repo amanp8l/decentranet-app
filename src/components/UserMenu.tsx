@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useUser } from '@/context/UserContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function UserMenu() {
   const { user, logout } = useUser();
@@ -62,6 +63,15 @@ export default function UserMenu() {
             <p className="text-xs text-gray-500">FID: {user.fid}</p>
           </div>
           <ul className="py-1">
+            <li>
+              <Link
+                href={`/profile/${user.fid}`}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                My Profile
+              </Link>
+            </li>
             <li>
               <button
                 onClick={handleLogout}

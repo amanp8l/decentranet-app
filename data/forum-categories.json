@@ -1,0 +1,58 @@
+[
+  {
+    "id": "announcements",
+    "name": "Announcements",
+    "description": "Official announcements and important updates.",
+    "iconName": "megaphone",
+    "topicCount": 11,
+    "order": 1
+  },
+  {
+    "id": "clinical-research",
+    "name": "Clinical Research",
+    "description": "Discussions about ongoing clinical trials and research methodologies.",
+    "iconName": "flask",
+    "topicCount": 25,
+    "order": 2
+  },
+  {
+    "id": "medical-cases",
+    "name": "Medical Cases",
+    "description": "Share and discuss interesting or challenging medical cases.",
+    "iconName": "heart-pulse",
+    "topicCount": 42,
+    "order": 3
+  },
+  {
+    "id": "publications",
+    "name": "Publications",
+    "description": "Discuss recent publications, papers, and journals.",
+    "iconName": "book",
+    "topicCount": 18,
+    "order": 4
+  },
+  {
+    "id": "equipment-technology",
+    "name": "Equipment & Technology",
+    "description": "Discussions about medical technology, devices, and software.",
+    "iconName": "computer",
+    "topicCount": 15,
+    "order": 5
+  },
+  {
+    "id": "education-training",
+    "name": "Education & Training",
+    "description": "Resources and discussions related to medical education and training.",
+    "iconName": "academic-cap",
+    "topicCount": 20,
+    "order": 6
+  },
+  {
+    "id": "general-discussion",
+    "name": "General Discussion",
+    "description": "General discussions related to healthcare and medicine.",
+    "iconName": "chat",
+    "topicCount": 30,
+    "order": 7
+  }
+]

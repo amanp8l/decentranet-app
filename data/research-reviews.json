@@ -1,0 +1,1282 @@
+[
+  {
+    "id": "363841fd-28b0-4d12-b1eb-2dba3508e9a7",
+    "contributionId": "56540c83-55be-4d01-b3fe-33a7bd0a3179",
+    "reviewerFid": 7156422613,
+    "reviewerName": "Prof. Emily Clark",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- Some methodological details could be more thoroughly explained.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 1,
+    "timestamp": 1743642043201,
+    "votes": [
+      {
+        "userId": 7985105704,
+        "value": 1,
+        "timestamp": 1744018805980
+      },
+      {
+        "userId": 4894749908,
+        "value": 1,
+        "timestamp": 1743879701937
+      }
+    ]
+  },
+  {
+    "id": "19d5bc6f-0695-4737-9f48-bb6d6a99ea37",
+    "contributionId": "5599513e-3f39-42b6-89e2-1492152293c6",
+    "reviewerFid": 7156422613,
+    "reviewerName": "Prof. Emily Clark",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The statistical analysis is appropriate for the research questions.\n- The abstract effectively summarizes the key points.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 3,
+    "timestamp": 1743695743244,
+    "votes": [
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1743900707532
+      },
+      {
+        "userId": 4995784589,
+        "value": -1,
+        "timestamp": 1743921355074
+      }
+    ]
+  },
+  {
+    "id": "44cea5b8-1744-4e69-a3cb-f88f8bc56b6d",
+    "contributionId": "b7293839-9c37-4885-9749-a5d7dbeca980",
+    "reviewerFid": 7156422613,
+    "reviewerName": "Prof. Emily Clark",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 3,
+    "timestamp": 1743844251174,
+    "votes": [
+      {
+        "userId": 4894749908,
+        "value": 1,
+        "timestamp": 1744005300080
+      },
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1744056893659
+      },
+      {
+        "userId": 9767099251,
+        "value": -1,
+        "timestamp": 1743809500260
+      }
+    ]
+  },
+  {
+    "id": "bb34aa3e-a410-4d65-90de-003ab91bca2d",
+    "contributionId": "e04246ff-609a-4f8d-a583-b6d5fbdd0c87",
+    "reviewerFid": 7156422613,
+    "reviewerName": "Prof. Emily Clark",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The limitations are acknowledged appropriately.\n- The literature review is comprehensive and up-to-date.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 3,
+    "timestamp": 1744053659289,
+    "votes": [
+      {
+        "userId": 9767099251,
+        "value": -1,
+        "timestamp": 1744166784147
+      }
+    ]
+  },
+  {
+    "id": "25fd9648-b386-48f6-9c98-73f5df38a275",
+    "contributionId": "c784eeba-ac8f-4d3c-b3be-11df091fff8d",
+    "reviewerFid": 6563992371,
+    "reviewerName": "Prof. Daniel Williams",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 3,
+    "timestamp": 1743650436665,
+    "votes": [
+      {
+        "userId": 7985105704,
+        "value": 1,
+        "timestamp": 1743928962839
+      },
+      {
+        "userId": 2861071157,
+        "value": -1,
+        "timestamp": 1744141951246
+      },
+      {
+        "userId": 4995784589,
+        "value": 1,
+        "timestamp": 1743842377680
+      }
+    ]
+  },
+  {
+    "id": "bd8b278c-35bf-4313-9b6c-bf87ed8b9bb5",
+    "contributionId": "51790971-ec39-4375-9167-b6ae378bd2d0",
+    "reviewerFid": 6563992371,
+    "reviewerName": "Prof. Daniel Williams",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The research question is clearly articulated.\n- The literature review is comprehensive and up-to-date.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 3,
+    "timestamp": 1743816947604,
+    "votes": []
+  },
+  {
+    "id": "644a9157-d31f-4564-8b60-9e27c32150c4",
+    "contributionId": "f4cac5d5-4d1f-4ccc-99c1-6a7d3361ec1f",
+    "reviewerFid": 6563992371,
+    "reviewerName": "Prof. Daniel Williams",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The limitations are acknowledged appropriately.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1743731728198,
+    "votes": [
+      {
+        "userId": 9829586784,
+        "value": 1,
+        "timestamp": 1743979903026
+      }
+    ]
+  },
+  {
+    "id": "2db0533b-7ded-4d5e-a27b-7851848e5d84",
+    "contributionId": "7e722815-8a69-4740-88b9-674d7297f379",
+    "reviewerFid": 6563992371,
+    "reviewerName": "Prof. Daniel Williams",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The research question is clearly articulated.\n- The discussion thoughtfully interprets the findings.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 3,
+    "timestamp": 1743691656920,
+    "votes": []
+  },
+  {
+    "id": "71493e25-94bd-430c-afa4-ef5c918b6675",
+    "contributionId": "b49b755f-8f4c-4ec8-a08e-861763e70858",
+    "reviewerFid": 2042580739,
+    "reviewerName": "Dr. Donna Harris",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- Some methodological details could be more thoroughly explained.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 5,
+    "timestamp": 1743602925044,
+    "votes": [
+      {
+        "userId": 6269597478,
+        "value": 1,
+        "timestamp": 1743902782459
+      },
+      {
+        "userId": 4653599081,
+        "value": 1,
+        "timestamp": 1744071759802
+      },
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1743951733862
+      },
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1744144001567
+      }
+    ]
+  },
+  {
+    "id": "089427f5-4ca6-434c-bc30-ce778139f0b6",
+    "contributionId": "6601b8bb-1117-4cc0-bb9d-10079cf3a2ce",
+    "reviewerFid": 2042580739,
+    "reviewerName": "Dr. Donna Harris",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The literature review is comprehensive and up-to-date.\n- The experimental design demonstrates careful planning.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1743675888573,
+    "votes": []
+  },
+  {
+    "id": "96aaad5d-f65f-4808-bf55-49e4be972707",
+    "contributionId": "3ca94aa1-708e-4dbb-9e2d-657a18cac822",
+    "reviewerFid": 2042580739,
+    "reviewerName": "Dr. Donna Harris",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The limitations are acknowledged appropriately.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743941845364,
+    "votes": [
+      {
+        "userId": 4653599081,
+        "value": -1,
+        "timestamp": 1743904915878
+      },
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1744158755074
+      }
+    ]
+  },
+  {
+    "id": "48d17d50-5388-4cc6-a3d6-dd328aae982e",
+    "contributionId": "ed31c9da-e2e2-4fba-9398-d0824f452842",
+    "reviewerFid": 6269597478,
+    "reviewerName": "Dr. Mark Garcia",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The discussion thoughtfully interprets the findings.\n- The paper addresses an important gap in current knowledge.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- Some methodological details could be more thoroughly explained.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743672135392,
+    "votes": []
+  },
+  {
+    "id": "3d0adc7b-e1f7-484c-8281-6e6745ab0ae9",
+    "contributionId": "3a0c3fc6-e7d6-41eb-ab2f-6e12cb95108a",
+    "reviewerFid": 6269597478,
+    "reviewerName": "Dr. Mark Garcia",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The statistical analysis is appropriate for the research questions.\n- The research question is clearly articulated.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Some figures would benefit from clearer labeling.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1744150324713,
+    "votes": [
+      {
+        "userId": 2723708084,
+        "value": 1,
+        "timestamp": 1743783777366
+      },
+      {
+        "userId": 1077773730,
+        "value": 1,
+        "timestamp": 1744127387948
+      }
+    ]
+  },
+  {
+    "id": "ef61c343-292f-4d71-82c3-158325c90445",
+    "contributionId": "f4cac5d5-4d1f-4ccc-99c1-6a7d3361ec1f",
+    "reviewerFid": 6269597478,
+    "reviewerName": "Dr. Mark Garcia",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- Some methodological details could be more thoroughly explained.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 5,
+    "timestamp": 1743956008572,
+    "votes": [
+      {
+        "userId": 4927644238,
+        "value": 1,
+        "timestamp": 1743935792926
+      }
+    ]
+  },
+  {
+    "id": "f9f246b3-6ea5-4ea9-a948-31e2de6fd8e9",
+    "contributionId": "b7293839-9c37-4885-9749-a5d7dbeca980",
+    "reviewerFid": 6269597478,
+    "reviewerName": "Dr. Mark Garcia",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The literature review is comprehensive and up-to-date.\n- The experimental design demonstrates careful planning.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 3,
+    "timestamp": 1744069670777,
+    "votes": [
+      {
+        "userId": 2723708084,
+        "value": 1,
+        "timestamp": 1743885187371
+      }
+    ]
+  },
+  {
+    "id": "3a9406a9-04f6-4f14-b2fc-f29d1dfd0e54",
+    "contributionId": "7cafd37a-500e-4f8a-8ba3-df424bdb1886",
+    "reviewerFid": 9829586784,
+    "reviewerName": "Prof. Anthony Torres",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The abstract effectively summarizes the key points.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Some methodological details could be more thoroughly explained.\n- Some recent relevant literature appears to be missing.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1743689007197,
+    "votes": [
+      {
+        "userId": 9767099251,
+        "value": 1,
+        "timestamp": 1743898345679
+      },
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743930088695
+      }
+    ]
+  },
+  {
+    "id": "a581ad56-842e-4a21-a43f-6275914ac537",
+    "contributionId": "ed31c9da-e2e2-4fba-9398-d0824f452842",
+    "reviewerFid": 9829586784,
+    "reviewerName": "Prof. Anthony Torres",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The abstract effectively summarizes the key points.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Long-term follow-up data would enhance the findings.\n- The implications for clinical practice could be expanded.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743682197540,
+    "votes": []
+  },
+  {
+    "id": "77d5b38d-56a0-4df6-8a7a-fe9e02694845",
+    "contributionId": "3a0c3fc6-e7d6-41eb-ab2f-6e12cb95108a",
+    "reviewerFid": 9829586784,
+    "reviewerName": "Prof. Anthony Torres",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The literature review is comprehensive and up-to-date.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- Certain confounding variables might not be fully addressed.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 3,
+    "timestamp": 1743608088255,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744007453038
+      },
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1743881679293
+      }
+    ]
+  },
+  {
+    "id": "8f657f6f-8cce-46c9-80de-b128cbce2971",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 9829586784,
+    "reviewerName": "Prof. Anthony Torres",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The limitations are acknowledged appropriately.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Long-term follow-up data would enhance the findings.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 3,
+    "timestamp": 1744197207985,
+    "votes": []
+  },
+  {
+    "id": "1e726a91-f234-4976-bca9-2afed09213e2",
+    "contributionId": "9c4ab7d6-1aa2-496e-8858-33a284825a13",
+    "reviewerFid": 7985105704,
+    "reviewerName": "Prof. Kimberly Thompson",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The statistical analysis is appropriate for the research questions.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 2,
+    "timestamp": 1743850212771,
+    "votes": [
+      {
+        "userId": 6269597478,
+        "value": 1,
+        "timestamp": 1744143203145
+      },
+      {
+        "userId": 4927644238,
+        "value": 1,
+        "timestamp": 1743836115644
+      },
+      {
+        "userId": 4995784589,
+        "value": -1,
+        "timestamp": 1744055627901
+      }
+    ]
+  },
+  {
+    "id": "57044dce-3bca-4b06-9241-526803b57573",
+    "contributionId": "690d62ea-7239-49e7-a232-29084a2292d2",
+    "reviewerFid": 7985105704,
+    "reviewerName": "Prof. Kimberly Thompson",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The statistical analysis is appropriate for the research questions.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Some figures would benefit from clearer labeling.\n- The generalizability of the findings could be discussed further.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 1,
+    "timestamp": 1744064022407,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744158899462
+      }
+    ]
+  },
+  {
+    "id": "8b7142ae-d3bf-4123-b8b7-47dd33222ace",
+    "contributionId": "fe2ed1e7-5cc8-4a32-b832-31908dbde70b",
+    "reviewerFid": 7985105704,
+    "reviewerName": "Prof. Kimberly Thompson",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- Long-term follow-up data would enhance the findings.\n- The control group selection process raises some questions.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 4,
+    "timestamp": 1743655058520,
+    "votes": []
+  },
+  {
+    "id": "f6aadd23-ad44-4296-a095-e8eb2a8d212c",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 7985105704,
+    "reviewerName": "Prof. Kimberly Thompson",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The research question is clearly articulated.\n- The experimental design demonstrates careful planning.\n- The abstract effectively summarizes the key points.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1744066800518,
+    "votes": [
+      {
+        "userId": 9154908948,
+        "value": -1,
+        "timestamp": 1744060334382
+      },
+      {
+        "userId": 5439473164,
+        "value": 1,
+        "timestamp": 1744167248151
+      },
+      {
+        "userId": 9767099251,
+        "value": 1,
+        "timestamp": 1744054415539
+      },
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743822943042
+      }
+    ]
+  },
+  {
+    "id": "22ad527d-c421-4363-b62d-dc3abb1991c1",
+    "contributionId": "690d62ea-7239-49e7-a232-29084a2292d2",
+    "reviewerFid": 9154908948,
+    "reviewerName": "Prof. Andrew Garcia",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The discussion thoughtfully interprets the findings.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- The generalizability of the findings could be discussed further.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 3,
+    "timestamp": 1743880163994,
+    "votes": [
+      {
+        "userId": 4653599081,
+        "value": 1,
+        "timestamp": 1744118585161
+      },
+      {
+        "userId": 5439473164,
+        "value": -1,
+        "timestamp": 1744085358195
+      },
+      {
+        "userId": 5924535590,
+        "value": 1,
+        "timestamp": 1743976918430
+      },
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1744093011261
+      },
+      {
+        "userId": 7804664446,
+        "value": 1,
+        "timestamp": 1744074216145
+      }
+    ]
+  },
+  {
+    "id": "8ba94821-d020-4160-af4a-be4b7b680a61",
+    "contributionId": "5599513e-3f39-42b6-89e2-1492152293c6",
+    "reviewerFid": 9154908948,
+    "reviewerName": "Prof. Andrew Garcia",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The literature review is comprehensive and up-to-date.\n- The paper addresses an important gap in current knowledge.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n- Additional statistical tests might provide further insights.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 4,
+    "timestamp": 1743758012070,
+    "votes": [
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743827854745
+      },
+      {
+        "userId": 6555437277,
+        "value": 1,
+        "timestamp": 1744029255817
+      }
+    ]
+  },
+  {
+    "id": "8fa87bb4-463b-48f4-a8da-37984d7bb0ff",
+    "contributionId": "c784eeba-ac8f-4d3c-b3be-11df091fff8d",
+    "reviewerFid": 9154908948,
+    "reviewerName": "Prof. Andrew Garcia",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The statistical analysis is appropriate for the research questions.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- Certain confounding variables might not be fully addressed.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 4,
+    "timestamp": 1744120952226,
+    "votes": [
+      {
+        "userId": 4894749908,
+        "value": -1,
+        "timestamp": 1744027190539
+      }
+    ]
+  },
+  {
+    "id": "17052784-79e8-4f9c-984c-f82bec849eda",
+    "contributionId": "2b39f4e0-82d2-45a5-829e-61cc7bbd6d02",
+    "reviewerFid": 9154908948,
+    "reviewerName": "Prof. Andrew Garcia",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The experimental design demonstrates careful planning.\n\n## Areas for Improvement\n- Additional statistical tests might provide further insights.\n- The control group selection process raises some questions.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 5,
+    "timestamp": 1744045515611,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": -1,
+        "timestamp": 1743858748755
+      }
+    ]
+  },
+  {
+    "id": "144e8260-706f-445e-9fb0-0ac09dc5a4b8",
+    "contributionId": "e04246ff-609a-4f8d-a583-b6d5fbdd0c87",
+    "reviewerFid": 4653599081,
+    "reviewerName": "Prof. Joshua Smith",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The experimental design demonstrates careful planning.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n- The generalizability of the findings could be discussed further.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 2,
+    "timestamp": 1744059707181,
+    "votes": [
+      {
+        "userId": 9829586784,
+        "value": 1,
+        "timestamp": 1744111691824
+      },
+      {
+        "userId": 7985105704,
+        "value": -1,
+        "timestamp": 1743987750651
+      }
+    ]
+  },
+  {
+    "id": "a2886ecb-6726-41c1-9a80-607d316aa9cb",
+    "contributionId": "690d62ea-7239-49e7-a232-29084a2292d2",
+    "reviewerFid": 4653599081,
+    "reviewerName": "Prof. Joshua Smith",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n- The control group selection process raises some questions.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1744025338096,
+    "votes": [
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1744194633990
+      },
+      {
+        "userId": 2723708084,
+        "value": 1,
+        "timestamp": 1743908324393
+      },
+      {
+        "userId": 5924535590,
+        "value": -1,
+        "timestamp": 1743789943088
+      }
+    ]
+  },
+  {
+    "id": "dd986506-b92c-496f-9c08-2b2c38c50c99",
+    "contributionId": "896be91f-787c-4c47-b1fe-a7fee2f65281",
+    "reviewerFid": 4653599081,
+    "reviewerName": "Prof. Joshua Smith",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The research question is clearly articulated.\n- The paper addresses an important gap in current knowledge.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- Some figures would benefit from clearer labeling.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 3,
+    "timestamp": 1744157730772,
+    "votes": [
+      {
+        "userId": 5439473164,
+        "value": 1,
+        "timestamp": 1743864634792
+      },
+      {
+        "userId": 6555437277,
+        "value": 1,
+        "timestamp": 1744109489327
+      }
+    ]
+  },
+  {
+    "id": "00928527-1a00-4dc2-bc6d-4274d9399fbf",
+    "contributionId": "b7293839-9c37-4885-9749-a5d7dbeca980",
+    "reviewerFid": 5439473164,
+    "reviewerName": "Dr. Robert Ramirez",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The discussion thoughtfully interprets the findings.\n- The research question is clearly articulated.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- A larger sample size would strengthen the conclusions.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 2,
+    "timestamp": 1743716697797,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1743778077690
+      },
+      {
+        "userId": 9829586784,
+        "value": 1,
+        "timestamp": 1743836488719
+      },
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1744157763005
+      }
+    ]
+  },
+  {
+    "id": "630d4661-a845-4781-b21b-60a13f27e8a5",
+    "contributionId": "896be91f-787c-4c47-b1fe-a7fee2f65281",
+    "reviewerFid": 5439473164,
+    "reviewerName": "Dr. Robert Ramirez",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The abstract effectively summarizes the key points.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- Additional statistical tests might provide further insights.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 3,
+    "timestamp": 1743927203352,
+    "votes": [
+      {
+        "userId": 7985105704,
+        "value": 1,
+        "timestamp": 1743774894276
+      },
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1743786270714
+      }
+    ]
+  },
+  {
+    "id": "f1d5be5d-c013-4a46-8f8f-e2e86f577c6b",
+    "contributionId": "3ca94aa1-708e-4dbb-9e2d-657a18cac822",
+    "reviewerFid": 5439473164,
+    "reviewerName": "Dr. Robert Ramirez",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The limitations are acknowledged appropriately.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- Some figures would benefit from clearer labeling.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 3,
+    "timestamp": 1743794349496,
+    "votes": [
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1743897345407
+      }
+    ]
+  },
+  {
+    "id": "677e52c4-9bfd-403f-9f82-901a9840490b",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 5439473164,
+    "reviewerName": "Dr. Robert Ramirez",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The discussion thoughtfully interprets the findings.\n- The paper addresses an important gap in current knowledge.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- The control group selection process raises some questions.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 3,
+    "timestamp": 1743810439946,
+    "votes": [
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1743890086616
+      }
+    ]
+  },
+  {
+    "id": "23876ade-9085-4977-a5ff-e411800a93b9",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 2723708084,
+    "reviewerName": "Prof. Barbara Smith",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The statistical analysis is appropriate for the research questions.\n- The paper addresses an important gap in current knowledge.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- The control group selection process raises some questions.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 3,
+    "timestamp": 1744159061459,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1743991616279
+      },
+      {
+        "userId": 7804664446,
+        "value": 1,
+        "timestamp": 1744182232415
+      }
+    ]
+  },
+  {
+    "id": "45901d8e-bb76-4c5c-898e-a81b3562ebe0",
+    "contributionId": "7cafd37a-500e-4f8a-8ba3-df424bdb1886",
+    "reviewerFid": 2723708084,
+    "reviewerName": "Prof. Barbara Smith",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The discussion thoughtfully interprets the findings.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The implications for clinical practice could be expanded.\n- Certain confounding variables might not be fully addressed.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 4,
+    "timestamp": 1744081789861,
+    "votes": [
+      {
+        "userId": 9767099251,
+        "value": 1,
+        "timestamp": 1743888625070
+      }
+    ]
+  },
+  {
+    "id": "b9bac891-d7e0-4b4b-b3e1-bf7b3d870c84",
+    "contributionId": "ed31c9da-e2e2-4fba-9398-d0824f452842",
+    "reviewerFid": 2723708084,
+    "reviewerName": "Prof. Barbara Smith",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The statistical analysis is appropriate for the research questions.\n- The research question is clearly articulated.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n- The implications for clinical practice could be expanded.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 3,
+    "timestamp": 1743747542171,
+    "votes": []
+  },
+  {
+    "id": "d79fd08e-9db0-405b-8a72-f8e4789bd240",
+    "contributionId": "896be91f-787c-4c47-b1fe-a7fee2f65281",
+    "reviewerFid": 2723708084,
+    "reviewerName": "Prof. Barbara Smith",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The research question is clearly articulated.\n- The experimental design demonstrates careful planning.\n\n## Areas for Improvement\n- Some methodological details could be more thoroughly explained.\n- The implications for clinical practice could be expanded.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 2,
+    "timestamp": 1743766375253,
+    "votes": [
+      {
+        "userId": 7985105704,
+        "value": 1,
+        "timestamp": 1743889918504
+      },
+      {
+        "userId": 4894749908,
+        "value": 1,
+        "timestamp": 1744150584307
+      },
+      {
+        "userId": 5924535590,
+        "value": 1,
+        "timestamp": 1743844614455
+      }
+    ]
+  },
+  {
+    "id": "9386aaaa-61b2-40d3-a05b-68fc17ee4576",
+    "contributionId": "b49b755f-8f4c-4ec8-a08e-861763e70858",
+    "reviewerFid": 4927644238,
+    "reviewerName": "Prof. Kenneth Robinson",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The abstract effectively summarizes the key points.\n- The discussion thoughtfully interprets the findings.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n- Additional statistical tests might provide further insights.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 3,
+    "timestamp": 1743841402028,
+    "votes": []
+  },
+  {
+    "id": "c2d33bfd-ee01-4a79-b1a6-6184f8ad2aed",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 4927644238,
+    "reviewerName": "Prof. Kenneth Robinson",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The discussion thoughtfully interprets the findings.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- The generalizability of the findings could be discussed further.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1743837987921,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744151115349
+      },
+      {
+        "userId": 7804664446,
+        "value": 1,
+        "timestamp": 1743793637715
+      },
+      {
+        "userId": 6555437277,
+        "value": -1,
+        "timestamp": 1744057531245
+      }
+    ]
+  },
+  {
+    "id": "2fa35893-925e-4467-a511-3c94f8048d56",
+    "contributionId": "ed31c9da-e2e2-4fba-9398-d0824f452842",
+    "reviewerFid": 4927644238,
+    "reviewerName": "Prof. Kenneth Robinson",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- Additional statistical tests might provide further insights.\n- Certain confounding variables might not be fully addressed.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1744128227055,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744013287471
+      },
+      {
+        "userId": 6555437277,
+        "value": 1,
+        "timestamp": 1743866291033
+      }
+    ]
+  },
+  {
+    "id": "cd9fff20-3816-44ad-a12c-e2f5c80155ac",
+    "contributionId": "2b39f4e0-82d2-45a5-829e-61cc7bbd6d02",
+    "reviewerFid": 4894749908,
+    "reviewerName": "Prof. Robert Jones",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The methodology is robust and well-designed.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 5,
+    "timestamp": 1743601076999,
+    "votes": [
+      {
+        "userId": 5439473164,
+        "value": 1,
+        "timestamp": 1744120518456
+      }
+    ]
+  },
+  {
+    "id": "1e85ad93-d049-4d7e-971f-5cf292da1d7f",
+    "contributionId": "f4cac5d5-4d1f-4ccc-99c1-6a7d3361ec1f",
+    "reviewerFid": 4894749908,
+    "reviewerName": "Prof. Robert Jones",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The discussion thoughtfully interprets the findings.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n- Long-term follow-up data would enhance the findings.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 5,
+    "timestamp": 1743710681402,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744056586013
+      },
+      {
+        "userId": 5439473164,
+        "value": 1,
+        "timestamp": 1744158223211
+      },
+      {
+        "userId": 9767099251,
+        "value": 1,
+        "timestamp": 1744035558332
+      }
+    ]
+  },
+  {
+    "id": "56a790ef-4746-440d-ad30-134a50ab5673",
+    "contributionId": "6601b8bb-1117-4cc0-bb9d-10079cf3a2ce",
+    "reviewerFid": 5924535590,
+    "reviewerName": "Dr. Donna Perez",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1744041773809,
+    "votes": [
+      {
+        "userId": 6269597478,
+        "value": 1,
+        "timestamp": 1744180732824
+      },
+      {
+        "userId": 4894749908,
+        "value": 1,
+        "timestamp": 1744160280915
+      }
+    ]
+  },
+  {
+    "id": "322475fa-2bbf-4e09-b1d8-0f4d3d6cc4b6",
+    "contributionId": "9c4ab7d6-1aa2-496e-8858-33a284825a13",
+    "reviewerFid": 5924535590,
+    "reviewerName": "Dr. Donna Perez",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The experimental design demonstrates careful planning.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- The implications for clinical practice could be expanded.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 1,
+    "timestamp": 1744199926046,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": -1,
+        "timestamp": 1744184427226
+      },
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743989762931
+      },
+      {
+        "userId": 6555437277,
+        "value": 1,
+        "timestamp": 1744095099072
+      }
+    ]
+  },
+  {
+    "id": "62479b51-6885-4a2f-9dfd-dc2f38cd1490",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 1077773730,
+    "reviewerName": "Dr. David Walker",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1743667877566,
+    "votes": [
+      {
+        "userId": 4995784589,
+        "value": 1,
+        "timestamp": 1743857219104
+      }
+    ]
+  },
+  {
+    "id": "5a7bf055-8f84-461d-96be-c297603a9fb2",
+    "contributionId": "56540c83-55be-4d01-b3fe-33a7bd0a3179",
+    "reviewerFid": 1077773730,
+    "reviewerName": "Dr. David Walker",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- Some figures would benefit from clearer labeling.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 1,
+    "timestamp": 1743656091901,
+    "votes": [
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1744014753072
+      }
+    ]
+  },
+  {
+    "id": "10634474-4bda-40ba-95ae-707b9040d598",
+    "contributionId": "690d62ea-7239-49e7-a232-29084a2292d2",
+    "reviewerFid": 2861071157,
+    "reviewerName": "Dr. Joshua Taylor",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The paper addresses an important gap in current knowledge.\n- The abstract effectively summarizes the key points.\n- The statistical analysis is appropriate for the research questions.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n- Some figures would benefit from clearer labeling.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743889517059,
+    "votes": [
+      {
+        "userId": 6563992371,
+        "value": -1,
+        "timestamp": 1743964311320
+      }
+    ]
+  },
+  {
+    "id": "82e79d6c-05f0-4c67-9722-10b24bdd03bb",
+    "contributionId": "7e722815-8a69-4740-88b9-674d7297f379",
+    "reviewerFid": 2861071157,
+    "reviewerName": "Dr. Joshua Taylor",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The paper addresses an important gap in current knowledge.\n- The experimental design demonstrates careful planning.\n\n## Areas for Improvement\n- Some figures would benefit from clearer labeling.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1744123165982,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1743968139077
+      },
+      {
+        "userId": 5924535590,
+        "value": 1,
+        "timestamp": 1743881566566
+      },
+      {
+        "userId": 1077773730,
+        "value": 1,
+        "timestamp": 1743850784211
+      },
+      {
+        "userId": 6555437277,
+        "value": -1,
+        "timestamp": 1744181855442
+      }
+    ]
+  },
+  {
+    "id": "609b9abe-d2c5-4b4e-8802-3651ee76664e",
+    "contributionId": "7cafd37a-500e-4f8a-8ba3-df424bdb1886",
+    "reviewerFid": 2861071157,
+    "reviewerName": "Dr. Joshua Taylor",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The conclusions are well-supported by the data presented.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n- Additional statistical tests might provide further insights.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 2,
+    "timestamp": 1744154182583,
+    "votes": [
+      {
+        "userId": 4894749908,
+        "value": -1,
+        "timestamp": 1744162096948
+      }
+    ]
+  },
+  {
+    "id": "5c168473-517d-45fe-a426-27cad129e8ec",
+    "contributionId": "51790971-ec39-4375-9167-b6ae378bd2d0",
+    "reviewerFid": 9767099251,
+    "reviewerName": "Prof. Betty Wilson",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The statistical analysis is appropriate for the research questions.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n- The control group selection process raises some questions.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1743791538743,
+    "votes": [
+      {
+        "userId": 6563992371,
+        "value": 1,
+        "timestamp": 1743779849703
+      }
+    ]
+  },
+  {
+    "id": "c31ab522-f4f7-498e-8610-3664feff54a2",
+    "contributionId": "e04246ff-609a-4f8d-a583-b6d5fbdd0c87",
+    "reviewerFid": 9767099251,
+    "reviewerName": "Prof. Betty Wilson",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The discussion thoughtfully interprets the findings.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Some recent relevant literature appears to be missing.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743883663902,
+    "votes": []
+  },
+  {
+    "id": "ffb86849-e979-411f-b6b5-0b4c1357de9e",
+    "contributionId": "9c4ab7d6-1aa2-496e-8858-33a284825a13",
+    "reviewerFid": 4995784589,
+    "reviewerName": "Prof. Paul Scott",
+    "content": "Having reviewed this work carefully, I have several points to address.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The abstract effectively summarizes the key points.\n\n## Areas for Improvement\n- Long-term follow-up data would enhance the findings.\n- A larger sample size would strengthen the conclusions.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 4,
+    "timestamp": 1743985148480,
+    "votes": [
+      {
+        "userId": 4653599081,
+        "value": 1,
+        "timestamp": 1743826891935
+      },
+      {
+        "userId": 4894749908,
+        "value": -1,
+        "timestamp": 1743841661931
+      }
+    ]
+  },
+  {
+    "id": "eb927933-7c03-44ba-a373-c8de6de1da77",
+    "contributionId": "51790971-ec39-4375-9167-b6ae378bd2d0",
+    "reviewerFid": 4995784589,
+    "reviewerName": "Prof. Paul Scott",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The research question is clearly articulated.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- Some figures would benefit from clearer labeling.\n\nDespite the minor limitations noted, this research represents important progress.",
+    "rating": 4,
+    "timestamp": 1744064856061,
+    "votes": [
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743836964648
+      }
+    ]
+  },
+  {
+    "id": "84e8216e-dc7c-4e00-8a3f-ec7e70807840",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 4995784589,
+    "reviewerName": "Prof. Paul Scott",
+    "content": "This paper presents interesting findings that deserve attention.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The implications for clinical practice could be expanded.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 3,
+    "timestamp": 1743798333722,
+    "votes": [
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1743848508656
+      }
+    ]
+  },
+  {
+    "id": "719f5747-1335-4cd8-8146-ce2d8424f283",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 7804664446,
+    "reviewerName": "Dr. Nancy Brown",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The research question is clearly articulated.\n- The conclusions are well-supported by the data presented.\n- The abstract effectively summarizes the key points.\n\n## Areas for Improvement\n- Additional statistical tests might provide further insights.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743712745168,
+    "votes": [
+      {
+        "userId": 9829586784,
+        "value": 1,
+        "timestamp": 1743808129483
+      },
+      {
+        "userId": 1077773730,
+        "value": 1,
+        "timestamp": 1743939956791
+      }
+    ]
+  },
+  {
+    "id": "550add33-9810-4ff6-9bb0-a5ff076f4265",
+    "contributionId": "3a0c3fc6-e7d6-41eb-ab2f-6e12cb95108a",
+    "reviewerFid": 7804664446,
+    "reviewerName": "Dr. Nancy Brown",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The abstract effectively summarizes the key points.\n- The literature review is comprehensive and up-to-date.\n- The discussion thoughtfully interprets the findings.\n\n## Areas for Improvement\n- The generalizability of the findings could be discussed further.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 5,
+    "timestamp": 1743960660583,
+    "votes": [
+      {
+        "userId": 4995784589,
+        "value": 1,
+        "timestamp": 1743838648258
+      }
+    ]
+  },
+  {
+    "id": "ca9f77ce-3aed-408f-8709-73d81f42510c",
+    "contributionId": "f4cac5d5-4d1f-4ccc-99c1-6a7d3361ec1f",
+    "reviewerFid": 7804664446,
+    "reviewerName": "Dr. Nancy Brown",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n- Some figures would benefit from clearer labeling.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 4,
+    "timestamp": 1743986637653,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1744068761078
+      },
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1744081792415
+      },
+      {
+        "userId": 4927644238,
+        "value": 1,
+        "timestamp": 1743931441633
+      },
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743844275450
+      }
+    ]
+  },
+  {
+    "id": "563fd1ce-1a9b-4f52-b172-9cf0ffc89dd3",
+    "contributionId": "ed31c9da-e2e2-4fba-9398-d0824f452842",
+    "reviewerFid": 7804664446,
+    "reviewerName": "Dr. Nancy Brown",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The research question is clearly articulated.\n- The discussion thoughtfully interprets the findings.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 2,
+    "timestamp": 1744081389584,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1743849771326
+      },
+      {
+        "userId": 6563992371,
+        "value": -1,
+        "timestamp": 1743900165244
+      },
+      {
+        "userId": 6269597478,
+        "value": 1,
+        "timestamp": 1744089578855
+      },
+      {
+        "userId": 4995784589,
+        "value": 1,
+        "timestamp": 1744083458225
+      }
+    ]
+  },
+  {
+    "id": "9f8ff4c6-8a0a-41ba-a6c7-7cb833f48e38",
+    "contributionId": "f4cac5d5-4d1f-4ccc-99c1-6a7d3361ec1f",
+    "reviewerFid": 6265018995,
+    "reviewerName": "Prof. Mary Gonzalez",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The discussion thoughtfully interprets the findings.\n- The abstract effectively summarizes the key points.\n- The research question is clearly articulated.\n\n## Areas for Improvement\n- The implications for clinical practice could be expanded.\n- Some methodological details could be more thoroughly explained.\n\nWith some revisions, this research could have significant impact in the field.",
+    "rating": 5,
+    "timestamp": 1744086472652,
+    "votes": []
+  },
+  {
+    "id": "68302d74-4a31-4d0e-b1c9-f63676aee077",
+    "contributionId": "82ecca89-5245-4166-ba98-3da715c57883",
+    "reviewerFid": 6265018995,
+    "reviewerName": "Prof. Mary Gonzalez",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The experimental design demonstrates careful planning.\n- The discussion thoughtfully interprets the findings.\n\n## Areas for Improvement\n- Certain confounding variables might not be fully addressed.\n- The implications for clinical practice could be expanded.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 5,
+    "timestamp": 1743652108048,
+    "votes": [
+      {
+        "userId": 4927644238,
+        "value": 1,
+        "timestamp": 1743882901098
+      }
+    ]
+  },
+  {
+    "id": "8956f2c4-47ea-4ff8-ab4b-fa7309e664e9",
+    "contributionId": "896be91f-787c-4c47-b1fe-a7fee2f65281",
+    "reviewerFid": 6265018995,
+    "reviewerName": "Prof. Mary Gonzalez",
+    "content": "This research makes a valuable contribution to the field.\n\n## Strengths\n- The research question is clearly articulated.\n- The statistical analysis is appropriate for the research questions.\n- The literature review is comprehensive and up-to-date.\n\n## Areas for Improvement\n- The implications for clinical practice could be expanded.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1744136141670,
+    "votes": [
+      {
+        "userId": 4653599081,
+        "value": 1,
+        "timestamp": 1743879626732
+      }
+    ]
+  },
+  {
+    "id": "4f73d093-6eba-4615-a6c6-b4a69ec6a6e5",
+    "contributionId": "b49b755f-8f4c-4ec8-a08e-861763e70858",
+    "reviewerFid": 6265018995,
+    "reviewerName": "Prof. Mary Gonzalez",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The statistical analysis is appropriate for the research questions.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743772601008,
+    "votes": [
+      {
+        "userId": 9829586784,
+        "value": 1,
+        "timestamp": 1743820802847
+      },
+      {
+        "userId": 9154908948,
+        "value": 1,
+        "timestamp": 1743889022616
+      },
+      {
+        "userId": 4927644238,
+        "value": 1,
+        "timestamp": 1744023262186
+      },
+      {
+        "userId": 6555437277,
+        "value": 1,
+        "timestamp": 1743934528679
+      }
+    ]
+  },
+  {
+    "id": "539348c9-db52-439e-8faa-ec135d4c5196",
+    "contributionId": "51790971-ec39-4375-9167-b6ae378bd2d0",
+    "reviewerFid": 6555437277,
+    "reviewerName": "Prof. Thomas Thomas",
+    "content": "As a specialist in this area, I find this research quite relevant.\n\n## Strengths\n- The statistical analysis is appropriate for the research questions.\n- The experimental design demonstrates careful planning.\n- The conclusions are well-supported by the data presented.\n\n## Areas for Improvement\n- The control group selection process raises some questions.\n\nThis work has potential implications for both research and clinical practice.",
+    "rating": 3,
+    "timestamp": 1743723612796,
+    "votes": [
+      {
+        "userId": 2042580739,
+        "value": 1,
+        "timestamp": 1744125987607
+      },
+      {
+        "userId": 2723708084,
+        "value": 1,
+        "timestamp": 1743786263770
+      }
+    ]
+  },
+  {
+    "id": "31186766-bcfd-434a-91c6-77cb0d056f3d",
+    "contributionId": "896be91f-787c-4c47-b1fe-a7fee2f65281",
+    "reviewerFid": 6555437277,
+    "reviewerName": "Prof. Thomas Thomas",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The methodology is robust and well-designed.\n- The paper addresses an important gap in current knowledge.\n\n## Areas for Improvement\n- Additional statistical tests might provide further insights.\n\nOverall, this is a valuable contribution that advances our understanding in this field.",
+    "rating": 4,
+    "timestamp": 1743668522984,
+    "votes": [
+      {
+        "userId": 6265018995,
+        "value": 1,
+        "timestamp": 1743830706090
+      }
+    ]
+  },
+  {
+    "id": "3f746154-745a-40a6-a11f-32261c565885",
+    "contributionId": "56540c83-55be-4d01-b3fe-33a7bd0a3179",
+    "reviewerFid": 6555437277,
+    "reviewerName": "Prof. Thomas Thomas",
+    "content": "I've thoroughly examined this research contribution.\n\n## Strengths\n- The experimental design demonstrates careful planning.\n- The literature review is comprehensive and up-to-date.\n- The limitations are acknowledged appropriately.\n\n## Areas for Improvement\n- A larger sample size would strengthen the conclusions.\n- Some recent relevant literature appears to be missing.\n\nI commend the authors for this well-executed study that offers new insights.",
+    "rating": 3,
+    "timestamp": 1744048223006,
+    "votes": [
+      {
+        "userId": 7156422613,
+        "value": 1,
+        "timestamp": 1743899714223
+      },
+      {
+        "userId": 2723708084,
+        "value": 1,
+        "timestamp": 1744150755444
+      },
+      {
+        "userId": 2861071157,
+        "value": 1,
+        "timestamp": 1744049160556
+      }
+    ]
+  }
+]

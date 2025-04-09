@@ -166,7 +166,49 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Try to get comments from Farcaster first
+    // Extract hash from the castId
+    const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+    
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    if (isUsingNeynar && castHash) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
+        // Get replies to this cast
+        const replies = await neynarApi.getReplies(castHash);
+        
+        if (replies && replies.length > 0) {
+          // Transform to our expected format
+          const transformedComments = replies.map((reply: any) => ({
+            id: reply.hash,
+            text: reply.text,
+            authorFid: reply.author.fid,
+            timestamp: new Date(reply.timestamp).getTime(),
+            parentId: reply.parent_hash === castHash ? null : reply.parent_hash,
+            votes: [], // No direct way to get votes on replies through API
+            author: {
+              username: reply.author.username,
+              displayName: reply.author.display_name,
+              pfp: reply.author.pfp_url
+            }
+          }));
+          
+          return NextResponse.json({
+            success: true,
+            comments: transformedComments,
+            source: 'neynar'
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching comments from Neynar:', error);
+        // Fall back to local comments
+      }
+    }
+    
+    // Try to get from Farcaster first if not using Neynar or Neynar failed
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     let farcasterComments = null;
     
@@ -308,89 +350,121 @@ export async function POST(request: NextRequest) {
       votes: []
     };
     
-    // Try to submit to Hubble/Farcaster first
-    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     let farcasterSubmissionSuccess = false;
     
-    try {
-      // Check if Hubble node is connected
-      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+    // Extract hash from the castId
+    const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+    
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    if (isUsingNeynar && castHash) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
+        // If there's a parentId, it's a reply to a comment, otherwise a reply to the cast
+        const parent = parentId 
+          ? { fid: parseInt(parentId.split('-')[0]) || 0, hash: parentId.includes('-') ? parentId.split('-')[1] : parentId }
+          : { fid: parseInt(castId.split('-')[0]) || 0, hash: castHash };
+        
+        // Submit as a reply
+        const result = await neynarApi.postCast(authorFid, text, [], parent);
+        console.log('Comment submitted to Farcaster via Neynar:', result);
+        farcasterSubmissionSuccess = true;
+        
+        // If successful, use the Farcaster cast hash as our ID
+        if (result && result.cast && result.cast.hash) {
+          newComment.id = result.cast.hash;
         }
-      });
+      } catch (error) {
+        console.error('Error submitting comment to Farcaster via Neynar:', error);
+        // Fall back to local storage
+      }
+    } else {
+      // Try to submit to Hubble/Farcaster as before
+      const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
       
-      if (infoResponse.ok) {
-        // Try to submit the comment as a reaction to the cast
-        // For Farcaster, we'll submit this as a "reply" reaction type
-        const submitResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
-          method: 'POST',
+      try {
+        // Check if Hubble node is connected
+        const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            type: 'REACTION_TYPE_REPLY',
-            fid: authorFid,
-            targetCastId: {
-              fid: parseInt(castId.split('-')[0]) || 0,
-              hash: castId.includes('-') ? castId.split('-')[1] : castId
-            },
-            replyBody: {
-              text,
-              parentCastId: parentId ? {
-                fid: parseInt(parentId.split('-')[0]) || 0,
-                hash: parentId.includes('-') ? parentId.split('-')[1] : parentId
-              } : undefined
-            }
-          })
+          }
         });
         
-        if (submitResponse.ok) {
-          const result = await submitResponse.json();
-          console.log('Comment submitted to Farcaster:', result);
-          farcasterSubmissionSuccess = true;
-          
-          // If successful, we can use the Farcaster reaction hash as our ID
-          if (result && result.hash) {
-            newComment.id = result.hash;
-          }
-        } else {
-          // Alternative method for v1.19.1 - try as a cast with reference
-          const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+        if (infoResponse.ok) {
+          // Try to submit the comment as a reaction to the cast
+          // For Farcaster, we'll submit this as a "reply" reaction type
+          const submitResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              type: 'MESSAGE_TYPE_CAST_ADD',
+              type: 'REACTION_TYPE_REPLY',
               fid: authorFid,
-              castAddBody: {
-                text: text,
-                mentions: [],
-                mentionsPositions: [],
-                parentCastId: {
-                  fid: parseInt(castId.split('-')[0]) || 0,
-                  hash: castId.includes('-') ? castId.split('-')[1] : castId
-                }
+              targetCastId: {
+                fid: parseInt(castId.split('-')[0]) || 0,
+                hash: castId.includes('-') ? castId.split('-')[1] : castId
+              },
+              replyBody: {
+                text,
+                parentCastId: parentId ? {
+                  fid: parseInt(parentId.split('-')[0]) || 0,
+                  hash: parentId.includes('-') ? parentId.split('-')[1] : parentId
+                } : undefined
               }
             })
           });
           
-          if (altResponse.ok) {
-            const altResult = await altResponse.json();
-            console.log('Comment submitted to Farcaster as cast:', altResult);
+          if (submitResponse.ok) {
+            const result = await submitResponse.json();
+            console.log('Comment submitted to Farcaster:', result);
             farcasterSubmissionSuccess = true;
             
-            // If successful, we can use the Farcaster cast hash as our ID
-            if (altResult && altResult.hash) {
-              newComment.id = altResult.hash;
+            // If successful, we can use the Farcaster reaction hash as our ID
+            if (result && result.hash) {
+              newComment.id = result.hash;
+            }
+          } else {
+            // Alternative method for v1.19.1 - try as a cast with reference
+            const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                type: 'MESSAGE_TYPE_CAST_ADD',
+                fid: authorFid,
+                castAddBody: {
+                  text: text,
+                  mentions: [],
+                  mentionsPositions: [],
+                  parentCastId: {
+                    fid: parseInt(castId.split('-')[0]) || 0,
+                    hash: castId.includes('-') ? castId.split('-')[1] : castId
+                  }
+                }
+              })
+            });
+            
+            if (altResponse.ok) {
+              const altResult = await altResponse.json();
+              console.log('Comment submitted to Farcaster as cast:', altResult);
+              farcasterSubmissionSuccess = true;
+              
+              // If successful, we can use the Farcaster cast hash as our ID
+              if (altResult && altResult.hash) {
+                newComment.id = altResult.hash;
+              }
             }
           }
         }
+      } catch (error) {
+        console.error('Error submitting comment to Farcaster:', error);
       }
-    } catch (error) {
-      console.error('Error submitting comment to Farcaster:', error);
     }
     
     // If Farcaster submission failed or we're in development mode, save locally

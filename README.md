@@ -170,3 +170,38 @@ If you encounter issues with the deployment:
 - Check if the server has all the required modules enabled (like mod_rewrite)
 - Ensure your domain's DNS is properly configured
 - Verify that the API endpoints in the environment variables are correct and accessible from your server
+
+## Farcaster Integration
+
+### Local Hubble Node
+By default, the application is set up to work with a local Farcaster Hubble node. You can configure the connection URLs in your environment variables:
+
+```
+NEXT_PUBLIC_HUBBLE_HTTP_URL=http://localhost:2281
+NEXT_PUBLIC_HUBBLE_GRPC_URL=http://localhost:2283
+```
+
+### Using Neynar API (Recommended)
+As an alternative to running a local Hubble node, you can use Neynar's API which provides a managed Farcaster node service:
+
+1. **Set up Neynar API Key**:
+   - Sign up for an API key at [Neynar](https://neynar.com)
+   - Add the following to your `.env.local` file:
+   ```
+   NEXT_PUBLIC_NEYNAR_API_KEY=your-api-key-here
+   NEXT_PUBLIC_USE_NEYNAR_API=true
+   ```
+
+2. **Benefits of using Neynar**:
+   - No need to run and maintain a local Hubble node
+   - Better reliability and uptime
+   - Full integration with Farcaster for both reading and writing data
+   - All social actions (posts, comments, reactions, follows) are directly saved to Farcaster
+
+3. **How it works**:
+   - The application automatically detects when Neynar API is enabled
+   - All Farcaster data operations are redirected to Neynar's endpoints
+   - Local storage is still maintained as a fallback but all operations attempt to use Neynar first
+   - User interactions like posting, commenting, and reacting will be reflected in the actual Farcaster network
+
+By using Neynar, your Social UI instance becomes fully integrated with the Farcaster network, with all user actions being saved to and read from the live Farcaster ecosystem.

@@ -60,27 +60,42 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
   // Function to check if the current user follows the profile being viewed
   const checkFollowStatus = async (userFid: number, targetFid: number) => {
     try {
+      // First check from user context's following list (this is most up-to-date after page reload)
+      if (user && user.following) {
+        if (Array.isArray(user.following)) {
+          const isFollowingFromContext = user.following.includes(targetFid);
+          setIsFollowing(isFollowingFromContext);
+          
+          // If we already know we're following from context, we can return early
+          if (isFollowingFromContext) {
+            return;
+          }
+        }
+      }
+      
+      // Fall back to API check if needed
       const response = await fetch(`/api/users/follow?userFid=${userFid}&targetFid=${targetFid}`);
       
       if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setIsFollowing(data.isFollowing);
+        try {
+          const data = await response.json();
+          if (data && data.success) {
+            setIsFollowing(data.isFollowing);
+            
+            // If the API says we're following but our context doesn't have it,
+            // update the context to ensure consistency
+            if (data.isFollowing && user && user.following && 
+                Array.isArray(user.following) && !user.following.includes(targetFid)) {
+              updateFollowingList(targetFid, true);
+            }
+          }
+        } catch (jsonError) {
+          console.error('Error parsing follow status JSON:', jsonError);
+          // Fall back to context check on JSON parsing error
         }
       }
     } catch (error) {
       console.error('Error checking follow status:', error);
-      // Fall back to checking the user context's following list
-      if (user && user.following) {
-        if (Array.isArray(user.following)) {
-          setIsFollowing(user.following.includes(targetFid));
-        } else if (typeof user.following === 'object' && user.following !== null) {
-          const followingArray = (user.following as any[]);
-          setIsFollowing(followingArray.some((followedUser: any) => 
-            followedUser.fid === targetFid || followedUser.targetFid === targetFid
-          ));
-        }
-      }
     }
   };
 
@@ -108,14 +123,30 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
         })
       });
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Failed to ${action} user`);
+      // Check if response has content before parsing JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`Server response was not JSON: ${await response.text()}`);
       }
       
-      const data = await response.json();
+      // Clone the response before reading
+      const clonedResponse = response.clone();
+      let data;
       
-      if (data.success) {
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('Error parsing JSON:', jsonError);
+        const textResponse = await clonedResponse.text();
+        console.error('Raw response:', textResponse);
+        throw new Error(`Failed to parse server response as JSON: ${textResponse.substring(0, 100)}`);
+      }
+      
+      if (!response.ok) {
+        throw new Error(data?.error || `Failed to ${action} user`);
+      }
+      
+      if (data?.success) {
         const newFollowingState = action === 'follow';
         setIsFollowing(newFollowingState);
         
@@ -130,11 +161,11 @@ export default function UserProfile({ fid, onBack, onViewProfile }: UserProfileP
           });
         }
       } else {
-        throw new Error(data.error || `Failed to ${action} user`);
+        throw new Error(data?.error || `Failed to ${action} user`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error toggling follow:', error);
-      setError(`Could not ${isFollowing ? 'unfollow' : 'follow'} this user. Please try again.`);
+      setError(error.message || `Could not ${isFollowing ? 'unfollow' : 'follow'} this user. Please try again.`);
     } finally {
       setFollowLoading(false);
     }

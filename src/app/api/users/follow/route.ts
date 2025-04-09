@@ -21,12 +21,18 @@ function getUsers() {
 
 // Save users to JSON file
 function saveUsers(users: any[]) {
-  // Ensure the data directory exists
-  const dataDir = path.join(process.cwd(), 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+  try {
+    // Ensure the data directory exists
+    const dataDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    fs.writeFileSync(USER_DB_PATH, JSON.stringify(users, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error saving users:', error);
+    return false;
   }
-  fs.writeFileSync(USER_DB_PATH, JSON.stringify(users, null, 2));
 }
 
 // Follow/unfollow a user
@@ -88,88 +94,113 @@ export async function POST(request: NextRequest) {
     }
     
     let message = '';
-    
-    // Try to submit to Farcaster (Hubble) first
-    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     let farcasterSubmissionSuccess = false;
     
-    try {
-      // Check if Hubble node is connected
-      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (infoResponse.ok) {
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    if (isUsingNeynar) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
         if (action === 'follow') {
-          // Try to submit the follow action to Farcaster
-          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitLink`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              type: 'LINK_TYPE_FOLLOW',
-              fid: userFidNum,
-              targetFid: targetFidNum
-            })
-          });
-          
-          if (response.ok) {
-            const result = await response.json();
-            console.log('Follow submitted to Farcaster:', result);
-            farcasterSubmissionSuccess = true;
-          } else {
-            // Try alternative endpoint format
-            const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+          // Try to follow the user via Neynar
+          const result = await neynarApi.follow(userFidNum, targetFidNum);
+          console.log('Follow submitted to Farcaster via Neynar:', result);
+          farcasterSubmissionSuccess = true;
+        } else if (action === 'unfollow') {
+          // Try to unfollow the user via Neynar
+          const result = await neynarApi.unfollow(userFidNum, targetFidNum);
+          console.log('Unfollow submitted to Farcaster via Neynar:', result);
+          farcasterSubmissionSuccess = true;
+        }
+      } catch (error) {
+        console.error('Error submitting follow/unfollow to Farcaster via Neynar:', error);
+        // Fall back to local storage only
+      }
+    } else {
+      // Try to submit to Farcaster (Hubble) as before
+      const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
+      
+      try {
+        // Check if Hubble node is connected
+        const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (infoResponse.ok) {
+          if (action === 'follow') {
+            // Try to submit the follow action to Farcaster
+            const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitLink`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                type: 'MESSAGE_TYPE_LINK_ADD',
+                type: 'LINK_TYPE_FOLLOW',
+                fid: userFidNum,
+                targetFid: targetFidNum
+              })
+            });
+            
+            if (response.ok) {
+              const result = await response.json();
+              console.log('Follow submitted to Farcaster:', result);
+              farcasterSubmissionSuccess = true;
+            } else {
+              // Try alternative endpoint format
+              const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  type: 'MESSAGE_TYPE_LINK_ADD',
+                  fid: userFidNum,
+                  linkBody: {
+                    type: 'follow',
+                    targetFid: targetFidNum
+                  }
+                })
+              });
+              
+              if (altResponse.ok) {
+                const altResult = await altResponse.json();
+                console.log('Follow submitted to Farcaster (alt method):', altResult);
+                farcasterSubmissionSuccess = true;
+              }
+            }
+          } else if (action === 'unfollow') {
+            // Try to remove the follow link on Farcaster
+            const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                type: 'MESSAGE_TYPE_LINK_REMOVE',
                 fid: userFidNum,
                 linkBody: {
-                  type: 'follow',
+                  type: 'follow', 
                   targetFid: targetFidNum
                 }
               })
             });
             
-            if (altResponse.ok) {
-              const altResult = await altResponse.json();
-              console.log('Follow submitted to Farcaster (alt method):', altResult);
+            if (response.ok) {
+              const result = await response.json();
+              console.log('Unfollow submitted to Farcaster:', result);
               farcasterSubmissionSuccess = true;
             }
           }
-        } else if (action === 'unfollow') {
-          // Try to remove the follow link on Farcaster
-          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitMessage`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              type: 'MESSAGE_TYPE_LINK_REMOVE',
-              fid: userFidNum,
-              linkBody: {
-                type: 'follow', 
-                targetFid: targetFidNum
-              }
-            })
-          });
-          
-          if (response.ok) {
-            const result = await response.json();
-            console.log('Unfollow submitted to Farcaster:', result);
-            farcasterSubmissionSuccess = true;
-          }
         }
+      } catch (error) {
+        console.error('Error submitting follow/unfollow to Farcaster:', error);
       }
-    } catch (error) {
-      console.error('Error submitting follow/unfollow to Farcaster:', error);
     }
     
     // Always update local storage regardless of Farcaster success
@@ -201,7 +232,14 @@ export async function POST(request: NextRequest) {
     }
     
     // Save updated user data
-    saveUsers(users);
+    const saveSuccessful = saveUsers(users);
+    
+    if (!saveSuccessful) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to save follow data' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json({
       success: true,
@@ -231,21 +269,45 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Make sure the FIDs are numbers
+    // Convert to numbers
     const userFidNum = parseInt(userFid);
     const targetFidNum = parseInt(targetFid);
     
     if (isNaN(userFidNum) || isNaN(targetFidNum)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid FID format' },
+        { success: false, error: 'FIDs must be valid numbers' },
         { status: 400 }
       );
     }
     
-    // Load users data
-    const users = getUsers();
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
     
-    // Find the user
+    if (isUsingNeynar) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
+        // First get the following list for the user
+        const following = await neynarApi.getFollowing(userFidNum);
+        
+        // Check if the target user is in the following list
+        const isFollowing = following && Array.isArray(following) && 
+          following.some((followedUser: any) => followedUser && followedUser.fid === targetFidNum);
+        
+        return NextResponse.json({
+          success: true,
+          isFollowing: !!isFollowing,
+          source: 'neynar'
+        });
+      } catch (error) {
+        console.error('Error checking follow status via Neynar:', error);
+        // Fall back to local storage
+      }
+    }
+    
+    // Fall back to local check
+    const users = getUsers();
     const user = users.find((u: any) => u.fid === userFidNum);
     
     if (!user) {
@@ -255,14 +317,13 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Check if the user follows the target
-    const isFollowing = user.following && 
-                       Array.isArray(user.following) && 
-                       user.following.includes(targetFidNum);
+    // Check if user is following target
+    const isFollowing = user.following ? user.following.includes(targetFidNum) : false;
     
     return NextResponse.json({
       success: true,
-      isFollowing: isFollowing || false
+      isFollowing: !!isFollowing,
+      source: 'local'
     });
   } catch (error) {
     console.error('Error checking follow status:', error);

@@ -19,6 +19,17 @@ function getUsers() {
   }
 }
 
+// Save users to JSON file
+function saveUsers(users: any[]) {
+  try {
+    fs.writeFileSync(USER_DB_PATH, JSON.stringify(users, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error saving users:', error);
+    return false;
+  }
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { fid: string } }
@@ -170,6 +181,86 @@ export async function GET(
     console.error('Error in user profile API:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch user profile' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { fid: string } }
+) {
+  try {
+    const fid = parseInt(params.fid);
+    
+    if (isNaN(fid)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid FID format' },
+        { status: 400 }
+      );
+    }
+    
+    // Get request body
+    const body = await request.json();
+    
+    // Validate required fields
+    if (!body) {
+      return NextResponse.json(
+        { success: false, error: 'Request body is required' },
+        { status: 400 }
+      );
+    }
+    
+    // Get all users
+    const users = getUsers();
+    const userIndex = users.findIndex((u: any) => u.fid === fid);
+    
+    if (userIndex === -1) {
+      return NextResponse.json(
+        { success: false, error: 'User not found' },
+        { status: 404 }
+      );
+    }
+    
+    // Update user fields
+    const updatedUser = { ...users[userIndex] };
+    
+    // Update basic profile fields
+    if (body.displayName !== undefined) updatedUser.displayName = body.displayName;
+    if (body.username !== undefined) updatedUser.username = body.username;
+    if (body.bio !== undefined) {
+      updatedUser.bio = body.bio;
+      if (updatedUser.profile) {
+        updatedUser.profile.bio = body.bio;
+      }
+    }
+    if (body.pfp !== undefined) updatedUser.pfp = body.pfp;
+    
+    // Save updated users array
+    users[userIndex] = updatedUser;
+    const saved = saveUsers(users);
+    
+    if (!saved) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to save user data' },
+        { status: 500 }
+      );
+    }
+    
+    return NextResponse.json({
+      success: true,
+      user: {
+        fid: updatedUser.fid,
+        username: updatedUser.username,
+        displayName: updatedUser.displayName,
+        bio: updatedUser.bio,
+        pfp: updatedUser.pfp
+      }
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to update user profile' },
       { status: 500 }
     );
   }

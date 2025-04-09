@@ -224,7 +224,7 @@ export default function ResearchPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex space-x-2">
                       {contribution.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">
+                        <span key={tag} className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs flex items-center justify-center text-center">
                           {tag}
                         </span>
                       ))}

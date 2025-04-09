@@ -58,27 +58,42 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
   // Function to check if the current user follows the profile being viewed
   const checkFollowStatus = async (userFid: number, targetFid: number) => {
     try {
+      // First check from user context's following list (this is most up-to-date after page reload)
+      if (user && user.following) {
+        if (Array.isArray(user.following)) {
+          const isFollowingFromContext = user.following.includes(targetFid);
+          setIsFollowing(isFollowingFromContext);
+          
+          // If we already know we're following from context, we can return early
+          if (isFollowingFromContext) {
+            return;
+          }
+        }
+      }
+      
+      // Fall back to API check if needed
       const response = await fetch(`/api/users/follow?userFid=${userFid}&targetFid=${targetFid}`);
       
       if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setIsFollowing(data.isFollowing);
+        try {
+          const data = await response.json();
+          if (data && data.success) {
+            setIsFollowing(data.isFollowing);
+            
+            // If the API says we're following but our context doesn't have it,
+            // update the context to ensure consistency
+            if (data.isFollowing && user && user.following && 
+                Array.isArray(user.following) && !user.following.includes(targetFid)) {
+              updateFollowingList(targetFid, true);
+            }
+          }
+        } catch (jsonError) {
+          console.error('Error parsing follow status JSON:', jsonError);
+          // Fall back to context check on JSON parsing error
         }
       }
     } catch (error) {
       console.error('Error checking follow status:', error);
-      // Fall back to checking the user context's following list
-      if (user && user.following) {
-        if (Array.isArray(user.following)) {
-          setIsFollowing(user.following.includes(targetFid));
-        } else if (typeof user.following === 'object' && user.following !== null) {
-          const followingArray = (user.following as any[]);
-          setIsFollowing(followingArray.some((followedUser: any) => 
-            followedUser.fid === targetFid || followedUser.targetFid === targetFid
-          ));
-        }
-      }
     }
   };
   
@@ -89,6 +104,7 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
     }
     
     setFollowLoading(true);
+    setError(null); // Clear any previous errors
     
     try {
       const action = isFollowing ? 'unfollow' : 'follow';
@@ -106,14 +122,30 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
         })
       });
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Failed to ${action} user`);
+      // Check if response has content before parsing JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`Server response was not JSON: ${await response.text()}`);
       }
       
-      const data = await response.json();
+      // Clone the response before reading
+      const clonedResponse = response.clone();
+      let data;
       
-      if (data.success) {
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('Error parsing JSON:', jsonError);
+        const textResponse = await clonedResponse.text();
+        console.error('Raw response:', textResponse);
+        throw new Error(`Failed to parse server response as JSON: ${textResponse.substring(0, 100)}`);
+      }
+      
+      if (!response.ok) {
+        throw new Error(data?.error || `Failed to ${action} user`);
+      }
+      
+      if (data?.success) {
         const newFollowingState = action === 'follow';
         setIsFollowing(newFollowingState);
         
@@ -128,11 +160,11 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
           });
         }
       } else {
-        throw new Error(data.error || `Failed to ${action} user`);
+        throw new Error(data?.error || `Failed to ${action} user`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error toggling follow:', error);
-      setError(`Could not ${isFollowing ? 'unfollow' : 'follow'} this user. Please try again.`);
+      setError(error.message || `Could not ${isFollowing ? 'unfollow' : 'follow'} this user. Please try again.`);
     } finally {
       setFollowLoading(false);
     }
@@ -184,30 +216,43 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
                       <p className="text-gray-500 text-sm mt-1">FID: {profileUser.fid}</p>
                     </div>
                     
-                    {/* Follow/Unfollow Button */}
-                    {user && user.fid !== profileUser.fid && (
-                      <button
-                        onClick={handleFollowToggle}
-                        disabled={followLoading}
-                        className={`px-4 py-2 rounded-full font-medium text-sm ${
-                          isFollowing
-                            ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-                            : 'bg-purple-600 text-white hover:bg-purple-700'
-                        } disabled:opacity-50`}
-                      >
-                        {followLoading ? (
-                          <span className="flex items-center">
-                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Processing
-                          </span>
-                        ) : (
-                          isFollowing ? 'Unfollow' : 'Follow'
-                        )}
-                      </button>
-                    )}
+                    {/* Profile Action Buttons */}
+                    <div className="flex space-x-2">
+                      {/* Edit Profile Button (only show on own profile) */}
+                      {isOwnProfile && (
+                        <Link
+                          href={`/profile/edit/${fid}`}
+                          className="px-4 py-2 bg-gray-100 text-gray-800 hover:bg-gray-200 rounded-full font-medium text-sm"
+                        >
+                          Edit Profile
+                        </Link>
+                      )}
+                      
+                      {/* Follow/Unfollow Button */}
+                      {user && user.fid !== profileUser.fid && (
+                        <button
+                          onClick={handleFollowToggle}
+                          disabled={followLoading}
+                          className={`px-4 py-2 rounded-full font-medium text-sm ${
+                            isFollowing
+                              ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                              : 'bg-purple-600 text-white hover:bg-purple-700'
+                          } disabled:opacity-50`}
+                        >
+                          {followLoading ? (
+                            <span className="flex items-center">
+                              <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Processing
+                            </span>
+                          ) : (
+                            isFollowing ? 'Unfollow' : 'Follow'
+                          )}
+                        </button>
+                      )}
+                    </div>
                   </div>
                   
                   {/* Bio */}

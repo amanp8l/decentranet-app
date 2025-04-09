@@ -55,6 +55,12 @@ export async function syncCommentsToFarcaster(hubbleUrl: string = process.env.NE
     errors: [] as string[]
   };
   
+  // Check if Neynar API is enabled
+  if (process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || process.env.NEXT_PUBLIC_NEYNAR_API_KEY) {
+    stats.errors.push('Sync to Farcaster is not available when using Neynar API. Use Neynar SDK or API directly to post content.');
+    return stats;
+  }
+  
   try {
     // First, check if the Hubble node is available
     const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
@@ -378,6 +384,12 @@ export async function syncCastsToFarcaster(hubbleUrl: string = process.env.NEXT_
     errors: [] as string[]
   };
   
+  // Check if Neynar API is enabled
+  if (process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || process.env.NEXT_PUBLIC_NEYNAR_API_KEY) {
+    stats.errors.push('Sync to Farcaster is not available when using Neynar API. Use Neynar SDK or API directly to post content.');
+    return stats;
+  }
+  
   try {
     // First, check if the Hubble node is available
     const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
@@ -546,6 +558,12 @@ export async function syncVotesToFarcaster(hubbleUrl: string = process.env.NEXT_
     errors: [] as string[]
   };
   
+  // Check if Neynar API is enabled
+  if (process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || process.env.NEXT_PUBLIC_NEYNAR_API_KEY) {
+    stats.errors.push('Sync to Farcaster is not available when using Neynar API. Use Neynar SDK or API directly to post content.');
+    return stats;
+  }
+  
   try {
     // First, check if the Hubble node is available
     const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
@@ -674,7 +692,10 @@ export async function syncVotesToFarcaster(hubbleUrl: string = process.env.NEXT_
 }
 
 /**
- * Sync user follows to Farcaster Hubble node
+ * Sync follow relationships from local storage to Farcaster Hubble node
+ * 
+ * @param hubbleUrl The URL of the Hubble node to sync with
+ * @returns Object containing success status and stats
  */
 export async function syncFollowsToFarcaster(hubbleUrl: string = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281'): Promise<{
   success: boolean;
@@ -683,9 +704,6 @@ export async function syncFollowsToFarcaster(hubbleUrl: string = process.env.NEX
   failed: number;
   errors: string[];
 }> {
-  // Path to the email users JSON file
-  const USERS_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
-  
   // Tracking variables
   const stats = {
     success: false,
@@ -694,6 +712,12 @@ export async function syncFollowsToFarcaster(hubbleUrl: string = process.env.NEX
     failed: 0,
     errors: [] as string[]
   };
+  
+  // Check if Neynar API is enabled
+  if (process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || process.env.NEXT_PUBLIC_NEYNAR_API_KEY) {
+    stats.errors.push('Sync to Farcaster is not available when using Neynar API. Use Neynar SDK or API directly to post content.');
+    return stats;
+  }
   
   try {
     // First, check if the Hubble node is available
@@ -708,6 +732,9 @@ export async function syncFollowsToFarcaster(hubbleUrl: string = process.env.NEX
       stats.errors.push(`Hubble node not available: ${infoResponse.status} ${infoResponse.statusText}`);
       return stats;
     }
+    
+    // Path to the email users JSON file
+    const USERS_DB_PATH = path.join(process.cwd(), 'data', 'email-users.json');
     
     // Load all users from local storage
     if (!fs.existsSync(USERS_DB_PATH)) {
@@ -1042,11 +1069,10 @@ export async function syncResearchToFarcaster(hubbleUrl: string = process.env.NE
 }
 
 /**
- * Sync all content to Farcaster
- * This function syncs all content types to Farcaster in a single call
+ * Sync all local content to Farcaster in one operation
  * 
  * @param hubbleUrl The URL of the Hubble node to sync with
- * @returns Object containing success status and overall stats
+ * @returns Object containing success status and stats for each content type
  */
 export async function syncAllToFarcaster(hubbleUrl: string = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281'): Promise<{
   success: boolean;
@@ -1091,7 +1117,26 @@ export async function syncAllToFarcaster(hubbleUrl: string = process.env.NEXT_PU
     errors: [] as string[]
   };
   
+  // Check if Neynar API is enabled
+  if (process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || process.env.NEXT_PUBLIC_NEYNAR_API_KEY) {
+    result.errors.push('Sync to Farcaster is not available when using Neynar API. Use Neynar SDK or API directly to post content.');
+    return result;
+  }
+  
   try {
+    // Check if the Hubble node is available
+    const infoResponse = await fetch(`${hubbleUrl}/v1/info`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!infoResponse.ok) {
+      result.errors.push(`Hubble node not available: ${infoResponse.status} ${infoResponse.statusText}`);
+      return result;
+    }
+    
     // Sync casts
     const castsResult = await syncCastsToFarcaster(hubbleUrl);
     result.stats.casts.total = castsResult.totalCasts;

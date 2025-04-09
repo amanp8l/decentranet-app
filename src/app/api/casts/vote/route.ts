@@ -125,60 +125,65 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Try to submit to Farcaster (Hubble) first
-    const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     let farcasterSubmissionSuccess = false;
     
-    try {
-      // Check if Hubble node is available
-      const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    // Extract hash from the castId if possible
+    const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+    
+    if (isUsingNeynar && castHash) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
+        // If upvote (1), like the cast, otherwise ignore (Neynar doesn't support downvotes)
+        if (value === 1) {
+          const result = await neynarApi.reactToCast(userId, castHash, 'like');
+          console.log('Vote submitted to Farcaster via Neynar:', result);
+          farcasterSubmissionSuccess = true;
+        } else if (value === -1) {
+          // For downvotes, just update local stats as Neynar doesn't support this
+          console.log('Downvote saved locally only - Neynar does not support downvotes');
         }
-      });
+      } catch (error) {
+        console.error('Error submitting vote to Farcaster via Neynar:', error);
+        // Fall back to local storage
+      }
+    } else {
+      // Try to submit to Farcaster (Hubble) as before
+      const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
       
-      if (infoResponse.ok) {
-        // Extract FID and hash from the castId if possible
-        const castFid = parseInt(castId.split('-')[0]) || 0;
-        const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+      try {
+        // Check if Hubble node is available
+        const infoResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/info`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         
-        // Map vote value to Farcaster reaction type
-        // 1 (upvote) = REACTION_TYPE_LIKE (1)
-        // -1 (downvote) = REACTION_TYPE_DISLIKE (4)
-        const reactionType = value === 1 ? 'REACTION_TYPE_LIKE' : 'REACTION_TYPE_DISLIKE';
-        const reactionValue = value === 1 ? 1 : 4;
-        
-        if (castFid > 0 || castHash) {
-          // Submit as a reaction
-          const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              type: reactionType,
-              fid: userId,
-              targetCastId: {
-                fid: castFid,
-                hash: castHash
-              }
-            })
-          });
+        if (infoResponse.ok) {
+          // Extract FID and hash from the castId if possible
+          const castFid = parseInt(castId.split('-')[0]) || 0;
+          const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
           
-          if (response.ok) {
-            const result = await response.json();
-            console.log('Vote submitted to Farcaster:', result);
-            farcasterSubmissionSuccess = true;
-          } else {
-            // Try alternative endpoint for different reaction values
-            const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
+          // Map vote value to Farcaster reaction type
+          // 1 (upvote) = REACTION_TYPE_LIKE (1)
+          // -1 (downvote) = REACTION_TYPE_DISLIKE (4)
+          const reactionType = value === 1 ? 'REACTION_TYPE_LIKE' : 'REACTION_TYPE_DISLIKE';
+          const reactionValue = value === 1 ? 1 : 4;
+          
+          if (castFid > 0 || castHash) {
+            // Submit as a reaction
+            const response = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                reactionType: reactionValue,
+                type: reactionType,
                 fid: userId,
                 targetCastId: {
                   fid: castFid,
@@ -187,16 +192,38 @@ export async function POST(request: NextRequest) {
               })
             });
             
-            if (altResponse.ok) {
-              const altResult = await altResponse.json();
-              console.log('Vote submitted to Farcaster (alt method):', altResult);
+            if (response.ok) {
+              const result = await response.json();
+              console.log('Vote submitted to Farcaster:', result);
               farcasterSubmissionSuccess = true;
+            } else {
+              // Try alternative endpoint for different reaction values
+              const altResponse = await fetch(`${HUBBLE_HTTP_URL}/v1/submitReaction`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  reactionType: reactionValue,
+                  fid: userId,
+                  targetCastId: {
+                    fid: castFid,
+                    hash: castHash
+                  }
+                })
+              });
+              
+              if (altResponse.ok) {
+                const altResult = await altResponse.json();
+                console.log('Vote submitted to Farcaster (alt method):', altResult);
+                farcasterSubmissionSuccess = true;
+              }
             }
           }
         }
+      } catch (error) {
+        console.error('Error submitting vote to Farcaster:', error);
       }
-    } catch (error) {
-      console.error('Error submitting vote to Farcaster:', error);
     }
     
     // Fall back to local storage if Farcaster submission failed
@@ -276,7 +303,39 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Try to get votes from Farcaster first
+    // Extract hash from the castId
+    const castHash = castId.includes('-') ? castId.split('-')[1] : castId;
+    
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    if (isUsingNeynar && castHash) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        
+        // Get reactions (likes) for this cast
+        const likes = await neynarApi.getReactions(castHash, 'like');
+        
+        // Transform to our expected format
+        const transformedVotes = likes.map((like: any) => ({
+          userId: like.fid,
+          value: 1,  // 'like' reaction
+          timestamp: new Date(like.timestamp).getTime()
+        }));
+        
+        return NextResponse.json({
+          success: true,
+          votes: transformedVotes,
+          source: 'neynar'
+        });
+      } catch (error) {
+        console.error('Error fetching votes from Neynar:', error);
+        // Fall back to local votes
+      }
+    }
+    
+    // Try to get votes from Farcaster via Hubble as before
     const HUBBLE_HTTP_URL = process.env.NEXT_PUBLIC_HUBBLE_HTTP_URL || 'http://localhost:2281';
     let farcasterVotes = null;
     

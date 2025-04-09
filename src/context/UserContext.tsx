@@ -11,6 +11,7 @@ export interface User {
   fid: number;
   provider: string;
   pfp?: string | null;
+  bio?: string;
   following?: number[];
   followers?: number[];
   authToken?: string;
@@ -134,6 +135,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             fid: data.user.fid,
             provider: 'email',
             pfp: data.user.pfp || null,
+            bio: data.user.bio || '',
             followers: data.user.followers,
             following: data.user.following,
             stats: data.user.stats,

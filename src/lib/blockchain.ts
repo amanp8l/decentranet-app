@@ -228,7 +228,7 @@ export const getTokenBalance = async (fid: number): Promise<number> => {
       .reduce((sum, tx) => sum + tx.amount, 0);
       
     const sent = tokenTransactions
-      .filter(tx => tx.fromFid === fid)
+      .filter(tx => tx.fromFid === fid) // Only count transactions where this user is explicitly the sender
       .reduce((sum, tx) => sum + tx.amount, 0);
       
     return received - sent;
@@ -240,6 +240,74 @@ export const getTokenBalance = async (fid: number): Promise<number> => {
   } catch (error) {
     console.error('Error getting token balance:', error);
     throw new Error('Failed to get token balance');
+  }
+};
+
+// Transfer tokens between users
+export const transferTokens = async (
+  fromFid: number,
+  toFid: number,
+  amount: number,
+  reason: 'contribution' | 'review' | 'upvote' | 'nomination' | 'grant' | 'other',
+  contributionId?: string
+): Promise<TokenTransaction> => {
+  try {
+    // Check that amount is positive
+    if (amount <= 0) {
+      throw new Error('Transfer amount must be positive');
+    }
+    
+    // Prevent self-transfers
+    if (fromFid === toFid) {
+      throw new Error('Cannot transfer tokens to yourself');
+    }
+    
+    // Check if sender has sufficient balance
+    const senderBalance = await getTokenBalance(fromFid);
+    if (senderBalance < amount) {
+      throw new Error('Insufficient token balance for transfer');
+    }
+    
+    // Create the transaction
+    const transaction: TokenTransaction = {
+      id: uuidv4(),
+      fromFid,
+      toFid,
+      amount,
+      reason,
+      contributionId,
+      timestamp: Date.now(),
+      txHash: `0x${Math.random().toString(16).substring(2, 14)}`
+    };
+    
+    // Store transaction in memory
+    tokenTransactions.push(transaction);
+    
+    // In production, execute on blockchain
+    // const wallet = new ethers.Wallet('PRIVATE_KEY', provider);
+    // const contract = new ethers.Contract(TOKEN_CONTRACT, TOKEN_ABI, wallet);
+    // await contract.transfer(getWalletAddress(toFid), amount);
+    
+    return transaction;
+  } catch (error) {
+    console.error('Error transferring tokens:', error);
+    throw new Error(error instanceof Error ? error.message : 'Failed to transfer tokens');
+  }
+};
+
+// Get token transactions for a user
+export const getTokenTransactions = async (fid: number): Promise<TokenTransaction[]> => {
+  try {
+    // Get transactions where user is sender or recipient
+    const userTransactions = tokenTransactions.filter(tx => 
+      tx.fromFid === fid || tx.toFid === fid
+    );
+    
+    // Sort by timestamp, newest first
+    return userTransactions.sort((a, b) => b.timestamp - a.timestamp);
+  } catch (error) {
+    console.error('Error getting token transactions:', error);
+    throw new Error('Failed to retrieve token transaction history');
   }
 };
 

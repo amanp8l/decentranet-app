@@ -10,6 +10,8 @@ cat > .env.production << EOL
 NEXT_PUBLIC_HUBBLE_HTTP_URL=https://hub.pinata.cloud
 NEXT_PUBLIC_HUBBLE_GRPC_URL=https://hub-grpc.pinata.cloud
 NEXT_PUBLIC_APP_NAME=Social UI
+NEXT_PUBLIC_NEYNAR_API_KEY=45455345-4F67-4A40-B9B1-05561361662B
+NEXT_PUBLIC_USE_NEYNAR_API=true
 EOL
 
 # Build the application

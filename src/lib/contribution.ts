@@ -5,6 +5,12 @@ import {
   recordTokenTransaction, 
   verifyContribution 
 } from './blockchain';
+import fs from 'fs';
+import path from 'path';
+
+// Path to data files
+const CONTRIBUTIONS_PATH = path.join(process.cwd(), 'data', 'research-contributions.json');
+const REVIEWS_PATH = path.join(process.cwd(), 'data', 'research-reviews.json');
 
 // In-memory storage for development
 let contributions: ResearchContribution[] = [];
@@ -20,6 +26,34 @@ let specializations: SpecializationField[] = [
   { id: 'public-health', name: 'Public Health', description: 'Population health and disease prevention' },
   { id: 'clinical-trials', name: 'Clinical Trials', description: 'Systematic testing of medical interventions' }
 ];
+
+// Load contributions from file if it exists
+try {
+  if (fs.existsSync(CONTRIBUTIONS_PATH)) {
+    const data = fs.readFileSync(CONTRIBUTIONS_PATH, 'utf8');
+    const loadedContributions = JSON.parse(data || '[]');
+    if (Array.isArray(loadedContributions) && loadedContributions.length > 0) {
+      console.log(`Loaded ${loadedContributions.length} research contributions from file`);
+      contributions = loadedContributions;
+    }
+  }
+} catch (error) {
+  console.error('Error loading contributions from file:', error);
+}
+
+// Load reviews from file if it exists
+try {
+  if (fs.existsSync(REVIEWS_PATH)) {
+    const data = fs.readFileSync(REVIEWS_PATH, 'utf8');
+    const loadedReviews = JSON.parse(data || '[]');
+    if (Array.isArray(loadedReviews) && loadedReviews.length > 0) {
+      console.log(`Loaded ${loadedReviews.length} peer reviews from file`);
+      reviews = loadedReviews;
+    }
+  }
+} catch (error) {
+  console.error('Error loading reviews from file:', error);
+}
 
 // Get all specialization fields
 export const getSpecializationFields = async (): Promise<SpecializationField[]> => {

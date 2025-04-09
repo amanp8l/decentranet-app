@@ -145,6 +145,26 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const authorInfoByFid = new Map();
     
+    // Check if Neynar API is enabled
+    const isUsingNeynar = process.env.NEXT_PUBLIC_USE_NEYNAR_API === 'true' || !!process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+    
+    if (isUsingNeynar && fid) {
+      try {
+        // Import the neynarApi
+        const { neynarApi } = await import('@/lib/neynar');
+        const casts = await neynarApi.getCasts(parseInt(fid), limit);
+        
+        return NextResponse.json({
+          success: true,
+          data: casts,
+          source: 'neynar'
+        });
+      } catch (error) {
+        console.error('Error fetching casts from Neynar:', error);
+        // Fall back to local casts
+      }
+    }
+    
     // Get local casts
     let localCasts = getLocalCasts();
     

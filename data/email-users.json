@@ -31,6 +31,38 @@
       "receivedDownvotes": 8,
       "givenUpvotes": 23,
       "givenDownvotes": 4
+    },
+    "reputationScore": 182,
+    "tokenBalance": 240,
+    "profile": {
+      "bio": "Prof. Emily Clark, specializing in Radiology. Research interests include bioinformatics.",
+      "specialty": "Radiology",
+      "institution": "Stanford University",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Mayo Clinic",
+          "year": 2019
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "NewYork-Presbyterian Hospital",
+          "year": 2010
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-3098-8388-6109"
+      },
+      "researchInterests": [
+        "telemedicine",
+        "gene therapy",
+        "public health initiatives",
+        "chronic disease management"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -43,7 +75,7 @@
     "fid": 6563992371,
     "provider": "email",
     "pfp": null,
-    "bio": "Prof. Daniel Williams, specializing in Geriatrics. Research interests include AI in medical diagnostics.",
+    "bio": "Passionate about improving patient outcomes through evidence-based approaches in Geriatrics research.",
     "followers": [
       2042580739,
       6269597478,
@@ -74,6 +106,33 @@
       "receivedDownvotes": 6,
       "givenUpvotes": 18,
       "givenDownvotes": 4
+    },
+    "reputationScore": 290,
+    "tokenBalance": 246,
+    "profile": {
+      "bio": "Passionate about improving patient outcomes through evidence-based approaches in Geriatrics research.",
+      "specialty": "Geriatrics",
+      "institution": "UCSF Health",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "NewYork-Presbyterian Hospital",
+          "year": 2019
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-1277-2614-9101"
+      },
+      "researchInterests": [
+        "drug delivery systems",
+        "medical devices",
+        "immunotherapy",
+        "AI in medical diagnostics"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -118,6 +177,34 @@
       "receivedDownvotes": 3,
       "givenUpvotes": 20,
       "givenDownvotes": 13
+    },
+    "reputationScore": 145,
+    "tokenBalance": 205,
+    "profile": {
+      "bio": "Dr. Donna Harris, specializing in Internal Medicine. Research interests include clinical trials.",
+      "specialty": "Internal Medicine",
+      "institution": "Harvard University",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Stanford University",
+          "year": 2003
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-7144-4410-9070"
+      },
+      "researchInterests": [
+        "drug delivery systems",
+        "immunotherapy",
+        "mental health interventions",
+        "medical devices",
+        "clinical trials methodology"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -162,6 +249,39 @@
       "receivedDownvotes": 3,
       "givenUpvotes": 10,
       "givenDownvotes": 3
+    },
+    "reputationScore": 159,
+    "tokenBalance": 238,
+    "profile": {
+      "bio": "Dr. Mark Garcia, specializing in Pulmonology. Research interests include public health.",
+      "specialty": "Pulmonology",
+      "institution": "Mayo Clinic",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "UCLA Medical Center",
+          "year": 2010
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Harvard Medical School",
+          "year": 2011
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-3942-1690-3115"
+      },
+      "researchInterests": [
+        "telemedicine",
+        "drug delivery systems",
+        "precision medicine",
+        "AI in medical diagnostics",
+        "gene therapy"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -202,6 +322,38 @@
       "receivedDownvotes": 6,
       "givenUpvotes": 38,
       "givenDownvotes": 3
+    },
+    "reputationScore": 234,
+    "tokenBalance": 258,
+    "profile": {
+      "bio": "Prof. Anthony Torres, specializing in Geriatrics. Research interests include chronic disease management.",
+      "specialty": "Geriatrics",
+      "institution": "Hotmail",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Johns Hopkins University",
+          "year": 2014
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "UCLA Medical Center",
+          "year": 1995
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-3129-9144-7049"
+      },
+      "researchInterests": [
+        "medical devices",
+        "neurodegenerative diseases",
+        "AI in medical diagnostics",
+        "public health initiatives"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -222,7 +374,8 @@
       1077773730,
       9767099251,
       4995784589,
-      6555437277
+      6555437277,
+      4273274048
     ],
     "following": [
       5924535590,
@@ -243,6 +396,34 @@
       "receivedDownvotes": 5,
       "givenUpvotes": 21,
       "givenDownvotes": 0
+    },
+    "reputationScore": 226,
+    "tokenBalance": 332,
+    "profile": {
+      "bio": "Prof. Kimberly Thompson, specializing in Pediatrics. Research interests include immunotherapy.",
+      "specialty": "Pediatrics",
+      "institution": "Icloud",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "UCLA Medical Center",
+          "year": 2014
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-8392-9042-2740"
+      },
+      "researchInterests": [
+        "chronic disease management",
+        "healthcare equity",
+        "gene therapy",
+        "bioinformatics",
+        "vaccines"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -282,6 +463,39 @@
       "receivedDownvotes": 0,
       "givenUpvotes": 30,
       "givenDownvotes": 14
+    },
+    "reputationScore": 180,
+    "tokenBalance": 242,
+    "profile": {
+      "bio": "Prof. Andrew Garcia, specializing in Emergency Medicine. Research interests include public health.",
+      "specialty": "Emergency Medicine",
+      "institution": "Yahoo",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Stanford University",
+          "year": 2017
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "NewYork-Presbyterian Hospital",
+          "year": 1999
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-7077-7365-5019"
+      },
+      "researchInterests": [
+        "bioinformatics",
+        "medical devices",
+        "patient outcomes research",
+        "immunotherapy",
+        "precision medicine"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -317,6 +531,32 @@
       "receivedDownvotes": 6,
       "givenUpvotes": 16,
       "givenDownvotes": 13
+    },
+    "reputationScore": 151,
+    "tokenBalance": 275,
+    "profile": {
+      "bio": "Prof. Joshua Smith, specializing in Urology. Research interests include regenerative medicine.",
+      "specialty": "Urology",
+      "institution": "Hotmail",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Stanford University",
+          "year": 2013
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-6905-7398-2282"
+      },
+      "researchInterests": [
+        "infectious diseases",
+        "healthcare equity",
+        "vaccines"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -357,6 +597,33 @@
       "receivedDownvotes": 6,
       "givenUpvotes": 0,
       "givenDownvotes": 4
+    },
+    "reputationScore": 178,
+    "tokenBalance": 234,
+    "profile": {
+      "bio": "Dr. Robert Ramirez, specializing in Cardiology. Research interests include mental health.",
+      "specialty": "Cardiology",
+      "institution": "Stanford University",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "University of Michigan Health System",
+          "year": 2003
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-7942-4115-5919"
+      },
+      "researchInterests": [
+        "immunotherapy",
+        "neurodegenerative diseases",
+        "cancer research",
+        "vaccines"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -398,6 +665,39 @@
       "receivedDownvotes": 5,
       "givenUpvotes": 4,
       "givenDownvotes": 13
+    },
+    "reputationScore": 163,
+    "tokenBalance": 242,
+    "profile": {
+      "bio": "Prof. Barbara Smith, specializing in Geriatrics. Research interests include neurodegenerative diseases.",
+      "specialty": "Geriatrics",
+      "institution": "Yahoo",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Johns Hopkins University",
+          "year": 2018
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "University of Michigan Health System",
+          "year": 2000
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-4208-8140-4459"
+      },
+      "researchInterests": [
+        "public health initiatives",
+        "healthcare equity",
+        "preventive medicine",
+        "precision medicine",
+        "regenerative medicine"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -410,7 +710,7 @@
     "fid": 4927644238,
     "provider": "email",
     "pfp": null,
-    "bio": "Prof. Kenneth Robinson, specializing in Immunology. Research interests include patient outcomes.",
+    "bio": "Investigating novel treatments in Translational Research with particular interest in translational research and clinical applications.",
     "followers": [
       6563992371,
       6269597478,
@@ -438,6 +738,37 @@
       "receivedDownvotes": 9,
       "givenUpvotes": 39,
       "givenDownvotes": 9
+    },
+    "reputationScore": 191,
+    "tokenBalance": 233,
+    "profile": {
+      "bio": "Investigating novel treatments in Translational Research with particular interest in translational research and clinical applications.",
+      "specialty": "Translational Research",
+      "institution": "JohnsHopkins",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Massachusetts General Hospital",
+          "year": 2002
+        },
+        {
+          "degree": "M.D.",
+          "institution": "Harvard Medical School",
+          "year": 2012
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-9951-8278-3824"
+      },
+      "researchInterests": [
+        "telemedicine",
+        "drug delivery systems",
+        "patient outcomes research"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -475,6 +806,39 @@
       "receivedDownvotes": 1,
       "givenUpvotes": 33,
       "givenDownvotes": 0
+    },
+    "reputationScore": 186,
+    "tokenBalance": 218,
+    "profile": {
+      "bio": "Prof. Robert Jones, specializing in Cardiology. Research interests include neurodegenerative diseases.",
+      "specialty": "Cardiology",
+      "institution": "Cleveland Clinic",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Cleveland Clinic",
+          "year": 2010
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Massachusetts General Hospital",
+          "year": 2002
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-7616-8424-2332"
+      },
+      "researchInterests": [
+        "cancer research",
+        "healthcare equity",
+        "bioinformatics",
+        "clinical trials methodology",
+        "drug delivery systems"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -512,6 +876,32 @@
       "receivedDownvotes": 8,
       "givenUpvotes": 18,
       "givenDownvotes": 10
+    },
+    "reputationScore": 165,
+    "tokenBalance": 258,
+    "profile": {
+      "bio": "Dr. Donna Perez, specializing in Radiology. Research interests include infectious diseases.",
+      "specialty": "Radiology",
+      "institution": "Cleveland Clinic",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "UCLA Medical Center",
+          "year": 2002
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-4923-7757-7759"
+      },
+      "researchInterests": [
+        "mental health interventions",
+        "patient outcomes research",
+        "regenerative medicine"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -551,6 +941,37 @@
       "receivedDownvotes": 8,
       "givenUpvotes": 28,
       "givenDownvotes": 7
+    },
+    "reputationScore": 154,
+    "tokenBalance": 234,
+    "profile": {
+      "bio": "Dr. David Walker, specializing in Surgery. Research interests include regenerative medicine.",
+      "specialty": "Surgery",
+      "institution": "NIH Clinical Center",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Cleveland Clinic",
+          "year": 2011
+        },
+        {
+          "degree": "MBA",
+          "institution": "Wharton School",
+          "year": 2017
+        }
+      ],
+      "socialLinks": {
+        "website": "https://scholar.google.com/citations",
+        "twitter": "@ScienceMD",
+        "linkedIn": "",
+        "orcid": "0000-9654-9091-6658"
+      },
+      "researchInterests": [
+        "telemedicine",
+        "immunotherapy",
+        "cancer research"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -571,7 +992,9 @@
       2723708084,
       4995784589,
       6265018995,
-      6555437277
+      6555437277,
+      2783902758,
+      4273274048
     ],
     "following": [
       4894749908,
@@ -591,6 +1014,38 @@
       "receivedDownvotes": 1,
       "givenUpvotes": 10,
       "givenDownvotes": 8
+    },
+    "reputationScore": 255,
+    "tokenBalance": 271,
+    "profile": {
+      "bio": "Dr. Joshua Taylor, specializing in Cardiology. Research interests include precision medicine.",
+      "specialty": "Cardiology",
+      "institution": "Icloud",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Mayo Clinic",
+          "year": 2003
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Mayo Clinic",
+          "year": 1997
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-8413-8146-1023"
+      },
+      "researchInterests": [
+        "gene therapy",
+        "AI in medical diagnostics",
+        "healthcare equity",
+        "chronic disease management"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -629,6 +1084,43 @@
       "receivedDownvotes": 9,
       "givenUpvotes": 6,
       "givenDownvotes": 7
+    },
+    "reputationScore": 197,
+    "tokenBalance": 207,
+    "profile": {
+      "bio": "Prof. Betty Wilson, specializing in Geriatrics. Research interests include precision medicine.",
+      "specialty": "Geriatrics",
+      "institution": "Cleveland Clinic",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Stanford University",
+          "year": 2003
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Mayo Clinic",
+          "year": 2004
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Stanford University",
+          "year": 2001
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-5227-8843-7005"
+      },
+      "researchInterests": [
+        "infectious diseases",
+        "chronic disease management",
+        "clinical trials methodology",
+        "immunotherapy"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -670,6 +1162,33 @@
       "receivedDownvotes": 3,
       "givenUpvotes": 9,
       "givenDownvotes": 14
+    },
+    "reputationScore": 169,
+    "tokenBalance": 231,
+    "profile": {
+      "bio": "Prof. Paul Scott, specializing in Geriatrics. Research interests include public health.",
+      "specialty": "Geriatrics",
+      "institution": "Mount Sinai Hospital",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "NewYork-Presbyterian Hospital",
+          "year": 2014
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-5728-5655-5520"
+      },
+      "researchInterests": [
+        "bioinformatics",
+        "gene therapy",
+        "immunotherapy",
+        "telemedicine"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -713,6 +1232,39 @@
       "receivedDownvotes": 3,
       "givenUpvotes": 32,
       "givenDownvotes": 14
+    },
+    "reputationScore": 172,
+    "tokenBalance": 250,
+    "profile": {
+      "bio": "Dr. Nancy Brown, specializing in Nephrology. Research interests include medical devices.",
+      "specialty": "Health Outcomes Research",
+      "institution": "Hotmail",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "UCSF Medical Center",
+          "year": 2012
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Cleveland Clinic",
+          "year": 2000
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-7205-9632-4861"
+      },
+      "researchInterests": [
+        "infectious diseases",
+        "clinical trials methodology",
+        "chronic disease management",
+        "vaccines",
+        "public health initiatives"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -759,6 +1311,34 @@
       "receivedDownvotes": 0,
       "givenUpvotes": 35,
       "givenDownvotes": 12
+    },
+    "reputationScore": 193,
+    "tokenBalance": 257,
+    "profile": {
+      "bio": "Prof. Mary Gonzalez, specializing in Hematology. Research interests include AI in medical diagnostics.",
+      "specialty": "Hematology",
+      "institution": "Mayo Clinic Research",
+      "degrees": [
+        {
+          "degree": "M.S.",
+          "institution": "MIT",
+          "year": 2007
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-1562-7896-4270"
+      },
+      "researchInterests": [
+        "real-world evidence",
+        "CRISPR gene editing",
+        "medical device innovation",
+        "machine learning diagnostics",
+        "clinical decision support systems"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -779,7 +1359,8 @@
       2861071157,
       9767099251,
       7804664446,
-      6265018995
+      6265018995,
+      2783902758
     ],
     "following": [
       4927644238,
@@ -797,6 +1378,39 @@
       "receivedDownvotes": 7,
       "givenUpvotes": 8,
       "givenDownvotes": 10
+    },
+    "reputationScore": 167,
+    "tokenBalance": 257,
+    "profile": {
+      "bio": "Prof. Thomas Thomas, specializing in Radiology. Research interests include bioinformatics.",
+      "specialty": "Radiology",
+      "institution": "University of California, Berkeley",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Massachusetts General Hospital",
+          "year": 2001
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "NewYork-Presbyterian Hospital",
+          "year": 1999
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-3150-3326-3133"
+      },
+      "researchInterests": [
+        "bioinformatics",
+        "telemedicine",
+        "neurodegenerative diseases",
+        "healthcare equity",
+        "public health initiatives"
+      ],
+      "canEdit": true
     }
   },
   {
@@ -812,7 +1426,9 @@
     "bio": "I'm dewas, joined via email registration",
     "followers": [],
     "following": [
-      6563992371
+      6563992371,
+      2861071157,
+      6555437277
     ],
     "stats": {
       "postCount": 0,
@@ -823,8 +1439,35 @@
       "givenDownvotes": 0
     },
     "verifications": [],
-    "authToken": "da807304-b3d1-425c-a318-47a938ecb9b9",
-    "createdAt": "2025-04-08T17:32:17.954Z"
+    "authToken": "35bb15f1-5aec-4814-9c9b-f60b3016047c",
+    "createdAt": "2025-04-08T17:32:17.954Z",
+    "reputationScore": 20,
+    "tokenBalance": 140,
+    "profile": {
+      "bio": "I'm dewas, joined via email registration",
+      "specialty": "Pediatrics",
+      "institution": "Gmail",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "Northwestern Medicine",
+          "year": 2003
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-5410-4584-9656"
+      },
+      "researchInterests": [
+        "patient-reported outcomes",
+        "CRISPR gene editing",
+        "comparative effectiveness research",
+        "clinical decision support systems"
+      ],
+      "canEdit": true
+    }
   },
   {
     "id": "07fae5d9-9059-452e-9c3c-a55a6bc560c3",
@@ -836,7 +1479,7 @@
     "fid": 3697287180,
     "provider": "email",
     "pfp": null,
-    "bio": "I'm aman, joined via email registration",
+    "bio": "Passionate about improving patient outcomes through evidence-based approaches in Internal Medicine research.",
     "followers": [],
     "following": [
       6563992371
@@ -850,7 +1493,67 @@
       "givenDownvotes": 0
     },
     "verifications": [],
-    "authToken": "4f06d5d4-b1e7-4030-97f0-4e3ed56320ed",
-    "createdAt": "2025-04-08T17:32:27.143Z"
+    "authToken": "05430725-6dce-461b-943a-3f8526dcb5ea",
+    "createdAt": "2025-04-08T17:32:27.143Z",
+    "reputationScore": 20,
+    "tokenBalance": 140,
+    "profile": {
+      "bio": "Passionate about improving patient outcomes through evidence-based approaches in Internal Medicine research.",
+      "specialty": "Health Outcomes Research",
+      "institution": "Gmail",
+      "degrees": [
+        {
+          "degree": "M.D.",
+          "institution": "UCLA Medical Center",
+          "year": 2011
+        },
+        {
+          "degree": "Ph.D.",
+          "institution": "Stanford University",
+          "year": 2008
+        }
+      ],
+      "socialLinks": {
+        "website": "",
+        "twitter": "",
+        "linkedIn": "",
+        "orcid": "0000-1552-2237-4863"
+      },
+      "researchInterests": [
+        "drug delivery systems",
+        "bioinformatics",
+        "mental health interventions",
+        "clinical trials methodology"
+      ],
+      "canEdit": true
+    }
+  },
+  {
+    "id": "1f6dd8fa-0e6b-4dbf-a472-3f8ef30c4100",
+    "email": "aman.patel@kareai.io",
+    "passwordHash": "5e6e1f29bb69df13e73d23873a39004323094bd8f7bce0fd7cdd9a2fd5f95a9d20630dc5d119aa5436c45c3fa236ca413cef4a061c3e4b3cc05ef211b185a9bd",
+    "passwordSalt": "ab89c6e1276beff3b6bb14fc0133dbcd",
+    "username": "amanpatel",
+    "displayName": "amanpatel",
+    "fid": 4273274048,
+    "provider": "email",
+    "pfp": "",
+    "bio": "I'm amanpatel, joined via email registration324",
+    "followers": [],
+    "following": [
+      2861071157,
+      7985105704
+    ],
+    "stats": {
+      "postCount": 0,
+      "commentCount": 0,
+      "receivedUpvotes": 0,
+      "receivedDownvotes": 0,
+      "givenUpvotes": 0,
+      "givenDownvotes": 0
+    },
+    "verifications": [],
+    "authToken": "fcd9bd41-9bac-47c6-b55e-3540599065c4",
+    "createdAt": "2025-04-09T15:34:05.224Z"
   }
 ]

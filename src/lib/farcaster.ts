@@ -1,19 +1,5 @@
-import { getSSLHubRpcClient, HubRpcClient } from '@farcaster/hub-nodejs';
+import { getHubbleClient as getNeynarOrHubbleClient, closeHubbleClient as closeNeynarOrHubbleClient } from './neynar';
 
-let client: HubRpcClient | null = null;
-
-export const getHubbleClient = async (): Promise<HubRpcClient> => {
-  if (!client) {
-    // Connect to Hubble node
-    const hubUrl = process.env.NEXT_PUBLIC_HUBBLE_GRPC_URL || 'http://localhost:2283';
-    client = await getSSLHubRpcClient(hubUrl);
-  }
-  return client;
-};
-
-export const closeHubbleClient = async (): Promise<void> => {
-  if (client) {
-    await client.close();
-    client = null;
-  }
-}; 
+// Re-export the client functions from the neynar module
+export const getHubbleClient = getNeynarOrHubbleClient;
+export const closeHubbleClient = closeNeynarOrHubbleClient; 

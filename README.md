@@ -1,69 +1,65 @@
-# MedConnect - DeSci SocialFi Platform
+# DecentraNet - Advancing Open Science through Web3
 
-A decentralized science (DeSci) platform built specifically for medical researchers and doctors, featuring a reputation system and SocialFi elements to incentivize high-quality contributions and collaborations.
+DecentraNet is a cutting-edge decentralized science (DeSci) platform that revolutionizes how medical researchers and scientists collaborate, validate, and monetize their work. By leveraging blockchain technology and Web3 principles, we're building a more transparent, equitable, and efficient scientific ecosystem.
 
-## Features
+[![DeSci Bounty](https://img.shields.io/badge/Bounty-DeSci-blueviolet)](https://dorahacks.io/hackathon/bounty/1017)
 
-### Decentralized Science (DeSci) Framework
-- Submit research contributions, papers, and findings
-- Peer review system with transparent voting mechanisms
-- Blockchain-verified research records and credentials
-- Verified contribution badges and achievements
+## 🔬 The DeSci Revolution
 
-### Reputation System
-- Score-based reputation tracking across medical specializations
-- Academic, clinical, industry, and research credential verification
-- Specialization-specific reputation metrics
-- Transparent blockchain verification of credentials
+Decentralized Science (DeSci) is transforming traditional scientific research by:
 
-### Token Incentives (SocialFi)
-- Earn tokens for valuable research contributions
-- Rewards for peer reviewing and validating others' work
-- Token incentives for community nomination and upvotes
-- Transparent reward system tied to contribution quality
+- **Eliminating Gatekeepers**: Removing intermediaries that restrict access to scientific knowledge
+- **Democratizing Funding**: Creating new incentive models for scientific research
+- **Verifying Research**: Using blockchain to establish immutable proof of scientific claims
+- **Opening Access**: Making research findings available to everyone, not just those who can afford journal subscriptions
+- **Rewarding Contribution**: Creating token-based incentives for peer review and collaboration
 
-### Collaboration Features
-- Contributor co-authorship and attribution system
-- Interactive discussion on research contributions
-- Nomination mechanism for recognizing excellent research
-- Collaborative research project management
+## ✨ Core Features
 
-## Technical Stack
+### 🧬 Decentralized Research Framework
+- Submit verifiable research contributions and findings on-chain
+- Access a transparent peer review system with cryptographic verification
+- Get blockchain-verified research records and credentials
+- Showcase verifiable contribution badges and achievements
 
-- **Frontend**: React, Next.js, TypeScript, TailwindCSS
-- **Authentication**: Farcaster Auth Kit
-- **Blockchain Integration**: Ethereum (via ethers.js)
-- **Data Storage**: Local development storage with blockchain hash verification
+### 🏆 Reputation System
+- Build your scientific reputation through a transparent on-chain scoring system
+- Verify academic, clinical, and research credentials with blockchain attestations
+- Develop reputation in specialized medical fields
+- Transfer your reputation across institutions and platforms
 
-## Project Structure
+### 💰 Token Economy (SocialFi)
+- Earn tokens for high-quality research contributions
+- Receive rewards for peer reviewing and validating other researchers' work
+- Get token incentives through community voting and recognition
+- Participate in a transparent token reward system based on contribution quality
 
-```
-/src
-  /app - Next.js application routes
-    /api - Backend API endpoints
-      /research - Research-related API endpoints
-      /reputation - Reputation-related API endpoints
-      /tokens - Token-related API endpoints
-    /research - Research pages
-    /profile - User profile pages
-  /components - React components
-  /context - Context providers
-  /lib - Service layer with business logic
-  /types - TypeScript type definitions
-  /utils - Utility functions
-```
+### 👥 Collaboration Hub
+- Co-author research with cryptographic proof of contribution
+- Engage in on-chain discussions about scientific contributions
+- Nominate and recognize excellent research through verifiable processes
+- Manage collaborative research projects with transparent attribution
 
-## Getting Started
+## 🛠️ Technical Stack
+
+- **Frontend**: React, Next.js 15+, TypeScript, TailwindCSS
+- **Authentication**: Farcaster Auth Kit for Web3 identity
+- **Blockchain**: Ethereum integration via ethers.js
+- **Data Storage**: Hybrid storage with on-chain verification hashes
+- **Social Layer**: Farcaster integration for discussions and community
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm/yarn
+- Basic understanding of Web3 concepts
 
 ### Installation
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/medconnect.git
-cd medconnect
+git clone https://github.com/amanp8l/decentranet-app.git
+cd decentranet-app
 ```
 
 2. Install dependencies
@@ -82,99 +78,57 @@ yarn dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## System Architecture
+## 🏗️ System Architecture
 
-### Reputation System
-The reputation system tracks contributions across various categories:
+### Reputation and Credentialing
+Our blockchain-based reputation system tracks contributions across:
 - Research papers and findings
 - Peer reviews
-- Collaboration
+- Collaboration activities
 - Community engagement
 
-Each action has associated reputation points that contribute to an overall score and specialized field scores. Credentials can be verified on-chain for transparency.
+Each verified action has associated reputation points that contribute to an overall reputation score, with specialized field scores for different medical disciplines.
 
 ### Token Economy
-The platform uses a token incentive system to reward:
-- Publishing valuable research
+DecentraNet uses a token incentive system to reward:
+- Publishing verified research
 - Providing quality peer reviews
 - Nominating exceptional contributions
-- Having work verified by peers
+- Receiving peer verification
 
-Tokens can be earned through positive contributions to the platform ecosystem.
+Tokens can be earned through positive contributions to the scientific ecosystem, creating economic incentives for good science.
 
-### Blockchain Integration
-For development, blockchain interactions are simulated in-memory, but the system is designed to integrate with:
-- Ethereum for verification records
+### Web3 Integration
+DecentraNet leverages blockchain technology for:
+- Immutable verification records
 - Smart contracts for reputation and token management
 - Decentralized credential verification
+- Trustless peer review processes
 
-## API Structure
+## 🌐 Addressing DeSci Challenges
 
-### Research Contributions
-- `GET /api/research/contributions` - List contributions with filters
-- `POST /api/research/contributions` - Create new contribution
-- `GET /api/research/contributions/:id` - Get specific contribution
-- `POST /api/research/contributions/:id/reviews` - Submit a review
-- `GET /api/research/contributions/:id/reviews` - Get reviews for a contribution
-- `POST /api/research/contributions/:id/nominate` - Nominate a contribution
+DecentraNet tackles core issues in scientific research:
 
-### Reputation
-- `GET /api/reputation/:fid` - Get user reputation
-- `POST /api/reputation/:fid` - Verify credentials
+- **Publication Bias**: Creating incentives for publishing all results, including negative findings
+- **Replication Crisis**: Encouraging verification and reproduction of research
+- **Access Inequality**: Making research available without costly journal subscriptions
+- **Funding Bottlenecks**: Developing alternative funding mechanisms through token economics
+- **Attribution Problems**: Ensuring proper credit for all contributors to scientific work
 
-### Tokens
-- `GET /api/tokens/balance/:fid` - Get token balance
+## 🤝 Contributing
 
-## License
+We welcome contributions from developers, scientists, and DeSci enthusiasts! Please feel free to submit a Pull Request or open an Issue to discuss potential changes.
+
+## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## Contributing
+## 🔗 Farcaster Integration
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+DecentraNet integrates with Farcaster's social protocol to create a vibrant community of scientific discussion and collaboration.
 
-## Deployment to cPanel
-
-Follow these steps to deploy this application to cPanel:
-
-1. **Prepare the build**:
-   ```bash
-   # Run the deployment script
-   bash deploy-cpanel.sh
-   ```
-   This will create a `build.zip` file containing the standalone Next.js application.
-
-2. **Upload to cPanel**:
-   - Log in to your cPanel account
-   - Navigate to File Manager
-   - Go to the directory where you want to deploy the app (usually `public_html`)
-   - Upload `build.zip` and extract it
-
-3. **Configure .htaccess**:
-   - Make sure the `.htaccess` file from this repository is uploaded to the same directory
-   - If it doesn't exist, create it with the content provided in this repository
-
-4. **Environment Variables**:
-   - Ensure your environment variables are properly set
-   - You can configure them through cPanel's .env file or modify the .env.production file before deployment
-
-5. **Testing**:
-   - Visit your domain to ensure the application is running correctly
-   - Check the browser console for any errors related to API connections or environment variables
-
-## Troubleshooting
-
-If you encounter issues with the deployment:
-
-- Make sure all file permissions are set correctly (typically 644 for files and 755 for directories)
-- Check if the server has all the required modules enabled (like mod_rewrite)
-- Ensure your domain's DNS is properly configured
-- Verify that the API endpoints in the environment variables are correct and accessible from your server
-
-## Farcaster Integration
-
-### Local Hubble Node
-By default, the application is set up to work with a local Farcaster Hubble node. You can configure the connection URLs in your environment variables:
+### Local Hubble Node Setup
+Configure connection to a local Farcaster Hubble node:
 
 ```
 NEXT_PUBLIC_HUBBLE_HTTP_URL=http://localhost:2281
@@ -182,26 +136,15 @@ NEXT_PUBLIC_HUBBLE_GRPC_URL=http://localhost:2283
 ```
 
 ### Using Neynar API (Recommended)
-As an alternative to running a local Hubble node, you can use Neynar's API which provides a managed Farcaster node service:
+For simplified integration, use Neynar's API:
 
-1. **Set up Neynar API Key**:
-   - Sign up for an API key at [Neynar](https://neynar.com)
-   - Add the following to your `.env.local` file:
-   ```
-   NEXT_PUBLIC_NEYNAR_API_KEY=your-api-key-here
-   NEXT_PUBLIC_USE_NEYNAR_API=true
-   ```
+1. Get your API key at [Neynar](https://neynar.com)
+2. Configure in your `.env.local` file:
+```
+NEXT_PUBLIC_NEYNAR_API_KEY=your-api-key-here
+NEXT_PUBLIC_USE_NEYNAR_API=true
+```
 
-2. **Benefits of using Neynar**:
-   - No need to run and maintain a local Hubble node
-   - Better reliability and uptime
-   - Full integration with Farcaster for both reading and writing data
-   - All social actions (posts, comments, reactions, follows) are directly saved to Farcaster
+---
 
-3. **How it works**:
-   - The application automatically detects when Neynar API is enabled
-   - All Farcaster data operations are redirected to Neynar's endpoints
-   - Local storage is still maintained as a fallback but all operations attempt to use Neynar first
-   - User interactions like posting, commenting, and reacting will be reflected in the actual Farcaster network
-
-By using Neynar, your Social UI instance becomes fully integrated with the Farcaster network, with all user actions being saved to and read from the live Farcaster ecosystem.
+**DecentraNet** is committed to building the future of open, verifiable, and incentivized scientific research. Join us in revolutionizing how science is conducted, verified, and rewarded in the Web3 era.

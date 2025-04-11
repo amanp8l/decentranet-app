@@ -11,6 +11,7 @@ import { ForumTopic, ForumCategory } from '@/types/forum';
 import { ResearchContribution } from '@/types/desci';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
@@ -418,6 +419,50 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Collaborate</h3>
                 <p className="text-gray-600">Connect with researchers and practitioners across disciplines globally.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* About AuraSci Section */}
+        <div className="mb-8 bg-gradient-to-br from-white to-purple-50 rounded-xl shadow-xl overflow-hidden border border-purple-100">
+          <div className="p-8 md:p-10">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-purple-700 to-indigo-600 bg-clip-text text-transparent">
+                About AuraSci
+              </h2>
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-40 h-40 md:w-48 md:h-48 flex-shrink-0 transform hover:scale-105 transition-transform duration-300">
+                <Image 
+                  src="/aurasci_logo.jpg" 
+                  alt="AuraSci Logo" 
+                  width={192} 
+                  height={192} 
+                  className="rounded-2xl shadow-lg ring-2 ring-purple-200"
+                />
+              </div>
+              <div className="flex-1 space-y-6">
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  AuraSci is a decentralized scientific community dedicated to advancing knowledge, fostering collaboration, 
+                  and ensuring transparent research. We believe in the power of open science and distributed networks to 
+                  accelerate discovery and innovation.
+                </p>
+                <div className="pt-2">
+                  <a
+                    href="https://manifesto.sciacc.xyz/manifesto"
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-md inline-flex items-center hover:shadow-lg transform hover:-translate-y-0.5"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 group-hover:animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clipRule="evenodd" />
+                    </svg>
+                    Sign the Manifesto
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

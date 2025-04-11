@@ -12,7 +12,7 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const { isAuthenticated, login } = useUser();
   
-  // Get redirect URL from query parameters if available
+  // Get redirect URL from query parameters if available, default to home page
   const redirectUrl = searchParams?.get('redirect') || '/';
   
   // Redirect to home or specified redirect URL if already authenticated
@@ -31,7 +31,7 @@ function LoginContent() {
   ) => {
     try {
       await login(provider, address, email, password, isRegister);
-      // After successful login, redirect
+      // After successful login, redirect to home page or specified redirect URL
       router.push(redirectUrl);
     } catch (error) {
       // LoginOptions component will handle the error display

@@ -3,12 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import React from 'react';
 import { useUser } from '@/context/UserContext';
 import UserReputation from '@/components/UserReputation';
 import UserStats from '@/components/UserStats';
 import Header from '@/components/Header';
 
-export default function ProfilePage({ params }: { params: { fid: string } }) {
+export default function ProfilePage({ params }: { params: Promise<{ fid: string }> }) {
   const { user, updateFollowingList } = useUser();
   const [profileUser, setProfileUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +17,8 @@ export default function ProfilePage({ params }: { params: { fid: string } }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   
-  const fid = parseInt(params.fid, 10);
+  const unwrappedParams = React.use(params);
+  const fid = parseInt(unwrappedParams.fid, 10);
   const isOwnProfile = user && user.fid === fid;
   
   useEffect(() => {

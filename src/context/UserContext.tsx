@@ -149,6 +149,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       
       if (userData) {
         setUser(userData);
+        return; // Successful login
       } else {
         throw new Error('Authentication failed');
       }

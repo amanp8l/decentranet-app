@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import React from 'react';
 import { useUser } from '@/context/UserContext';
 import Header from '@/components/Header';
 
-export default function EditProfilePage({ params }: { params: { fid: string } }) {
+export default function EditProfilePage({ params }: { params: Promise<{ fid: string }> }) {
   const { user, setUser } = useUser();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +15,8 @@ export default function EditProfilePage({ params }: { params: { fid: string } })
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   
-  const fid = parseInt(params.fid, 10);
+  const unwrappedParams = React.use(params);
+  const fid = parseInt(unwrappedParams.fid, 10);
   
   // Form state
   const [formData, setFormData] = useState({
